@@ -20,6 +20,9 @@ namespace DIY.Castle.Web.Controllers
 
         public IActionResult Index()
         {
+            this.ViewData["showHeroBanner"] = true;
+            this.ViewData["titleText"] = "Title text";
+            this.ViewData["descriptionText"] = "Description text";
             return View();
         }
 
