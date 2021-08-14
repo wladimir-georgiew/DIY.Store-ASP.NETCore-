@@ -4,14 +4,16 @@ using DIY.Castle.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DIY.Castle.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210814142356_AddProductsTable")]
+    partial class AddProductsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -118,38 +120,6 @@ namespace DIY.Castle.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Products");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedOn = new DateTime(2021, 8, 14, 15, 33, 9, 563, DateTimeKind.Utc).AddTicks(8458),
-                            Description = "This is just a sample product with short description.",
-                            ImageSourcePath = "~/images/stock/book1.jpg",
-                            IsDeleted = false,
-                            Name = "Book",
-                            Price = 0.80m
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedOn = new DateTime(2021, 8, 14, 15, 33, 9, 565, DateTimeKind.Utc).AddTicks(5373),
-                            Description = "This is just a sample product with a medium description length.Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                            ImageSourcePath = "~/images/stock/book2.jpg",
-                            IsDeleted = false,
-                            Name = "Book2",
-                            Price = 0.05m
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatedOn = new DateTime(2021, 8, 14, 15, 33, 9, 565, DateTimeKind.Utc).AddTicks(5575),
-                            Description = "This is just a sample product with long description for testing the front-end.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
-                            ImageSourcePath = "~/images/stock/book3.jpg",
-                            IsDeleted = false,
-                            Name = "Book3",
-                            Price = 150.00m
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

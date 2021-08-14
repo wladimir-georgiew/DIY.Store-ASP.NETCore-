@@ -1,5 +1,6 @@
 using DIY.Castle.Data.Models;
 using DIY.Castle.Web.Data;
+using DIY.Castle.Web.Services.UploadFileService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -36,6 +37,9 @@ namespace DIY.Castle.Web
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            //Services
+            services.AddTransient<IUploadFileService, UploadFileService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
