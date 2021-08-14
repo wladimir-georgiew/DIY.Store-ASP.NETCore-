@@ -1,7 +1,8 @@
-﻿using DIY.Castle.Data.Models;
+﻿using AutoMapper;
 using DIY.Castle.Web.Helpers;
 using DIY.Castle.Web.Models;
 using DIY.Castle.Web.Models.ViewModels;
+using DIY.Castle.Web.Services.ProductsService;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,17 @@ namespace DIY.Castle.Web.Controllers
     [Route("cart")]
     public class CartController : BaseController
     {
+        private readonly IProductsService _productsService;
+        private readonly IMapper _mapper;
+
+        public CartController(
+            IProductsService productsService,
+            IMapper mapper)
+        {
+            this._productsService = productsService;
+            this._mapper = mapper;
+        }
+
         [Route("index")]
         public IActionResult Index()
         {
@@ -28,9 +40,8 @@ namespace DIY.Castle.Web.Controllers
         [Route("buy/{id}/{quantity}")]
         public IActionResult Buy(int id, int quantity)
         {
-            // TODO:    Create a service to get the product by Id
-            var product = new ProductModel();
-            // TODO:    Create a service to get the product by Id
+            var product = this._productsService.GetProductById(id);
+            var productModel = this._mapper.Map<ProductModel>(product);
 
             if (SessionHelper.GetObjectFromJson<List<ProductCartModel>>(HttpContext.Session, "cart") == null)
             {
@@ -38,7 +49,7 @@ namespace DIY.Castle.Web.Controllers
 
                 cart.Add(new ProductCartModel
                 {
-                    Product = product,
+                    Product = productModel,
                     Quantity = quantity
                 });
 
@@ -60,7 +71,7 @@ namespace DIY.Castle.Web.Controllers
                 {
                     cart.Add(new ProductCartModel
                     {
-                        Product = product,
+                        Product = productModel,
                         Quantity = quantity
                     });
                 }

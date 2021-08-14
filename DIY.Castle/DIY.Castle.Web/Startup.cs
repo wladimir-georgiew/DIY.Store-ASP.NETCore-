@@ -1,5 +1,6 @@
 using DIY.Castle.Data.Models;
 using DIY.Castle.Web.Data;
+using DIY.Castle.Web.Services.ProductsService;
 using DIY.Castle.Web.Services.UploadFileService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,16 +31,18 @@ namespace DIY.Castle.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
 
+            //AutoMapper
+            services.AddAutoMapper(typeof(MappingProfile));
+
             //Services
             services.AddTransient<IUploadFileService, UploadFileService>();
+            services.AddTransient<IProductsService, ProductsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
