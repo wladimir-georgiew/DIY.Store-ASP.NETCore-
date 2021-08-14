@@ -24,4 +24,8 @@
     <ProjectReference Include="..\DIY.Castle.Data\DIY.Castle.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\InputModels\" />
+  </ItemGroup>
+
 </Project>
