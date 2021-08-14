@@ -1,15 +1,11 @@
 ﻿using DIY.Castle.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DIY.Castle.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
 
@@ -20,6 +16,9 @@ namespace DIY.Castle.Web.Controllers
 
         public IActionResult Index()
         {
+            this.ViewData["showHeroBanner"] = true;
+            this.ViewData["titleText"] = "Title text";
+            this.ViewData["descriptionText"] = "Description text";
             return View();
         }
 
