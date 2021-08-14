@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DIY.Castle.Common\DIY.Castle.Common.csproj" />
     <ProjectReference Include="..\DIY.Castle.Data\DIY.Castle.Data.csproj" />
   </ItemGroup>
 
