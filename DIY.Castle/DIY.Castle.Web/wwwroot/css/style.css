@@ -7,6 +7,7 @@ body {
     font-weight: 300;
     font-size: 16px;
     line-height: 1.7;
+    background-color: #F9BDB5;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -72,7 +73,7 @@ header .navbar-white {
 }
 
 .item.header {
-    background-image: url(../images/stock/homeimg.jpg);
+    background-image: url(../images/stock/hero-background-5.jpg);
     background-repeat: no-repeat;
     background-position: 0% top;
     background-size: cover;
@@ -120,7 +121,7 @@ header .navbar-white {
 }
 
 .toparea {
-    background: #fff;
+    background: #F7E3C8;
     margin-top: -100px;
     padding-top: 30px;
 }
@@ -136,7 +137,7 @@ header .navbar-white {
 }
 
 .numberstep {
-    background-color: #00bba7;
+    background-color: #B48967;
     border-radius: 50%;
     color: #fff;
     margin-right: 4px;
@@ -215,7 +216,7 @@ h1.latestitems {
 
 .homebrowseitems {
     text-decoration: none;
-    background-color: #00bba7;
+    background-color: #B48967;
     font-weight: 700;
     font-size: 20px;
     border: 0;
@@ -254,7 +255,7 @@ img {
 }
 
 .productbox {
-    background: #fff;
+    background: #F7E3C8;
     padding: 13px;
     border: 1px solid #e4e4e4;
     margin-bottom: 30px;
@@ -295,7 +296,7 @@ img {
     position: absolute;
     top: 0;
     left: 0;
-    background-color: #00bba7;
+    background-color: #B48967;
     width: 100%;
     height: 100%;
 }
@@ -333,7 +334,7 @@ img {
 
         .captionshop a.learn-more:hover {
             background: #fff;
-            color: #00bba7;
+            color: #B48967;
             display: inline-block;
             border: 1px solid #fff;
         }
@@ -377,12 +378,12 @@ img {
     text-transform: uppercase;
     border-radius: 0;
     border-bottom: 5px solid rgba(0,0,0,0.1);
-    background-color: #00bba7;
+    background-color: #B48967;
     color: #fff;
 }
 
     .edd-submit.button, .edd-submit.button:visited {
-        background-color: #00bba7;
+        background-color: #B48967;
         color: #fff;
         border-bottom: 5px solid rgba(0,0,0,0.1);
     }
@@ -412,7 +413,7 @@ img {
 }
 
 #edd-purchase-button, .edd-submit, input[type=submit].edd-submit {
-    background-color: #00bba7;
+    background-color: #B48967;
     color: #fff;
     border: 0;
     border-radius: 0;
@@ -635,7 +636,7 @@ legend {
     background: #fff;
     padding-left: 10px;
     padding-right: 10px;
-    color: #00bba7;
+    color: #B48967;
 }
 
 .infoareawrap {
@@ -742,7 +743,7 @@ ul, ol {
 }
 
 .footer a {
-    color: #00bba7;
+    color: #B48967;
 }
 
 #contactform input, #contactform textarea {
@@ -784,6 +785,6 @@ ul, ol {
 
         .navbar-lg .navbar-nav > li > a:hover, .navbar-lg .navbar-nav > li > a:active {
             background: #fff;
-            color: #00bba7;
+            color: pink;
         }
 }
