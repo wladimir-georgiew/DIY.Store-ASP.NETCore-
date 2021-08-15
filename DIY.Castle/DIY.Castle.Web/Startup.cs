@@ -1,4 +1,5 @@
 using DIY.Castle.Data.Models;
+using DIY.Castle.Web.AutoMapper;
 using DIY.Castle.Web.Data;
 using DIY.Castle.Web.Services.ProductsService;
 using DIY.Castle.Web.Services.UploadFileService;
@@ -36,6 +37,7 @@ namespace DIY.Castle.Web
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddSession();
 
             //AutoMapper
             services.AddAutoMapper(typeof(MappingProfile));
@@ -54,6 +56,8 @@ namespace DIY.Castle.Web
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                 dbContext.Database.Migrate();
             }
+
+            app.UseSession();
 
             if (env.IsDevelopment())
             {

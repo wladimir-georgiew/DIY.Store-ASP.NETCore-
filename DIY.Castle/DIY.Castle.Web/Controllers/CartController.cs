@@ -26,12 +26,18 @@ namespace DIY.Castle.Web.Controllers
         [Route("index")]
         public IActionResult Index()
         {
+            this.ViewData["showSmallHeroBanner"] = true;
+            this.ViewData["titleText"] = "CHECKOUT";
+
             var cart = SessionHelper.GetObjectFromJson<List<ProductCartModel>>(HttpContext.Session, "cart");
+            var totalPrice = cart == null
+                ? 0
+                : cart.Sum(p => p.Product.Price * p.Quantity);
 
             var viewModel = new CartViewModel
             {
                 Cart = cart,
-                TotalPrice = cart.Sum(p => p.Product.Price * p.Quantity),
+                TotalPrice = totalPrice,
             };
 
             return View(viewModel);
