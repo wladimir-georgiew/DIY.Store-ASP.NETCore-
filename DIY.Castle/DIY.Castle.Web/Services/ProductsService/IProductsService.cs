@@ -8,8 +8,6 @@ namespace DIY.Castle.Web.Services.ProductsService
     {
         Product GetProductById(int id);
 
-        IEnumerable<Product> GetAllProducts(int id);
-
-        IEnumerable<ProductModel> GetLatestProducts();
+        IEnumerable<Product> GetAllProducts();
     }
 }

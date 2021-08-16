@@ -23,7 +23,7 @@ namespace DIY.Castle.Web.Data
                 Name = "Book",
                 Description = "This is just a sample product with short description.",
                 CreatedOn = DateTime.UtcNow,
-                ImageSourcePath = "~/images/stock/book1.jpg"
+                ImageSourcePath = "/images/stock/book1.jpg"
             });
 
             builder.Entity<Product>().HasData(new Product()
@@ -33,7 +33,7 @@ namespace DIY.Castle.Web.Data
                 Name = "Book2",
                 Description = "This is just a sample product with a medium description length.Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                 CreatedOn = DateTime.UtcNow,
-                ImageSourcePath = "~/images/stock/book2.jpg"
+                ImageSourcePath = "/images/stock/book2.jpg"
             });
 
             builder.Entity<Product>().HasData(new Product()
@@ -43,7 +43,7 @@ namespace DIY.Castle.Web.Data
                 Name = "Book3",
                 Description = "This is just a sample product with long description for testing the front-end.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
                 CreatedOn = DateTime.UtcNow,
-                ImageSourcePath = "~/images/stock/book3.jpg"
+                ImageSourcePath = "/images/stock/book3.jpg"
             });
 
             base.OnModelCreating(builder);
