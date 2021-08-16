@@ -1,4 +1,5 @@
 ﻿using DIY.Castle.Web.Models;
+using DIY.Castle.Web.Services.ProductsService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
@@ -8,10 +9,12 @@ namespace DIY.Castle.Web.Controllers
     public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IProductsService productdService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IProductsService productdService)
         {
             _logger = logger;
+            this.productdService = productdService;
         }
 
         public IActionResult Index()
@@ -19,7 +22,10 @@ namespace DIY.Castle.Web.Controllers
             this.ViewData["showBigHeroBanner"] = true;
             this.ViewData["titleText"] = "Title text";
             this.ViewData["descriptionText"] = "Description text";
-            return View();
+
+            var LatestProdcutsViewModel = this.productdService.GetLatestProducts();
+
+            return View(LatestProdcutsViewModel);
         }
 
         public IActionResult Privacy()
