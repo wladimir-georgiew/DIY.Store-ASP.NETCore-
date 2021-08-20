@@ -40,7 +40,24 @@ namespace DIY.Castle.Web.Controllers
                 TotalPrice = totalPrice,
             };
 
-            return View(viewModel);
+            return View();
+        }
+
+        [Route("CartController/GetItems")]
+        public IActionResult GetItemsInCart()
+        {
+            var cart = SessionHelper.GetObjectFromJson<List<ProductCartModel>>(HttpContext.Session, "cart");
+            var totalPrice = cart == null
+                ? 0
+                : cart.Sum(p => p.Product.Price * p.Quantity);
+
+            var viewModel = new CartViewModel
+            {
+                Cart = cart,
+                TotalPrice = totalPrice,
+            };
+
+            return this.Ok(viewModel);
         }
 
         [Route("AddToBasket/{id}/{quantity}")]
@@ -95,7 +112,7 @@ namespace DIY.Castle.Web.Controllers
             int index = GetItemIndexInCart(id);
             cart.RemoveAt(index);
             SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
-            return Ok();
+            return Ok(cart);
         }
 
         private int GetItemIndexInCart(int id)
