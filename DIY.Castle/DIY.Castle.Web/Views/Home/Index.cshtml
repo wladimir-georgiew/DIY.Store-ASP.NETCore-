@@ -1,8 +1,137 @@
-﻿@{
+﻿@model IEnumerable<ProductModel>
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!DOCTYPE html>
+<html>
+
+<body>
+    <!-- STEPS =============================-->
+    <div class="item content">
+        <div class="container toparea">
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <div class="col editContent">
+                        <span class="numberstep"><i class="fa fa-shopping-cart"></i></span>
+                        <h3 class="numbertext">Choose our Products</h3>
+                        <p class="numbertext-description">
+                            Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Nullam quis risus eget urna mollis ornare vel eu leo. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
+                        </p>
+                    </div>
+                    <!-- /.col-md-4 -->
+                </div>
+                <!-- /.col-md-4 col -->
+                <div class="col-md-4 editContent">
+                    <div class="col">
+                        <span class="numberstep"><i class="fa fa-gift"></i></span>
+                        <h3 class="numbertext">Pay with PayPal or Card</h3>
+                        <p class="numbertext-description">
+                            Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Nullam quis risus eget urna mollis ornare vel eu leo. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
+                        </p>
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.col-md-4 col -->
+                <div class="col-md-4 editContent">
+                    <div class="col">
+                        <span class="numberstep"><i class="fa fa-download"></i></span>
+                        <h3 class="numbertext">Get Instand Download</h3>
+                        <p class="numbertext-description">
+                            Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Nullam quis risus eget urna mollis ornare vel eu leo. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- LATEST ITEMS =============================-->
+    <section class="item content">
+        <div class="container">
+            <div class="underlined-title">
+                <div class="editContent">
+                    <h1 class="text-center latestitems">LATEST ITEMS</h1>
+                </div>
+                <div class="wow-hr type_short">
+                    <span class="wow-hr-h">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                @foreach (var product in Model)
+                {
+                    <div class="col-md-4">
+                        <form action="@Url.Content($"~/Cart/AddToBasket/{product.Id}/1")" method="get">
+                            <div class="productbox">
+                                <div class="fadeshop">
+                                    <div class="captionshop text-center" style="display: none;">
+                                        <h3>@product.Name</h3>
+                                        <p>
+                                            @(product.Description.Length > 105
+                                            ? (product.Description.Substring(0, 105) + "...")
+                                            : product.Description)
+                                        </p>
+                                        <p>
+                                            <button href="#" class="learn-more detailslearn"><i class="fa fa-shopping-cart"></i> Purchase</button>
+
+                                            <a href="#" class="learn-more detailslearn"><i class="fa fa-link"></i> Details</a>
+                                        </p>
+                                    </div>
+                                    <span class="maxproduct"><img src="@product.ImageSourcePath" alt=""></span>
+                                </div>
+                                <div class="product-details">
+                                    <a href="#">
+                                        <h1>@product.Name</h1>
+                                    </a>
+                                    <span class="price">
+                                        <span class="edd_price">$@product.Price</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                }
+                <!-- /.productbox -->
+            </div>
+        </div>
+    </section>
+
+    <!-- BUTTON =============================-->
+    <div class="item content">
+        <div class="container text-center">
+            <a href="shop.html" class="homebrowseitems">
+                Browse All Products
+                <div class="homebrowseitemsicon">
+                    <i class="fa fa-star fa-spin"></i>
+                </div>
+            </a>
+        </div>
+    </div>
+    <br />
+
+    <!-- CALL TO ACTION =============================-->
+    <section class="content-block" style="background-color:#B48967;">
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-1">
+                    <div class="item" data-scrollreveal="enter top over 0.4s after 0.1s">
+                        <h1 class="callactiontitle">
+                            Promote Items Area Give Discount to Buyers <span class="callactionbutton"><i class="fa fa-gift"></i> WOW24TH</span>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SCRIPTS =============================-->
+    <script>
+    </script>
+
+</body>
+</html>
