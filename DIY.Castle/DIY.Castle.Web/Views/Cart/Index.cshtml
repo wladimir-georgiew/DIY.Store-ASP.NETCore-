@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using DIY.Castle.Web.Models.ViewModels
+@model CartViewModel
+
+<!DOCTYPE html>
 <html>
 
 <body>
@@ -19,57 +22,65 @@
                 </div>
             </div>
             <div id="edd_checkout_wrap" class="col-md-8 col-md-offset-2">
-                <form id="edd_checkout_cart_form" method="post">
-                    <div id="edd_checkout_cart_wrap">
-                        <table id="edd_checkout_cart" class="ajaxed">
-                            <thead>
-                                <tr class="edd_cart_header_row">
-                                    <th class="edd_cart_item_name">
-                                        Item Name
-                                    </th>
-                                    <th class="edd_cart_item_price">
-                                        Item Price
-                                    </th>
-                                    <th class="edd_cart_actions">
-                                        Actions
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="edd_cart_item" id="edd_cart_item_0_25" data-download-id="25">
-                                    <td class="edd_cart_item_name">
-                                        <div class="edd_cart_item_image">
-                                            <img width="25" height="25" src="images/scorilo2-70x70.jpg" alt="">
-                                        </div>
-                                        <span class="edd_checkout_cart_item_title">Audio Item - Single License</span>
-                                    </td>
-                                    <td class="edd_cart_item_price">
-                                        $11.99
-                                    </td>
-                                    <td class="edd_cart_actions">
-                                        <a class="edd_cart_remove_item_btn" href="#">Remove</a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                            <tfoot>
-                                <tr class="edd_cart_footer_row">
-                                    <th colspan="5">
-                                        <a class="edd-cart-saving-button edd-submit button " id="edd-save-cart-button" href="#">Save Cart</a>
-                                    </th>
-                                </tr>
-                                <tr class="edd_cart_footer_row edd_cart_discount_row" style="display:none;">
-                                    <th colspan="5" class="edd_cart_discount">
-                                    </th>
-                                </tr>
-                                <tr class="edd_cart_footer_row">
-                                    <th colspan="5" class="edd_cart_total">
-                                        Total: <span class="edd_cart_amount" data-subtotal="11.99" data-total="11.99">$11.99</span>
-                                    </th>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                </form>
+                <div id="edd_checkout_cart_wrap">
+                    <table id="edd_checkout_cart" class="ajaxed">
+                        <thead>
+                            <tr class="edd_cart_header_row">
+                                <th class="edd_cart_item_name">
+                                    Item Name
+                                </th>
+                                <th class="edd_cart_item_price">
+                                    Item Price
+                                </th>
+                                <th class="edd_cart_actions">
+                                    Actions
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="productsContainer">
+                            @if (Model?.Cart != null &&
+                          Model.Cart.Any())
+                            {
+                                foreach (var item in Model.Cart)
+                                {
+                                    <tr class="edd_cart_item" id="@item.Product.Id" data-download-id="25">
+                                        <td class="edd_cart_item_name">
+                                            <div class="edd_cart_item_image">
+                                                <img width="25" height="25" src="@item.Product.ImageSourcePath" alt="">
+                                            </div>
+                                            <span class="edd_checkout_cart_item_title">@item.Product.Name</span>
+                                        </td>
+                                        <td class="edd_cart_item_price">
+                                            @item.Product.Price лв.
+                                        </td>
+                                        <td class="edd_cart_actions">
+                                            <form asp-controller="Cart" asp-action="Remove" asp-route-id="@item.Product.Id" data-ajax="true" data-ajax-success="deleteItem(this)">
+                                                @*<button id="removeItem" class="edd_cart_remove_item_btn">Remove</button>*@
+                                                <input type="button" value="Remove" />
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr class="edd_cart_footer_row">
+                                <th colspan="5">
+                                    <a class="edd-cart-saving-button edd-submit button " id="edd-save-cart-button" href="#">Save Cart</a>
+                                </th>
+                            </tr>
+                            <tr class="edd_cart_footer_row edd_cart_discount_row" style="display:none;">
+                                <th colspan="5" class="edd_cart_discount">
+                                </th>
+                            </tr>
+                            <tr class="edd_cart_footer_row">
+                                <th colspan="5" class="edd_cart_total">
+                                    Total: <span class="edd_cart_amount" data-subtotal="11.99" data-total="11.99">$11.99</span>
+                                </th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
                 <div id="edd_checkout_form_wrap" class="edd_clearfix">
                     <form id="edd_purchase_form" class="edd_form" action="#" method="POST">
                         <fieldset id="edd_checkout_user_info">
@@ -125,3 +136,24 @@
 
 </body>
 </html>
+
+<script>
+    //document.getElementById('removeItem').addEventListener('click', (event) => {
+    //    let id = event.target.getAttribute('data-id');
+
+    //    fetch(`/Cart/Remove/${id}`)
+    //        .then(() => {
+    //            document.getElementById(id).remove();
+    //        });
+    //});
+
+        function deleteItem(form) {
+        $(form).parentsUntil("tr").remove();
+
+        $(document).ready(function () {
+
+            // show when page load
+            @*toastr.error('@FastServices.Common.GlobalConstants.DeletedCommentPostMessage');*@
+        });
+    }
+</script>

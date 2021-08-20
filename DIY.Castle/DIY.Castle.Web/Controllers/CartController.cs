@@ -43,8 +43,8 @@ namespace DIY.Castle.Web.Controllers
             return View(viewModel);
         }
 
-        [Route("buy/{id}/{quantity}")]
-        public IActionResult Buy(int id, int quantity)
+        [Route("AddToBasket/{id}/{quantity}")]
+        public IActionResult AddToBasket(int id, int quantity)
         {
             var product = this._productsService.GetProductById(id);
             var productModel = this._mapper.Map<ProductModel>(product);
@@ -88,14 +88,14 @@ namespace DIY.Castle.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        [Route("remove/{id}")]
+        [Route("Remove/{id}")]
         public IActionResult Remove(int id)
         {
             List<ProductCartModel> cart = SessionHelper.GetObjectFromJson<List<ProductCartModel>>(HttpContext.Session, "cart");
             int index = GetItemIndexInCart(id);
             cart.RemoveAt(index);
             SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
-            return RedirectToAction("Index");
+            return Ok();
         }
 
         private int GetItemIndexInCart(int id)

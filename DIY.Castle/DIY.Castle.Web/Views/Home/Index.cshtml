@@ -66,29 +66,32 @@
                 @foreach (var product in Model)
                 {
                     <div class="col-md-4">
-                        <div class="productbox">
-                            <div class="fadeshop">
-                                <div class="captionshop text-center" style="display: none;">
-                                    <h3>@product.Name</h3>
-                                    <p>
-                                        @product.Description
-                                    </p>
-                                    <p>
-                                        <a href="#" class="learn-more detailslearn"><i class="fa fa-shopping-cart"></i> Purchase</a>
-                                        <a href="#" class="learn-more detailslearn"><i class="fa fa-link"></i> Details</a>
-                                    </p>
+                        <form action="@Url.Content($"~/Cart/AddToBasket/{product.Id}/1")" method="get">
+                            <div class="productbox">
+                                <div class="fadeshop">
+                                    <div class="captionshop text-center" style="display: none;">
+                                        <h3>@product.Name</h3>
+                                        <p>
+                                            @product.Description
+                                        </p>
+                                        <p>
+                                            <button href="#" class="learn-more detailslearn"><i class="fa fa-shopping-cart"></i> Purchase</button>
+
+                                            <a href="#" class="learn-more detailslearn"><i class="fa fa-link"></i> Details</a>
+                                        </p>
+                                    </div>
+                                    <span class="maxproduct"><img src="@product.ImageSourcePath" alt=""></span>
                                 </div>
-                                <span class="maxproduct"><img src="@product.ImageSourcePath" alt=""></span>
+                                <div class="product-details">
+                                    <a href="#">
+                                        <h1>@product.Name</h1>
+                                    </a>
+                                    <span class="price">
+                                        <span class="edd_price">$@product.Price</span>
+                                    </span>
+                                </div>
                             </div>
-                            <div class="product-details">
-                                <a href="#">
-                                    <h1>@product.Name</h1>
-                                </a>
-                                <span class="price">
-                                    <span class="edd_price">$@product.Price</span>
-                                </span>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                 }
                 <!-- /.productbox -->
