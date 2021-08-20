@@ -7,7 +7,20 @@ body {
     font-weight: 300;
     font-size: 16px;
     line-height: 1.7;
-    background-color: #F9BDB5;
+    /*  background-image: url('../images/stock/website-background-2.jpg');*/
+    background-color: #f9bdb5;
+}
+
+.cart-img{
+
+}
+
+.wrapper {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.numbertext-description {
+    color: lightgrey;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -79,6 +92,9 @@ header .navbar-white {
     background-size: cover;
     background-attachment: scroll;
     background-color: rgba(0,0,0,0);
+    -webkit-mask-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
+    /*  background: linear-gradient(3deg, rgba(2,0,36,0) 0%, rgba(0,0,0,1) 100%);*/
 }
 
 .navbar-nav, .navbar > .container .navbar-brand {
@@ -89,7 +105,7 @@ header .navbar-white {
 
 .text-homeimage {
     text-align: center;
-    color: #fff;
+    color: lightgoldenrodyellow;
     z-index: 2;
     position: relative;
     font-size: 75px;
@@ -121,7 +137,7 @@ header .navbar-white {
 }
 
 .toparea {
-    background: white;
+    background: rgba(0, 0, 0, 0.3);
     margin-top: -100px;
     padding-top: 30px;
 }
@@ -130,7 +146,7 @@ header .navbar-white {
     font-weight: 700;
     font-size: 20px;
     line-height: 38px;
-    color: #444;
+    color: white;
     text-transform: uppercase;
     display: block;
     margin-bottom: 10px;
@@ -245,19 +261,21 @@ a.homebrowseitems:hover {
 }
 /*==============================================* SHOP *===============================================*/
 img {
-    max-width: 100%;
+    height: 100%;
+    width: 100%;
 }
 /*Product Box*/
 .maxproduct {
-    max-height: 300px;
+    height: 215px;
     overflow: hidden;
     display: inline-block;
 }
 
 .productbox {
-    background: #F7E3C8;
+    height: 350px;
+    background: rgba(0, 0, 0, 0.3);
     padding: 13px;
-    border: 1px solid #e4e4e4;
+    border-radius: 13px;
     margin-bottom: 30px;
 }
 
@@ -274,13 +292,13 @@ img {
     padding-bottom: 15px;
     margin-bottom: 10px;
     font-weight: 500;
-    color: #333;
+    color: white;
 }
 
 .product-details {
     padding: 6px 0 0 0;
     text-align: center;
-    color: #444;
+    color: white;
 }
 
 .productbox .price {
@@ -296,9 +314,9 @@ img {
     position: absolute;
     top: 0;
     left: 0;
-    background-color: #B48967;
+    background: rgba(0, 0, 0, 0.5);
     width: 100%;
-    height: 100%;
+    height: 215px;
 }
 
     .captionshop h3, .captionshop p {
@@ -341,7 +359,7 @@ img {
 
 .fadeshop {
     position: relative;
-    max-height: 300px;
+    height: 225px;
 }
 
 .properties-box {

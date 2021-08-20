@@ -15,7 +15,7 @@
                     <div class="col editContent">
                         <span class="numberstep"><i class="fa fa-shopping-cart"></i></span>
                         <h3 class="numbertext">Choose our Products</h3>
-                        <p>
+                        <p class="numbertext-description">
                             Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Nullam quis risus eget urna mollis ornare vel eu leo. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
                         </p>
                     </div>
@@ -26,7 +26,7 @@
                     <div class="col">
                         <span class="numberstep"><i class="fa fa-gift"></i></span>
                         <h3 class="numbertext">Pay with PayPal or Card</h3>
-                        <p>
+                        <p class="numbertext-description">
                             Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Nullam quis risus eget urna mollis ornare vel eu leo. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
                         </p>
                     </div>
@@ -37,7 +37,7 @@
                     <div class="col">
                         <span class="numberstep"><i class="fa fa-download"></i></span>
                         <h3 class="numbertext">Get Instand Download</h3>
-                        <p>
+                        <p class="numbertext-description">
                             Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Nullam quis risus eget urna mollis ornare vel eu leo. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
                         </p>
                     </div>
@@ -72,7 +72,9 @@
                                     <div class="captionshop text-center" style="display: none;">
                                         <h3>@product.Name</h3>
                                         <p>
-                                            @product.Description
+                                            @(product.Description.Length > 105
+                                            ? (product.Description.Substring(0, 105) + "...")
+                                            : product.Description)
                                         </p>
                                         <p>
                                             <button href="#" class="learn-more detailslearn"><i class="fa fa-shopping-cart"></i> Purchase</button>
@@ -127,7 +129,6 @@
         </div>
     </section>
 
-    <img src="~/images/stock/menu.png" />
     <!-- SCRIPTS =============================-->
     <script>
     </script>
