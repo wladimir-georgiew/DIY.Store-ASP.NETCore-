@@ -138,22 +138,64 @@
 </html>
 
 <script>
-    //document.getElementById('removeItem').addEventListener('click', (event) => {
-    //    let id = event.target.getAttribute('data-id');
+    function getCartItems() {
+        $.get("CartController/GetItems", function (data, status) {
+            console.log("Data: " + JSON.stringify(data.cart) + "\nStatus: " + status);
+            data.cart.forEach(x => {
 
-    //    fetch(`/Cart/Remove/${id}`)
-    //        .then(() => {
-    //            document.getElementById(id).remove();
-    //        });
-    //});
+                let tr = document.createElement('tr');
+                tr.classList.add('edd_cart_item');
+                tr.id = x.product.id;
 
-        function deleteItem(form) {
-        $(form).parentsUntil("tr").remove();
+                let td = document.createElement('td');
+                td.classList.add('edd_cart_item_name');
 
-        $(document).ready(function () {
+                let divImage = document.createElement('div');
+                divImage.classList.add('edd_cart_item_image')
+                let img = document.createElement('img');
+                img.src = x.product.imageSourcePath;
+                img.width = 25;
+                img.height = 25;
+                divImage.appendChild(img)
+                td.appendChild(divImage);
 
-            // show when page load
-            @*toastr.error('@FastServices.Common.GlobalConstants.DeletedCommentPostMessage');*@
+                let span = document.createElement('span');
+                span.classList.add('edd_checkout_cart_item_title');
+                span.innerHTML = x.product.name
+                td.appendChild(span);
+
+                tr.appendChild(td);
+
+                let tdPrice = document.createElement('td');
+                tdPrice.classList.add('edd_cart_item_price');
+                tdPrice.innerText = `${x.product.price} лв.`
+
+                tr.appendChild(tdPrice);
+
+                let tdButton = document.createElement('td');
+                tdButton.classList.add('edd_cart_actions');
+                let removeButton = document.createElement('input');
+                removeButton.type = 'button';
+                removeButton.value = 'Remove';
+                removeButton.onclick = function () {
+                    $.get(`Remove/${x.product.id}`, function (dataTwo, statusTwo) {
+                        document.getElementById(x.product.id).remove();
+                    })
+
+                    
+                }
+                tdButton.appendChild(removeButton);
+
+                tr.appendChild(tdButton);
+
+                document.getElementById('productsContainer').appendChild(tr);
+            }
+            );
         });
-    }
+    };
+
+    $(document).ready(function () {
+        getCartItems();
+    });
+
 </script>
