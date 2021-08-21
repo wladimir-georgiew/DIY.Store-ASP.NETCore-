@@ -27,13 +27,16 @@
                         <thead>
                             <tr class="edd_cart_header_row">
                                 <th class="edd_cart_item_name">
-                                    Item Name
+                                    Продукт
                                 </th>
                                 <th class="edd_cart_item_price">
-                                    Item Price
+                                    Количество
+                                </th>
+                                <th class="edd_cart_item_price">
+                                    Цена
                                 </th>
                                 <th class="edd_cart_actions">
-                                    Actions
+                                    Действие
                                 </th>
                             </tr>
                         </thead>
@@ -49,6 +52,9 @@
                                                 <img width="25" height="25" src="@item.Product.ImageSourcePath" alt="">
                                             </div>
                                             <span class="edd_checkout_cart_item_title">@item.Product.Name</span>
+                                        </td>
+                                         <td class="edd_cart_item_price">
+                                            @item.Quantity
                                         </td>
                                         <td class="edd_cart_item_price">
                                             @item.Product.Price лв.
@@ -70,7 +76,7 @@
                                 </tr>*@
                             <tr class="edd_cart_footer_row">
                                 <th colspan="5" class="edd_cart_total">
-                                    Total: <span id="cart-total-amount-head" class="edd_cart_amount">@Model.TotalPrice.ToString("0.00") .лв</span>
+                                    Total: <span id="cart-total-amount-head" class="edd_cart_amount">@Model.TotalPrice.ToString("0.00")лв.</span>
                                 </th>
                             </tr>
                         </tfoot>
@@ -102,7 +108,7 @@
                         <fieldset id="edd_purchase_submit">
                             <p id="edd_final_total_wrap">
                                 <strong>Purchase Total:</strong>
-                                <span id="cart-total-amount-foot" class="edd_cart_amount">@Model.TotalPrice.ToString("0.00") .лв</span>
+                                <span id="cart-total-amount-foot" class="edd_cart_amount">@Model.TotalPrice.ToString("0.00")лв.</span>
                             </p>
                             <input type="hidden" name="edd_action" value="purchase">
                             <input type="hidden" name="edd-gateway" value="manual">
@@ -132,17 +138,4 @@
 </body>
 </html>
 
-<script>
-    function deleteItem(form) {
-        $(form).parentsUntil("tbody").remove();
-
-        fetch('/Cart/GetTotalPrice')
-            .then((data) => {
-                return data.json();
-            })
-            .then((response) => {
-                document.getElementById("cart-total-amount-foot").innerHTML = response;
-                document.getElementById("cart-total-amount-head").innerHTML = response;
-            });
-    }
-</script>
+<script src="~/js/cart.js"></script>

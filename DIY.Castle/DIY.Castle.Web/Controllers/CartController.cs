@@ -4,6 +4,7 @@ using DIY.Castle.Web.Models;
 using DIY.Castle.Web.Models.ViewModels;
 using DIY.Castle.Web.Services.ProductsService;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -31,8 +32,8 @@ namespace DIY.Castle.Web.Controllers
 
             var cart = SessionHelper.GetObjectFromJson<List<ProductCartModel>>(HttpContext.Session, "cart");
             var totalPrice = cart == null
-                ? 0
-                : cart.Sum(p => p.Product.Price * p.Quantity);
+               ? Math.Round(0.00M, 2)
+               : Math.Round(cart.Sum(p => p.Product.Price * p.Quantity), 2);
 
             var viewModel = new CartViewModel
             {
@@ -48,8 +49,8 @@ namespace DIY.Castle.Web.Controllers
         {
             var cart = SessionHelper.GetObjectFromJson<List<ProductCartModel>>(HttpContext.Session, "cart");
             var totalPrice = cart == null
-                ? 0
-                : cart.Sum(p => p.Product.Price * p.Quantity);
+                ? Math.Round(0.00M, 2)
+                : Math.Round(cart.Sum(p => p.Product.Price * p.Quantity), 2);
 
             string response = totalPrice.ToString("0.00");
             return this.Ok(response);
