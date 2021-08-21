@@ -39,7 +39,7 @@
                         </thead>
                         <tbody id="productsContainer">
                             @if (Model?.Cart != null &&
-                          Model.Cart.Any())
+                      Model.Cart.Any())
                             {
                                 foreach (var item in Model.Cart)
                                 {
@@ -56,7 +56,7 @@
                                         <td class="edd_cart_actions">
                                             <form asp-controller="Cart" asp-action="Remove" asp-route-id="@item.Product.Id" data-ajax="true" data-ajax-success="deleteItem(this)">
                                                 @*<button id="removeItem" class="edd_cart_remove_item_btn">Remove</button>*@
-                                                <input type="button" value="Remove" />
+                                                <button type="submit">Remove</button>
                                             </form>
                                         </td>
                                     </tr>
@@ -64,18 +64,13 @@
                             }
                         </tbody>
                         <tfoot>
-                            <tr class="edd_cart_footer_row">
-                                <th colspan="5">
-                                    <a class="edd-cart-saving-button edd-submit button " id="edd-save-cart-button" href="#">Save Cart</a>
-                                </th>
-                            </tr>
-                            <tr class="edd_cart_footer_row edd_cart_discount_row" style="display:none;">
-                                <th colspan="5" class="edd_cart_discount">
-                                </th>
-                            </tr>
+                            @*<tr class="edd_cart_footer_row edd_cart_discount_row" style="display:none;">
+                                    <th colspan="5" class="edd_cart_discount">
+                                    </th>
+                                </tr>*@
                             <tr class="edd_cart_footer_row">
                                 <th colspan="5" class="edd_cart_total">
-                                    Total: <span class="edd_cart_amount" data-subtotal="11.99" data-total="11.99">$11.99</span>
+                                    Total: <span id="cart-total-amount-head" class="edd_cart_amount">@Model.TotalPrice.ToString("0.00") .лв</span>
                                 </th>
                             </tr>
                         </tfoot>
@@ -107,7 +102,7 @@
                         <fieldset id="edd_purchase_submit">
                             <p id="edd_final_total_wrap">
                                 <strong>Purchase Total:</strong>
-                                <span class="edd_cart_amount" data-subtotal="11.99" data-total="11.99">$11.99</span>
+                                <span id="cart-total-amount-foot" class="edd_cart_amount">@Model.TotalPrice.ToString("0.00") .лв</span>
                             </p>
                             <input type="hidden" name="edd_action" value="purchase">
                             <input type="hidden" name="edd-gateway" value="manual">
@@ -138,64 +133,16 @@
 </html>
 
 <script>
-    function getCartItems() {
-        $.get("CartController/GetItems", function (data, status) {
-            console.log("Data: " + JSON.stringify(data.cart) + "\nStatus: " + status);
-            data.cart.forEach(x => {
+    function deleteItem(form) {
+        $(form).parentsUntil("tbody").remove();
 
-                let tr = document.createElement('tr');
-                tr.classList.add('edd_cart_item');
-                tr.id = x.product.id;
-
-                let td = document.createElement('td');
-                td.classList.add('edd_cart_item_name');
-
-                let divImage = document.createElement('div');
-                divImage.classList.add('edd_cart_item_image')
-                let img = document.createElement('img');
-                img.src = x.product.imageSourcePath;
-                img.width = 25;
-                img.height = 25;
-                divImage.appendChild(img)
-                td.appendChild(divImage);
-
-                let span = document.createElement('span');
-                span.classList.add('edd_checkout_cart_item_title');
-                span.innerHTML = x.product.name
-                td.appendChild(span);
-
-                tr.appendChild(td);
-
-                let tdPrice = document.createElement('td');
-                tdPrice.classList.add('edd_cart_item_price');
-                tdPrice.innerText = `${x.product.price} лв.`
-
-                tr.appendChild(tdPrice);
-
-                let tdButton = document.createElement('td');
-                tdButton.classList.add('edd_cart_actions');
-                let removeButton = document.createElement('input');
-                removeButton.type = 'button';
-                removeButton.value = 'Remove';
-                removeButton.onclick = function () {
-                    $.get(`Remove/${x.product.id}`, function (dataTwo, statusTwo) {
-                        document.getElementById(x.product.id).remove();
-                    })
-
-                    
-                }
-                tdButton.appendChild(removeButton);
-
-                tr.appendChild(tdButton);
-
-                document.getElementById('productsContainer').appendChild(tr);
-            }
-            );
-        });
-    };
-
-    $(document).ready(function () {
-        getCartItems();
-    });
-
+        fetch('/Cart/GetTotalPrice')
+            .then((data) => {
+                return data.json();
+            })
+            .then((response) => {
+                document.getElementById("cart-total-amount-foot").innerHTML = response;
+                document.getElementById("cart-total-amount-head").innerHTML = response;
+            });
+    }
 </script>
