@@ -331,6 +331,7 @@ img {
     .captionshop p {
         font-size: 15px;
         margin: 0 20px 15px;
+        height: 75px;
     }
 
     .captionshop a.learn-more {

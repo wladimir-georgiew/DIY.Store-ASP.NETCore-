@@ -1,141 +1,72 @@
 ﻿@using DIY.Castle.Web.Models.ViewModels
 @model CartViewModel
+<!------ Include the above in your HEAD tag ---------->
 
-<!DOCTYPE html>
-<html>
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+@*<link href="./css/stylecart.css" rel="stylesheet">*@
 
-<body>
+<div class="container">
+    <table id="cart" class="table table-hover table-condensed">
+        <thead>
+            <tr>
+                <th style="width:50%">Продукт</th>
+                <th style="width:10%">Цена</th>
+                <th style="width:8%">Количество</th>
+                <th style="width:22%" class="text-center">Общо</th>
+                <th style="width:10%"></th>
+            </tr>
+        </thead>
+        @if (Model?.Cart != null)
+        {
+            foreach (var item in Model.Cart)
+            {
+                <tbody>
+                    <tr>
+                        <td data-th="Product">
+                            <div class="row">
+                                <div class="col-sm-4 hidden-lg"><img src="@item.Product.ImageSourcePath" alt="..." class="img-responsive" /></div>
+                                <div class="col-sm-8">
+                                    <h4 class="nomargin">@item.Product.Name</h4>
+                                    <p>
+                                        @(item.Product.Description.Length > 105
+                                            ? (item.Product.Description.Substring(0, 105) + "...")
+                                            : item.Product.Description)
+                                    </p>
+                                </div>
+                            </div>
+                        </td>
+                        <td data-th="Price">@item.Product.Price лв.</td>
+                        <td data-th="Quantity">
+                            <input id="quantity-item-@item.Product.Id" type="number" disabled="disabled" class="form-control text-center" value=@item.Quantity>
+                            <div style="display:inline-flex">
+                                <form asp-controller="Cart" asp-action="IncreaseQuantity" asp-route-id="@item.Product.Id" data-ajax="true" data-ajax-success="increaseQuantity('@item.Product.Id')">
+                                    <button type="submit" class="btn btn-info btn-sm"><i class="fa fa-plus"></i></button>
+                                </form>
+                                <form asp-controller="Cart" asp-action="DecreaseQuantity" asp-route-id="@item.Product.Id" data-ajax="true" data-ajax-success="decreaseQuantity('@item.Product.Id')">
+                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-minus"></i></button>
+                                </form>
+                            </div>
+                        </td>
+                        <td id="cart-subtotal-amount-@item.Product.Id" data-th="Subtotal" class="text-center">@(item.Product.Price * item.Quantity) лв.</td>
+                        <td class="actions" data-th="">
+                            <form asp-controller="Cart" asp-action="Remove" asp-route-id="@item.Product.Id" data-ajax="true" data-ajax-success="deleteItem(this)">
+                                <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
 
-    <!-- CONTENT =============================-->
-    <section class="item content">
-        <div class="container toparea">
-            <div class="underlined-title">
-                <div class="editContent">
-                    <h1 class="text-center latestitems">MAKE PAYMENT</h1>
-                </div>
-                <div class="wow-hr type_short">
-                    <span class="wow-hr-h">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </span>
-                </div>
-            </div>
-            <div id="edd_checkout_wrap" class="col-md-8 col-md-offset-2">
-                <div id="edd_checkout_cart_wrap">
-                    <table id="edd_checkout_cart" class="ajaxed">
-                        <thead>
-                            <tr class="edd_cart_header_row">
-                                <th class="edd_cart_item_name">
-                                    Продукт
-                                </th>
-                                <th class="edd_cart_item_price">
-                                    Количество
-                                </th>
-                                <th class="edd_cart_item_price">
-                                    Цена
-                                </th>
-                                <th class="edd_cart_actions">
-                                    Действие
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody id="productsContainer">
-                            @if (Model?.Cart != null &&
-                      Model.Cart.Any())
-                            {
-                                foreach (var item in Model.Cart)
-                                {
-                                    <tr class="edd_cart_item" id="@item.Product.Id" data-download-id="25">
-                                        <td class="edd_cart_item_name">
-                                            <div class="edd_cart_item_image">
-                                                <img width="25" height="25" src="@item.Product.ImageSourcePath" alt="">
-                                            </div>
-                                            <span class="edd_checkout_cart_item_title">@item.Product.Name</span>
-                                        </td>
-                                         <td class="edd_cart_item_price">
-                                            @item.Quantity
-                                        </td>
-                                        <td class="edd_cart_item_price">
-                                            @item.Product.Price лв.
-                                        </td>
-                                        <td class="edd_cart_actions">
-                                            <form asp-controller="Cart" asp-action="Remove" asp-route-id="@item.Product.Id" data-ajax="true" data-ajax-success="deleteItem(this)">
-                                                @*<button id="removeItem" class="edd_cart_remove_item_btn">Remove</button>*@
-                                                <button type="submit">Remove</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                }
-                            }
-                        </tbody>
-                        <tfoot>
-                            @*<tr class="edd_cart_footer_row edd_cart_discount_row" style="display:none;">
-                                    <th colspan="5" class="edd_cart_discount">
-                                    </th>
-                                </tr>*@
-                            <tr class="edd_cart_footer_row">
-                                <th colspan="5" class="edd_cart_total">
-                                    Total: <span id="cart-total-amount-head" class="edd_cart_amount">@Model.TotalPrice.ToString("0.00")лв.</span>
-                                </th>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-                <div id="edd_checkout_form_wrap" class="edd_clearfix">
-                    <form id="edd_purchase_form" class="edd_form" action="#" method="POST">
-                        <fieldset id="edd_checkout_user_info">
-                            <legend>Personal Info</legend>
-                            <p id="edd-email-wrap">
-                                <label class="edd-label" for="edd-email">
-                                    Email Address <span class="edd-required-indicator">*</span>
-                                </label>
-                                <input class="edd-input required" type="email" name="edd_email" placeholder="Email address" id="edd-email" value="">
-                            </p>
-                            <p id="edd-first-name-wrap">
-                                <label class="edd-label" for="edd-first">
-                                    First Name <span class="edd-required-indicator">*</span>
-                                </label>
-                                <input class="edd-input required" type="text" name="edd_first" placeholder="First name" id="edd-first" value="" required="">
-                            </p>
-                            <p id="edd-last-name-wrap">
-                                <label class="edd-label" for="edd-last">
-                                    Last Name
-                                </label>
-                                <input class="edd-input" type="text" name="edd_last" id="edd-last" placeholder="Last name" value="">
-                            </p>
-                        </fieldset>
-                        <fieldset id="edd_purchase_submit">
-                            <p id="edd_final_total_wrap">
-                                <strong>Purchase Total:</strong>
-                                <span id="cart-total-amount-foot" class="edd_cart_amount">@Model.TotalPrice.ToString("0.00")лв.</span>
-                            </p>
-                            <input type="hidden" name="edd_action" value="purchase">
-                            <input type="hidden" name="edd-gateway" value="manual">
-                            <input type="submit" class="edd-submit button" id="edd-purchase-button" name="edd-purchase" value="Purchase">
-                        </fieldset>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
+            }
+        }
 
-    <!-- CALL TO ACTION =============================-->
-    <section class="content-block" style="background-color:#00bba7;">
-        <div class="container text-center">
-            <div class="row">
-                <div class="col-sm-10 col-sm-offset-1">
-                    <div class="item" data-scrollreveal="enter top over 0.4s after 0.1s">
-                        <h1 class="callactiontitle">
-                            Promote Items Area Give Discount to Buyers <span class="callactionbutton"><i class="fa fa-gift"></i> WOW24TH</span>
-                        </h1>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-</body>
-</html>
+        <tfoot>
+            <tr>
+                <td colspan="3" class="hidden-xs"></td>
+                <td id="cart-total-amount-foot" class="hidden-xs text-center"><strong>@Model.TotalPrice.ToString("0.00")лв.</strong></td>
+                <td><a href="#" class="btn btn-success btn-block">Checkout</a></td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
 
 <script src="~/js/cart.js"></script>
