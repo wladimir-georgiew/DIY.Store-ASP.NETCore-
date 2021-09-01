@@ -24,9 +24,12 @@
   <ItemGroup>
     <ProjectReference Include="..\DIY.Castle.Common\DIY.Castle.Common.csproj" />
     <ProjectReference Include="..\DIY.Castle.Data\DIY.Castle.Data.csproj" />
+    <ProjectReference Include="..\GlobalConstants\GlobalConstants.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Administration\Models\" />
+    <Folder Include="Areas\Administration\Views\" />
     <Folder Include="Models\InputModels\" />
   </ItemGroup>
 

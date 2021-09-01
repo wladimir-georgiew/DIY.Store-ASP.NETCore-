@@ -1,3 +1,4 @@
+using DIY.Castle.Data;
 using DIY.Castle.Data.Models;
 using DIY.Castle.Web.AutoMapper;
 using DIY.Castle.Web.Data;
@@ -5,18 +6,10 @@ using DIY.Castle.Web.Services.ProductsService;
 using DIY.Castle.Web.Services.UploadFileService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using VCS.Data;
 
 namespace DIY.Castle.Web
 {

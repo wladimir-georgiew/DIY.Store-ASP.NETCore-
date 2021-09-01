@@ -14,4 +14,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.14" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GlobalConstants\GlobalConstants.csproj" />
+  </ItemGroup>
+
 </Project>

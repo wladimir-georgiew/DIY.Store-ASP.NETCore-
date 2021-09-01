@@ -4,14 +4,16 @@ using DIY.Castle.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DIY.Castle.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210901122051_SeedAdminUserRole")]
+    partial class SeedAdminUserRole
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -88,15 +90,15 @@ namespace DIY.Castle.Data.Migrations
                         {
                             Id = "00000000-0000-0000-0000-000000000000",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d1131f0f-26c4-4251-8cbc-f42065b12c3d",
+                            ConcurrencyStamp = "69d4064d-2db2-4f2c-ba1c-6360a847c263",
                             Email = "admin@abv.bg",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ABV.BG",
                             NormalizedUserName = "ADMIN@ABV.BG",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIqQ+Ncn68euZUZaOkUpJeGPL+Z0BxpuKQq38fgdNqeRyIsh6xXedcyNGgf/wSuzXw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECeisvy6DxNGNNyQf0S/URyfZjW7PpFhDxotv+eUt0qw6K7YSa0NDadvzNGxdLeDPA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0ce0e54c-500d-4c78-b13b-71a04cc0f106",
+                            SecurityStamp = "01a5292a-c8fd-41b4-9aaf-7cd51959ed1a",
                             TwoFactorEnabled = false,
                             UserName = "admin@abv.bg"
                         });
@@ -141,7 +143,7 @@ namespace DIY.Castle.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTime(2021, 9, 1, 12, 33, 56, 40, DateTimeKind.Utc).AddTicks(7512),
+                            CreatedOn = new DateTime(2021, 9, 1, 12, 20, 50, 970, DateTimeKind.Utc).AddTicks(1936),
                             Description = "This is just a sample product with short description.",
                             ImageSourcePath = "/images/stock/book1.jpg",
                             IsDeleted = false,
@@ -151,7 +153,7 @@ namespace DIY.Castle.Data.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedOn = new DateTime(2021, 9, 1, 12, 33, 56, 40, DateTimeKind.Utc).AddTicks(8790),
+                            CreatedOn = new DateTime(2021, 9, 1, 12, 20, 50, 970, DateTimeKind.Utc).AddTicks(3375),
                             Description = "This is just a sample product with a medium description length.Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                             ImageSourcePath = "/images/stock/book2.jpg",
                             IsDeleted = false,
@@ -161,7 +163,7 @@ namespace DIY.Castle.Data.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedOn = new DateTime(2021, 9, 1, 12, 33, 56, 40, DateTimeKind.Utc).AddTicks(8851),
+                            CreatedOn = new DateTime(2021, 9, 1, 12, 20, 50, 970, DateTimeKind.Utc).AddTicks(3431),
                             Description = "This is just a sample product with long description for testing the front-end.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
                             ImageSourcePath = "/images/stock/book3.jpg",
                             IsDeleted = false,
@@ -200,14 +202,14 @@ namespace DIY.Castle.Data.Migrations
                         new
                         {
                             Id = "1",
-                            ConcurrencyStamp = "c855625b-f147-42f4-9953-0b19689391a5",
+                            ConcurrencyStamp = "f16c2138-d14b-4953-a67c-ad767781f021",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
                             Id = "0",
-                            ConcurrencyStamp = "d8322e8e-fcc4-4a77-98fe-720d8bc74c49",
+                            ConcurrencyStamp = "7ef2a79b-1082-4a82-adbe-6691deb2a6a1",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
