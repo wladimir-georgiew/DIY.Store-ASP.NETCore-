@@ -131,6 +131,26 @@
 
     <!-- SCRIPTS =============================-->
     <script>
+        const decata = [{
+            name: "vasil",
+            lastname: "ivanov",
+            age: 10
+        }, {
+            name: "doncho",
+            lastname: "ivanov",
+            age: 28
+        }];
+
+        function checkVasil(data) {
+            return data.age > 1;
+        }
+
+        function myFunction() {
+            let children = decata.filter(checkVasil);
+            console.log(children);
+        }
+
+        myFunction();
     </script>
 
 </body>

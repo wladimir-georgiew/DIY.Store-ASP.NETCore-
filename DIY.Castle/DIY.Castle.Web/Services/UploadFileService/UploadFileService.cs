@@ -13,8 +13,8 @@ namespace DIY.Castle.Web.Services.UploadFileService
         {
             this.hostEnvironment = hostEnvironment;
         }
-
-        public string GetUploadedFileName(IFormFile file)
+        
+        public string UploadFile(IFormFile file)
         {
             if (file == null)
             {
@@ -27,7 +27,7 @@ namespace DIY.Castle.Web.Services.UploadFileService
             using var fileStream = new FileStream(filePath, FileMode.Create);
             file.CopyTo(fileStream);
 
-            return uniqueFileName;
+            return "/images/" + uniqueFileName;
         }
     }
 }

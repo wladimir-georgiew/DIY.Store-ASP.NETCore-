@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
 using DIY.Castle.Web.Models;
+using DIY.Castle.Web.Models.InputModels;
+using DIY.Castle.Web.Services.EmailSender;
 using DIY.Castle.Web.Services.ProductsService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace DIY.Castle.Web.Controllers
 {
@@ -13,15 +16,18 @@ namespace DIY.Castle.Web.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IMapper mapper;
         private readonly IProductsService productsService;
+        private readonly IEmailSender emailSender;
 
         public HomeController(
             ILogger<HomeController> logger,
             IProductsService productsService,
-            IMapper mapper)
+            IMapper mapper,
+            IEmailSender emailSender)
         {
             _logger = logger;
             this.mapper = mapper;
             this.productsService = productsService;
+            this.emailSender = emailSender;
         }
 
         public IActionResult Index()
@@ -40,6 +46,18 @@ namespace DIY.Castle.Web.Controllers
             return View(latestProductsViewModel);
         }
 
+        public IActionResult Contact()
+        {
+            return this.View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Contact(ContactInputModel input)
+        {
+            await this.emailSender.SendEmailAsync($"sneakypeekymustard@gmail.com", $"{input.EmailAddress}", $"ravenouscrow@abv.bg", $"ContactForm by {input.Name}", $"{input.Message}");
+
+            return this.View();
+        }
         public IActionResult Privacy()
         {
             return View();

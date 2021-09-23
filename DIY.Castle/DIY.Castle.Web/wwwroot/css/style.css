@@ -7,8 +7,8 @@ body {
     font-weight: 300;
     font-size: 16px;
     line-height: 1.7;
-    /*  background-image: url('../images/stock/website-background-2.jpg');*/
-    background-color: #f9bdb5;
+    background-image: url('../images/stock/bg-image1.jpg');
+    /*  background-color: #f9bdb5;*/
 }
 
 .cart-img{

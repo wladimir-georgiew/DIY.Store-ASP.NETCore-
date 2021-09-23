@@ -2,6 +2,7 @@ using DIY.Castle.Data;
 using DIY.Castle.Data.Models;
 using DIY.Castle.Web.AutoMapper;
 using DIY.Castle.Web.Data;
+using DIY.Castle.Web.Services.EmailSender;
 using DIY.Castle.Web.Services.ProductsService;
 using DIY.Castle.Web.Services.UploadFileService;
 using Microsoft.AspNetCore.Builder;
@@ -32,10 +33,14 @@ namespace DIY.Castle.Web
             services.AddRazorPages();
             services.AddSession();
 
+            services.AddSingleton(Configuration);
+
             //AutoMapper
             services.AddAutoMapper(typeof(MappingProfile));
 
             //Services
+            services.AddTransient<IEmailSender>(
+              x => new SendGridEmailSender(Configuration.GetSection("SendGrid")["ApiKey"]));
             services.AddTransient<IUploadFileService, UploadFileService>();
             services.AddTransient<IProductsService, ProductsService>();
         }
