@@ -1,0 +1,35 @@
+﻿@using DIY.Castle.Web.Areas.Administration.Models
+@model ProductsRequestModel
+<h1>Create product</h1>
+
+<form class="form-inline" action="Create" method="post">
+    <div >
+        <div>
+            <label style="justify-content: unset" asp-for="Name">Name of the product</label>
+            <input asp-for="Name" class="form-control" placeholder="Name">
+            <span asp-validation-for="Name" class="text-danger font-weight-bold"></span>
+        </div>
+        <div>
+            <label style="justify-content: unset" asp-for="Price">Price of the product</label>
+            <input asp-for="Price" class="form-control" placeholder="Price">
+            <span asp-validation-for="Price" class="text-danger font-weight-bold"></span>
+        </div>
+        <div>
+            <label style="justify-content: unset" asp-for="Description">Description of the product</label>
+            <textarea asp-for="Description" class="form-control" placeholder="Description"></textarea>
+            <span asp-validation-for="Description" class="text-danger font-weight-bold"></span>
+        </div>
+        <div>
+            <label style="align-items: revert; justify-content: unset; display: flex; flex-direction: column;" for="uploadPic">
+                <span> Image of the product</span> <i class="fa fa-cloud-upload" style="font-size: 30px" aria-hidden="true"></i>
+            </label>
+            <input id="uploadPic" style="display: none"  asp-for="Image" class="form-control" placeholder="Image">
+            <span asp-validation-for="Image" class="text-danger font-weight-bold"></span>
+        </div>
+
+        <div class="input-group-btn">
+            <button type="submit" class="btn btn-light button-create-menuItem">Create</button>
+        </div>
+    </div>
+</form>
+
