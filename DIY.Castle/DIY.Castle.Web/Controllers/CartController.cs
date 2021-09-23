@@ -28,7 +28,7 @@ namespace DIY.Castle.Web.Controllers
         public IActionResult Index()
         {
             this.ViewData["showSmallHeroBanner"] = true;
-            this.ViewData["titleText"] = "CHECKOUT";
+            this.ViewData["titleText"] = "CART";
 
             var cart = SessionHelper.GetObjectFromJson<List<ProductCartModel>>(HttpContext.Session, "cart");
             var totalPrice = cart == null
