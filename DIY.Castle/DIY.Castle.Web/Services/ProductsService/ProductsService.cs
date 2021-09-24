@@ -4,6 +4,7 @@ using DIY.Castle.Web.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System;
 
 namespace DIY.Castle.Web.Services.ProductsService
 {
@@ -22,6 +23,7 @@ namespace DIY.Castle.Web.Services.ProductsService
 
         public async Task AddProduct(Product product)
         {
+            product.CreatedOn = DateTime.UtcNow;
             await this._dbContext.AddAsync(product);
             await this._dbContext.SaveChangesAsync();
         }

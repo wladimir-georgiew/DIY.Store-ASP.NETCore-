@@ -1,35 +1,60 @@
 ﻿@using DIY.Castle.Web.Areas.Administration.Models
 @model ProductsRequestModel
-<h1>Create product</h1>
 
-<form class="form-inline" action="Create" method="post">
-    <div >
-        <div>
-            <label style="justify-content: unset" asp-for="Name">Name of the product</label>
-            <input asp-for="Name" class="form-control" placeholder="Name">
-            <span asp-validation-for="Name" class="text-danger font-weight-bold"></span>
+<div class="col-md-10 mx-auto py-4">
+    <div class="card">
+        <div style="background-color:green" class="card-header text-uppercase text-white">
+            <h4>Create Menu Item</h4>
         </div>
-        <div>
-            <label style="justify-content: unset" asp-for="Price">Price of the product</label>
-            <input asp-for="Price" class="form-control" placeholder="Price">
-            <span asp-validation-for="Price" class="text-danger font-weight-bold"></span>
-        </div>
-        <div>
-            <label style="justify-content: unset" asp-for="Description">Description of the product</label>
-            <textarea asp-for="Description" class="form-control" placeholder="Description"></textarea>
-            <span asp-validation-for="Description" class="text-danger font-weight-bold"></span>
-        </div>
-        <div>
-            <label style="align-items: revert; justify-content: unset; display: flex; flex-direction: column;" for="uploadPic">
-                <span> Image of the product</span> <i class="fa fa-cloud-upload" style="font-size: 30px" aria-hidden="true"></i>
-            </label>
-            <input id="uploadPic" style="display: none"  asp-for="Image" class="form-control" placeholder="Image">
-            <span asp-validation-for="Image" class="text-danger font-weight-bold"></span>
-        </div>
-
-        <div class="input-group-btn">
-            <button type="submit" class="btn btn-light button-create-menuItem">Create</button>
+        <div class="card-body">
+            <form enctype="multipart/form-data" asp-action="Create" method="post">
+                <div style="text-align:left;" asp-validation-summary="All" class="text-danger"></div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="@Model.Name" class="control-label"></label>
+                            <input asp-for="@Model.Name" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="@Model.Description" class="control-label"></label>
+                            <textarea style="height:150px;resize:none;" asp-for="@Model.Description" class="form-control"> </textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="@Model.Price" class="control-label"></label>
+                            <input type="number" min="0.00" max="10000.00" step="1.00" asp-for="@Model.Price" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="@Model.Image" class="control-label"></label>
+                            <div class="custom-file">
+                                <input asp-for="@Model.Image" class="custom-file-input" id="customFile">
+                                <label class="custom-file-label" for="customFile">Choose file</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <a style="color: white" type="button" asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-lg btn-danger rounded-0 text-uppercase">cancel</a>
+                    <input type="submit" value="submit" class="btn btn-lg btn-primary rounded-0 text-uppercase" />
+                </div>
+            </form>
         </div>
     </div>
-</form>
-
+</div>
+@section scripts{
+    <script type="text/javascript">
+        // Add the following code if you want the name of the file appear on select
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    </script>
+}
