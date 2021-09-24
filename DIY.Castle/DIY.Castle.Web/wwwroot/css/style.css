@@ -7,8 +7,7 @@ body {
     font-weight: 300;
     font-size: 16px;
     line-height: 1.7;
-    /*  background-image: url('../images/stock/website-background-2.jpg');*/
-    background-color: #f9bdb5;
+      background-color: ghostwhite;
 }
 
 .cart-img{
@@ -331,6 +330,7 @@ img {
     .captionshop p {
         font-size: 15px;
         margin: 0 20px 15px;
+        height: 75px;
     }
 
     .captionshop a.learn-more {

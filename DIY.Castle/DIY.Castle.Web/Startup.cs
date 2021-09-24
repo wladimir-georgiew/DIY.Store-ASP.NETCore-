@@ -1,22 +1,17 @@
+using DIY.Castle.Data;
 using DIY.Castle.Data.Models;
 using DIY.Castle.Web.AutoMapper;
 using DIY.Castle.Web.Data;
+using DIY.Castle.Web.Services.EmailSender;
 using DIY.Castle.Web.Services.ProductsService;
 using DIY.Castle.Web.Services.UploadFileService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using VCS.Data;
 
 namespace DIY.Castle.Web
 {
@@ -34,15 +29,19 @@ namespace DIY.Castle.Web
         {
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddRoles<IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddSession();
+
+            services.AddSingleton(Configuration);
 
             //AutoMapper
             services.AddAutoMapper(typeof(MappingProfile));
 
             //Services
+            services.AddTransient<IEmailSender>(
+              x => new SendGridEmailSender(Configuration.GetSection("SendGrid")["ApiKey"]));
             services.AddTransient<IUploadFileService, UploadFileService>();
             services.AddTransient<IProductsService, ProductsService>();
         }
@@ -80,6 +79,7 @@ namespace DIY.Castle.Web
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

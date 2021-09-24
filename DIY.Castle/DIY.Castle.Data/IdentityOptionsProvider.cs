@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace VCS.Data
+namespace DIY.Castle.Data
 {
     public static class IdentityOptionsProvider
     {

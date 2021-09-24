@@ -4,6 +4,7 @@ using DIY.Castle.Web.Models;
 using DIY.Castle.Web.Models.ViewModels;
 using DIY.Castle.Web.Services.ProductsService;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -27,12 +28,12 @@ namespace DIY.Castle.Web.Controllers
         public IActionResult Index()
         {
             this.ViewData["showSmallHeroBanner"] = true;
-            this.ViewData["titleText"] = "CHECKOUT";
+            this.ViewData["titleText"] = "CART";
 
             var cart = SessionHelper.GetObjectFromJson<List<ProductCartModel>>(HttpContext.Session, "cart");
             var totalPrice = cart == null
-                ? 0
-                : cart.Sum(p => p.Product.Price * p.Quantity);
+               ? Math.Round(0.00M, 2)
+               : Math.Round(cart.Sum(p => p.Product.Price * p.Quantity), 2);
 
             var viewModel = new CartViewModel
             {
@@ -40,24 +41,34 @@ namespace DIY.Castle.Web.Controllers
                 TotalPrice = totalPrice,
             };
 
-            return View();
+            return View(viewModel);
         }
 
-        [Route("CartController/GetItems")]
-        public IActionResult GetItemsInCart()
+        [Route("GetTotalPrice")]
+        public IActionResult GetTotalPrice()
         {
             var cart = SessionHelper.GetObjectFromJson<List<ProductCartModel>>(HttpContext.Session, "cart");
             var totalPrice = cart == null
-                ? 0
-                : cart.Sum(p => p.Product.Price * p.Quantity);
+                ? Math.Round(0.00M, 2)
+                : Math.Round(cart.Sum(p => p.Product.Price * p.Quantity), 2);
 
-            var viewModel = new CartViewModel
-            {
-                Cart = cart,
-                TotalPrice = totalPrice,
-            };
+            string response = totalPrice.ToString("0.00");
+            return this.Ok(response);
+        }
 
-            return this.Ok(viewModel);
+        [Route("GetSubTotalPrice/{id}")]
+        public IActionResult GetSubTotalPrice(int id)
+        {
+            var cart = SessionHelper.GetObjectFromJson<List<ProductCartModel>>(HttpContext.Session, "cart");
+
+            int index = GetItemIndexInCart(id);
+            var cartProduct = index != -1 ? cart[index] : null;
+
+            var subTotalPrice = cartProduct == null ? 0.00M :
+               Math.Round((cartProduct.Quantity * cartProduct.Product.Price), 2);
+
+            string response = subTotalPrice.ToString("0.00");
+            return this.Ok(response);
         }
 
         [Route("AddToBasket/{id}/{quantity}")]
@@ -112,7 +123,42 @@ namespace DIY.Castle.Web.Controllers
             int index = GetItemIndexInCart(id);
             cart.RemoveAt(index);
             SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
-            return Ok(cart);
+            return NoContent();
+        }
+
+        [Route("IncreaseQuantity/{id}")]
+        public IActionResult IncreaseQuantity(int id)
+        {
+            List<ProductCartModel> cart = SessionHelper.GetObjectFromJson<List<ProductCartModel>>(HttpContext.Session, "cart");
+
+            int index = GetItemIndexInCart(id);
+
+            if (index != -1)
+            {
+                cart[index].Quantity++;
+            }
+
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
+
+            return NoContent();
+        }
+
+        [Route("DecreaseQuantity/{id}")]
+        public IActionResult DecreaseQuantity(int id)
+        {
+            List<ProductCartModel> cart = SessionHelper.GetObjectFromJson<List<ProductCartModel>>(HttpContext.Session, "cart");
+
+            int index = GetItemIndexInCart(id);
+
+            if (index != -1 &&
+                cart[index].Quantity - 1 > 0)
+            {
+                cart[index].Quantity--;
+            }
+
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
+
+            return NoContent();
         }
 
         private int GetItemIndexInCart(int id)
