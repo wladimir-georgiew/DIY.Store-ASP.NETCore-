@@ -40,7 +40,7 @@ namespace DIY.Castle.Web.Controllers
                 this.productsService.GetAllProducts()
                 .OrderByDescending(x => x.CreatedOn)
                 .Take(3)
-                .Select(x => mapper.Map<ProductModel>(x))
+                .Select(x => this.productsService.GetProductModel(x))
                 .ToList();
 
             return View(latestProductsViewModel);

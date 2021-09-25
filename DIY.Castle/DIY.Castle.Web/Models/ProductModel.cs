@@ -12,7 +12,7 @@ namespace DIY.Castle.Web.Models
 
         public string Description { get; set; }
 
-        public string ImageSourcePath { get; set; }
+        public List<string> ImagesSourcePaths { get; set; }
 
         public string CreatedOn { get; set; }
     }

@@ -1,6 +1,7 @@
 ﻿using DIY.Castle.Common.Attributes;
 using Microsoft.AspNetCore.Http;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace DIY.Castle.Web.Areas.Administration.Models
@@ -22,6 +23,6 @@ namespace DIY.Castle.Web.Areas.Administration.Models
         [DataType(DataType.Upload)]
         [AllowedExtensions(new[] { ".jpg", ".png" })]
         [MaxFileSize(3 * 1024 * 1024)] // 3mb
-        public IFormFile Image { get; set; }
+        public List<IFormFile> Images { get; set; }
     }
 }

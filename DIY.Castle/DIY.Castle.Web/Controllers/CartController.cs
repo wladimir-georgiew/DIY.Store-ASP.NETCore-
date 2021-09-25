@@ -75,7 +75,7 @@ namespace DIY.Castle.Web.Controllers
         public IActionResult AddToBasket(int id, int quantity)
         {
             var product = this._productsService.GetProductById(id);
-            var productModel = this._mapper.Map<ProductModel>(product);
+            var productModel = this._productsService.GetProductModel(product);
 
             if (SessionHelper.GetObjectFromJson<List<ProductCartModel>>(HttpContext.Session, "cart") == null)
             {

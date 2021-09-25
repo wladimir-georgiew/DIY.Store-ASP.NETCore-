@@ -3,6 +3,7 @@ using DIY.Castle.Data.Models;
 using DIY.Castle.Web.Areas.Administration.Models;
 using DIY.Castle.Web.Models;
 using System;
+using System.Linq;
 
 namespace DIY.Castle.Web.AutoMapper
 {
@@ -18,7 +19,6 @@ namespace DIY.Castle.Web.AutoMapper
                 .ForMember(x => x.Name, y => y.MapFrom(z => z.Name))
                 .ForMember(x => x.Price, y => y.MapFrom(z => z.Price))
                 .ForMember(x => x.Description, y => y.MapFrom(z => z.Description))
-                .ForMember(x => x.ImageSourcePath, y => y.MapFrom(z => z.ImageSourcePath))
                 .ForMember(x => x.CreatedOn, y => y.MapFrom(z => z.CreatedOn))
                 .ForAllOtherMembers(x => x.Ignore());
 
