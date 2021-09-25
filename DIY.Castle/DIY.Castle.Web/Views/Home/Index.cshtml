@@ -79,7 +79,7 @@
                                         <p>
                                             <button href="#" class="learn-more detailslearn"><i class="fa fa-shopping-cart"></i> Purchase</button>
 
-                                            <a href="#" class="learn-more detailslearn"><i class="fa fa-link"></i> Details</a>
+                                            <a asp- href="@Url.Content($"~/ProductDetails/Product/{product.Id}")" class="learn-more detailslearn"><i class="fa fa-link"></i> Details</a>
                                         </p>
                                     </div>
                                     <span class="maxproduct"><img src="@product.ImagesSourcePaths[0]" alt=""></span>
