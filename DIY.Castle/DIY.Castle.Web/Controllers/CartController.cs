@@ -74,46 +74,54 @@ namespace DIY.Castle.Web.Controllers
         [Route("AddToBasket/{id}/{quantity}")]
         public IActionResult AddToBasket(int id, int quantity)
         {
-            var product = this._productsService.GetProductById(id);
-            var productModel = this._productsService.GetProductModel(product);
-
-            if (SessionHelper.GetObjectFromJson<List<ProductCartModel>>(HttpContext.Session, "cart") == null)
+            try
             {
-                var cart = new List<ProductCartModel>();
+                var product = this._productsService.GetProductById(id);
+                var productModel = this._productsService.GetProductModel(product);
 
-                cart.Add(new ProductCartModel
+                if (SessionHelper.GetObjectFromJson<List<ProductCartModel>>(HttpContext.Session, "cart") == null)
                 {
-                    Product = productModel,
-                    Quantity = quantity
-                });
+                    var cart = new List<ProductCartModel>();
 
-                SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
-            }
-            else
-            {
-                List<ProductCartModel> cart = SessionHelper.GetObjectFromJson<List<ProductCartModel>>(HttpContext.Session, "cart");
-
-                int index = GetItemIndexInCart(id);
-
-                // If the item already exists in the cart
-                if (index != -1)
-                {
-                    cart[index].Quantity++;
-                }
-                // If it doesn't
-                else
-                {
                     cart.Add(new ProductCartModel
                     {
                         Product = productModel,
                         Quantity = quantity
                     });
+
+                    SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
+                }
+                else
+                {
+                    List<ProductCartModel> cart = SessionHelper.GetObjectFromJson<List<ProductCartModel>>(HttpContext.Session, "cart");
+
+                    int index = GetItemIndexInCart(id);
+
+                    // If the item already exists in the cart
+                    if (index != -1)
+                    {
+                        cart[index].Quantity++;
+                    }
+                    // If it doesn't
+                    else
+                    {
+                        cart.Add(new ProductCartModel
+                        {
+                            Product = productModel,
+                            Quantity = quantity
+                        });
+                    }
+
+                    SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
                 }
 
-                SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
+                return this.Ok();
             }
-
-            return RedirectToAction("Index");
+            catch (Exception)
+            {
+                return this.BadRequest();
+            }
+            
         }
 
         [Route("Remove/{id}")]

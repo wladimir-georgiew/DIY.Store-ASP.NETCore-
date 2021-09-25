@@ -49,7 +49,7 @@
                         </td>
                         <td id="cart-subtotal-amount-@item.Product.Id" data-th="Subtotal" class="text-center">@(item.Product.Price * item.Quantity) лв.</td>
                         <td class="actions" data-th="">
-                            <form asp-controller="Cart" asp-action="Remove" asp-route-id="@item.Product.Id" data-ajax="true" data-ajax-success="deleteItem(this)">
+                            <form asp-controller="Cart" asp-action="Remove" asp-route-id="@item.Product.Id" data-ajax="true" data-ajax-success="deleteItem(this, '@item.Product.Name')">
                                 <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
                             </form>
                         </td>
