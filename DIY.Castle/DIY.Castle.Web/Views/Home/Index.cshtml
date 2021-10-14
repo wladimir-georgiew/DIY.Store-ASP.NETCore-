@@ -1,51 +1,51 @@
 ﻿@model IEnumerable<ProductModel>
+@using DIY.Castle.Web.Helpers;
+@using DIY.Castle.Web.Models;
+@using DIY.Castle.Web.Models.ViewModels;
+
 @{
     ViewData["Title"] = "Home Page";
 }
-
 <!DOCTYPE html>
 <html>
 
 <body>
     <!-- STEPS =============================-->
-    <div class="item content">
-        <div class="container toparea">
-            <div class="row text-center">
-                <div class="col-md-4">
-                    <div class="col editContent">
-                        <span class="numberstep"><i class="fa fa-shopping-cart"></i></span>
-                        <h3 class="numbertext">Choose our Products</h3>
-                        <p class="numbertext-description">
-                            Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Nullam quis risus eget urna mollis ornare vel eu leo. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-                        </p>
-                    </div>
-                    <!-- /.col-md-4 -->
+    <div style="background-color:rgba(0, 0, 0, 0.3);border-radius: 35px;">
+        <div class="row text-center">
+            <div class="col-md-4">
+                <div class="col editContent">
+                    <span class="numberstep"><i class="fa fa-shopping-cart"></i></span>
+                    <h3 class="numbertext">Choose our Products</h3>
+                    <p class="numbertext-description">
+                        Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Nullam quis risus eget urna mollis ornare vel eu leo. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
+                    </p>
                 </div>
-                <!-- /.col-md-4 col -->
-                <div class="col-md-4 editContent">
-                    <div class="col">
-                        <span class="numberstep"><i class="fa fa-gift"></i></span>
-                        <h3 class="numbertext">Pay with PayPal or Card</h3>
-                        <p class="numbertext-description">
-                            Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Nullam quis risus eget urna mollis ornare vel eu leo. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-                        </p>
-                    </div>
-                    <!-- /.col -->
+                <!-- /.col-md-4 -->
+            </div>
+            <!-- /.col-md-4 col -->
+            <div class="col-md-4 editContent">
+                <div class="col">
+                    <span class="numberstep"><i class="fa fa-gift"></i></span>
+                    <h3 class="numbertext">Pay with PayPal or Card</h3>
+                    <p class="numbertext-description">
+                        Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Nullam quis risus eget urna mollis ornare vel eu leo. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
+                    </p>
                 </div>
-                <!-- /.col-md-4 col -->
-                <div class="col-md-4 editContent">
-                    <div class="col">
-                        <span class="numberstep"><i class="fa fa-download"></i></span>
-                        <h3 class="numbertext">Get Instand Download</h3>
-                        <p class="numbertext-description">
-                            Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Nullam quis risus eget urna mollis ornare vel eu leo. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-                        </p>
-                    </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.col-md-4 col -->
+            <div class="col-md-4 editContent">
+                <div class="col">
+                    <span class="numberstep"><i class="fa fa-download"></i></span>
+                    <h3 class="numbertext">Get Instand Download</h3>
+                    <p class="numbertext-description">
+                        Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Nullam quis risus eget urna mollis ornare vel eu leo. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
+                    </p>
                 </div>
             </div>
         </div>
     </div>
-
 
     <!-- LATEST ITEMS =============================-->
     <section class="item content">
@@ -106,7 +106,7 @@
     <!-- BUTTON =============================-->
     <div class="item content">
         <div class="container text-center">
-            <a href="shop.html" class="homebrowseitems">
+            <a href="shop.html" style="background-color:#ADDCCA;" class="homebrowseitems">
                 Browse All Products
                 <div class="homebrowseitemsicon">
                     <i class="fa fa-star fa-spin"></i>
@@ -117,7 +117,7 @@
     <br />
 
     <!-- CALL TO ACTION =============================-->
-    <section class="content-block" style="background-color:#B48967;">
+    <section class="content-block" style="background-color:#ADDCCA;">
         <div class="container text-center">
             <div class="row">
                 <div class="col-sm-10 col-sm-offset-1">
@@ -134,29 +134,6 @@
     <!-- SCRIPTS =============================-->
     <script src="~/js/cart.js"></script>
 
-
-    <script>
-        const decata = [{
-            name: "vasil",
-            lastname: "ivanov",
-            age: 10
-        }, {
-            name: "doncho",
-            lastname: "ivanov",
-            age: 28
-        }];
-
-        function checkVasil(data) {
-            return data.age > 1;
-        }
-
-        function myFunction() {
-            let children = decata.filter(checkVasil);
-            console.log(children);
-        }
-
-        myFunction();
-    </script>
 
 </body>
 </html>
