@@ -57,10 +57,18 @@ async function autocomplete(inp, arr) {
         /*append the DIV element as a child of the autocomplete container:*/
         this.parentNode.appendChild(a);
         /*for each item in the array...*/
+        var resultsFound = 0;
         for (i = 0; i < arr.length; i++) {
+            if (resultsFound >= 10) {
+                 break;
+            }
+            if (arr[i].name === "Тест") {
+                continue;
+            }
             /*check if the item starts with the same letters as the text field value:*/
             if (arr[i].name.substr(0, val.length).toUpperCase() == val.toUpperCase()
-              || arr[i].nameEn.substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                || arr[i].nameEn.substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                resultsFound++;
                 /*create a DIV element for each matching element:*/
                 b = document.createElement("DIV");
                 /*make the matching letters bold:*/

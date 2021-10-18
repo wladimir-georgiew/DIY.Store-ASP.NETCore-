@@ -15,6 +15,11 @@ namespace DIY.Castle.Web.Controllers
             this.emailSender = emailSender;
         }
 
+        public IActionResult Index()
+        {
+            return this.View();
+        }
+
         [HttpPost]
         public async Task<IActionResult> SendOrderSummaryEmailAsync(CreateOrderInputModel model)
         {

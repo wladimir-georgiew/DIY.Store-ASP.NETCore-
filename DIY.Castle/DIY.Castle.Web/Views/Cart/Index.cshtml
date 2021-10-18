@@ -63,7 +63,7 @@
             <tr>
                 <td colspan="3" class="hidden-xs"></td>
                 <td id="cart-total-amount-foot" class="hidden-xs text-center"><strong>@Model.TotalPrice.ToString("0.00")лв.</strong></td>
-                <td><a href="#" class="btn btn-success btn-block">Checkout</a></td>
+                <td><a asp-action="Index" asp-controller="CheckoutPage" class="btn btn-success btn-block">Checkout</a></td>
             </tr>
         </tfoot>
     </table>
