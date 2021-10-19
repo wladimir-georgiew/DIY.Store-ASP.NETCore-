@@ -24,6 +24,19 @@
                         </div>
                     </div>
                 </div>
+                     <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="@Model.ProductType" class="control-label">Тип</label>
+                            <select asp-for="@Model.ProductType">
+                                @foreach(string prodType in Enum.GetNames(typeof(ProductTypeEnum)))
+                                {
+                                    <option value="@prodType">@prodType</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">

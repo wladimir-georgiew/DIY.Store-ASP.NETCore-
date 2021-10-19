@@ -41,6 +41,7 @@ namespace DIY.Castle.Web.Areas.Administration.Controllers
             }
 
             var product = this._mapper.Map<ProductsRequestModel, Product>(model);
+            product.ProductType = model.ProductType;
 
             var productImgSourcePaths = string.Empty;
 

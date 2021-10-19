@@ -1,4 +1,5 @@
 ﻿using DIY.Castle.Common.Attributes;
+using DIY.Castle.Web.Models;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,9 @@ namespace DIY.Castle.Web.Areas.Administration.Models
         [Required(ErrorMessage = "Price is required")]
         [Range(0.1, 10000.00, ErrorMessage = "Price should be between 0.10 and 10000.00")]
         public double Price { get; set; }
+
+        [Required]
+        public string ProductType { get; set; }
 
         [Required(ErrorMessage = "Description is required")]
         [MaxLength(300, ErrorMessage = "Description max length is 300 characters")]

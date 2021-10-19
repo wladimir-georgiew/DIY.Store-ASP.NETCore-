@@ -1,26 +1,25 @@
 ﻿@using GlobalConstants
 
-<style>/*
-    @@font-face {
-        font-family: Yarin;
-        src: url('~/wwwroot/fonts/Yarin-Regular.ttf') format("truetype");
+<style>
+    .dropdown-item {
+        font-weight: 900 !important;
+        font-size: 18px;
     }
-   /* @@import url('Yarin-Regular.ttf');*/
 
     .nav-item {
         font-family: Yarin;
         letter-spacing: 3px;
-        font-weight:900;
+        font-weight: 900;
     }
 
     .navbar {
         background-color: #FAF8F0 !important;
     }
 
-    .site_logo{
-        max-width:100px;
-        max-height:80px;
-        padding-top:10px;
+    .site_logo {
+        max-width: 100px;
+        max-height: 80px;
+        padding-top: 10px;
     }
 </style>
 
@@ -31,12 +30,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content="">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/fonts.css"/>
+    <link rel="stylesheet" href="~/css/fonts.css" />
     <link rel="stylesheet" href="~/css/style.css">
     <link href="/Toastr/toastr.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Dosis:200,300,400,500,600,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto:200,300,400,500,600,700" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -44,7 +44,7 @@
         <div class="wrapper">
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
                 <div class="container">
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img class="site_logo" src="~/images/logo/logo_akindo_png.png"/></a>
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img class="site_logo" src="~/images/logo/logo_akindo_png.png" /></a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -64,6 +64,24 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index">Cart</a>
                             </li>
+
+                            <li style="cursor:pointer;" class="nav-item dropdown">
+                                <a role="button" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                    Продукти
+                                </a>
+                                <div class="dropdown-menu">
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#"> ВСИЧКИ</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">КАРТИНИ</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">РАЗДЕЛИТЕЛИ</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">ИКОНИ</a>
+                                    <div class="dropdown-divider"></div>
+                                </div>
+                            </li>
+
                         </ul>
                     </div>
                 </div>
@@ -77,27 +95,27 @@
         </main>
     </div>
 
-@*    <!-- FOOTER =============================-->
-    <div id="footer-bottom" class="footer text-center">
+    @*    <!-- FOOTER =============================-->
+        <div id="footer-bottom" class="footer text-center">
         <div class="container">
-            <div class="row">
-                <p class="footernote">
-                    Connect with Scorilo
-                </p>
-                <ul class="social-iconsfooter">
-                    <li><a href="#"><i class="fa fa-phone"></i></a></li>
-                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                    <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                </ul>
-                <p>
-                    &copy; 2017 Your Website Name<br />
-                    Scorilo - Free template by <a href="https://www.wowthemes.net/">WowThemesNet</a>
-                </p>
-            </div>
+        <div class="row">
+        <p class="footernote">
+        Connect with Scorilo
+        </p>
+        <ul class="social-iconsfooter">
+        <li><a href="#"><i class="fa fa-phone"></i></a></li>
+        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+        <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+        </ul>
+        <p>
+        &copy; 2017 Your Website Name<br />
+        Scorilo - Free template by <a href="https://www.wowthemes.net/">WowThemesNet</a>
+        </p>
         </div>
-    </div>*@
+        </div>
+        </div>*@
 
     <!-- SCRIPTS =============================-->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
