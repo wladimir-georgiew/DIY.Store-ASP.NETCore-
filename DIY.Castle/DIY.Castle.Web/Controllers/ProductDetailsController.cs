@@ -12,6 +12,7 @@ namespace DIY.Castle.Web.Controllers
             this.productsService = productsService;
         }
 
+        [Route("Product/{id}")]
         public IActionResult Product(int id)
         {
             var product = this.productsService.GetProductById(id);
