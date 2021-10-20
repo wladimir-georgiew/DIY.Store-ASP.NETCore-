@@ -7,6 +7,12 @@
   <ItemGroup>
     <Compile Remove="Migrations\20210814142023_AddProductsTable.cs" />
     <Compile Remove="Migrations\20210814142023_AddProductsTable.Designer.cs" />
+    <Compile Remove="Migrations\20211020165436_Test.cs" />
+    <Compile Remove="Migrations\20211020165436_Test.Designer.cs" />
+    <Compile Remove="Migrations\20211020165932_FixMigrations.cs" />
+    <Compile Remove="Migrations\20211020165932_FixMigrations.Designer.cs" />
+    <Compile Remove="Migrations\bak\20211020171213_initial.cs" />
+    <Compile Remove="Migrations\bak\20211020171213_initial.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

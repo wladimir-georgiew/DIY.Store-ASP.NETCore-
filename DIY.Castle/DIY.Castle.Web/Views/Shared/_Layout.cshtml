@@ -1,43 +1,50 @@
 ﻿@using GlobalConstants
-@{
-    var showBigHeroBanner = false;
-    var showSmallHeroBanner = false;
 
-    if (this.ViewData["showBigHeroBanner"] != null)
-    {
-        showBigHeroBanner = (bool)this.ViewData["showBigHeroBanner"];
-    }
-    if (this.ViewData["showSmallHeroBanner"] != null)
-    {
-        showSmallHeroBanner = (bool)this.ViewData["showSmallHeroBanner"];
+<style>
+    .dropdown-item {
+        font-weight: 900 !important;
+        font-size: 18px;
     }
 
-    var titleText = this.ViewData["titleText"];
-    var descriptionText = this.ViewData["descriptionText"];
-}
+    .nav-item {
+        font-family: Yarin;
+        letter-spacing: 3px;
+        font-weight: 900;
+    }
+
+    .navbar {
+        background-color: #FAF8F0 !important;
+    }
+
+    .site_logo {
+        max-width: 100px;
+        max-height: 80px;
+        padding-top: 10px;
+    }
+</style>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content="">
-    <title>@ViewData["Title"] - DIY.Castle.Web</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    @*<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">*@
-
+    <link rel="stylesheet" href="~/css/fonts.css" />
     <link rel="stylesheet" href="~/css/style.css">
+    <link href="/Toastr/toastr.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Dosis:200,300,400,500,600,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto:200,300,400,500,600,700" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
-    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>*@
+
 </head>
 
 <body>
     <header class="item header margin-top-0">
         <div class="wrapper">
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
                 <div class="container">
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">DIY.Castle.Web</a>
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img class="site_logo" src="~/images/logo/logo_akindo_png.png" /></a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -57,41 +64,32 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index">Cart</a>
                             </li>
+
+                            <li style="cursor:pointer;" class="nav-item dropdown">
+                                <a role="button" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                                    Продукти
+                                </a>
+                                <div class="dropdown-menu">
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" asp-controller="Catalog" asp-action="Index">ВСИЧКИ ПРОДУКТИ</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">СТИКЕРИ</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">РАЗДЕЛИТЕЛИ</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">СВЕЩИ</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">КАРТИЧКИ</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">ИКОНИ</a>
+                                    <div class="dropdown-divider"></div>
+                                </div>
+                            </li>
+
                         </ul>
                     </div>
                 </div>
             </nav>
-            @if (showBigHeroBanner)
-            {
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12 text-center">
-                            <div class="text-homeimage">
-                                <div class="maintext-image" data-scrollreveal="enter top over 1.5s after 0.1s">
-                                    @titleText
-                                </div>
-                                <div class="subtext-image" data-scrollreveal="enter bottom over 1.7s after 0.3s">
-                                    @descriptionText
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            }
-            else if (showSmallHeroBanner)
-            {
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12 text-center">
-                            <div class="text-pageheader">
-                                <div class="subtext-image" data-scrollreveal="enter bottom over 1.7s after 0.0s">
-                                    @titleText
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            }
         </div>
     </header>
 
@@ -101,33 +99,35 @@
         </main>
     </div>
 
-    <!-- FOOTER =============================-->
-    <div id="footer-bottom" class="footer text-center">
+    @*    <!-- FOOTER =============================-->
+        <div id="footer-bottom" class="footer text-center">
         <div class="container">
-            <div class="row">
-                <p class="footernote">
-                    Connect with Scorilo
-                </p>
-                <ul class="social-iconsfooter">
-                    <li><a href="#"><i class="fa fa-phone"></i></a></li>
-                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                    <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                </ul>
-                <p>
-                    &copy; 2017 Your Website Name<br />
-                    Scorilo - Free template by <a href="https://www.wowthemes.net/">WowThemesNet</a>
-                </p>
-            </div>
+        <div class="row">
+        <p class="footernote">
+        Connect with Scorilo
+        </p>
+        <ul class="social-iconsfooter">
+        <li><a href="#"><i class="fa fa-phone"></i></a></li>
+        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+        <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+        </ul>
+        <p>
+        &copy; 2017 Your Website Name<br />
+        Scorilo - Free template by <a href="https://www.wowthemes.net/">WowThemesNet</a>
+        </p>
         </div>
-    </div>
+        </div>
+        </div>*@
 
     <!-- SCRIPTS =============================-->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/jquery.unobtrusive-ajax.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="/Toastr/toastr.min.js"></script>
+    <script src="~/js/cart.js"></script>
 
     <script>
         //----HOVER CAPTION---//

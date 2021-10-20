@@ -1,5 +1,10 @@
-﻿function deleteItem(form) {
+﻿function itemAddedNotification(itemName) {
+    toastr.success(`Добавихте ${itemName} в кошницата`);
+}
+
+function deleteItem(form, itemName) {
     $(form).parentsUntil("tbody").remove();
+    toastr.error(`Премахнахте ${itemName} от кошницата`);
 
     updateTotalPrice();
 }

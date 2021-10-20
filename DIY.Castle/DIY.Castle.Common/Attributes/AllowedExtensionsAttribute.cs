@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
@@ -16,18 +17,21 @@ namespace DIY.Castle.Common.Attributes
 
         public string GetErrorMessage()
         {
-            return $"This photo extension is not allowed!";
+            return $"The provided photo/s extension is not supported!";
         }
 
         protected override ValidationResult IsValid(
             object value, ValidationContext validationContext)
         {
-            if (value is IFormFile file)
+            if (value is List<IFormFile> files)
             {
-                var extension = Path.GetExtension(file.FileName);
-                if (!this.extensions.Contains(extension.ToLower()))
+                foreach (var item in files)
                 {
-                    return new ValidationResult(this.GetErrorMessage());
+                    var extension = Path.GetExtension(item.FileName);
+                    if (!this.extensions.Contains(extension.ToLower()))
+                    {
+                        return new ValidationResult(this.GetErrorMessage());
+                    }
                 }
             }
 

@@ -15,6 +15,10 @@ namespace DIY.Castle.Data.Models
         [Required]
         public string Name { get; set; }
 
+        [MaxLength(25)]
+        [Required]
+        public int ProductType { get; set; }
+
         [Range(0.00, 100000.00)]
         [Column(TypeName = "decimal(8,2)")]
         [Required]

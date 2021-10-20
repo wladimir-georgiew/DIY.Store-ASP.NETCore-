@@ -24,9 +24,9 @@
                     <tr>
                         <td data-th="Product">
                             <div class="row">
-                                <div class="col-sm-4 hidden-lg"><img src="@item.Product.ImageSourcePath" alt="..." class="img-responsive" /></div>
+                                <div class="col-sm-4 hidden-lg"><img src="@item.Product.ImagesSourcePaths[0]" alt="..." class="img-responsive" /></div>
                                 <div class="col-sm-8">
-                                    <h4 class="nomargin">@item.Product.Name</h4>
+                                    <a asp-controller="ProductDetails" asp-action="Product" asp-route-id="@item.Product.Id"><h4 class="nomargin">@item.Product.Name</h4></a>
                                     <p>
                                         @(item.Product.Description.Length > 105
                                             ? (item.Product.Description.Substring(0, 105) + "...")
@@ -49,7 +49,7 @@
                         </td>
                         <td id="cart-subtotal-amount-@item.Product.Id" data-th="Subtotal" class="text-center">@(item.Product.Price * item.Quantity) лв.</td>
                         <td class="actions" data-th="">
-                            <form asp-controller="Cart" asp-action="Remove" asp-route-id="@item.Product.Id" data-ajax="true" data-ajax-success="deleteItem(this)">
+                            <form asp-controller="Cart" asp-action="Remove" asp-route-id="@item.Product.Id" data-ajax="true" data-ajax-success="deleteItem(this, '@item.Product.Name')">
                                 <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
                             </form>
                         </td>
@@ -63,7 +63,7 @@
             <tr>
                 <td colspan="3" class="hidden-xs"></td>
                 <td id="cart-total-amount-foot" class="hidden-xs text-center"><strong>@Model.TotalPrice.ToString("0.00")лв.</strong></td>
-                <td><a href="#" class="btn btn-success btn-block">Checkout</a></td>
+                <td><a asp-action="Index" asp-controller="CheckoutPage" class="btn btn-success btn-block">Checkout</a></td>
             </tr>
         </tfoot>
     </table>

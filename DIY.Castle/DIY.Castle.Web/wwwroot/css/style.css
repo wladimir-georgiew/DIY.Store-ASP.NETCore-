@@ -7,7 +7,7 @@ body {
     font-weight: 300;
     font-size: 16px;
     line-height: 1.7;
-      background-color: ghostwhite;
+      background-color: #AEBE89;
 }
 
 .cart-img{
@@ -84,17 +84,6 @@ header .navbar-white {
     box-shadow: 0px 3px 2px 0px rgba(50,50,50,0.1);
 }
 
-.item.header {
-    background-image: url(../images/stock/hero-background-5.jpg);
-    background-repeat: no-repeat;
-    background-position: 0% top;
-    background-size: cover;
-    background-attachment: scroll;
-    background-color: rgba(0,0,0,0);
-    -webkit-mask-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
-    mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
-    /*  background: linear-gradient(3deg, rgba(2,0,36,0) 0%, rgba(0,0,0,1) 100%);*/
-}
 
 .navbar-nav, .navbar > .container .navbar-brand {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -152,7 +141,8 @@ header .navbar-white {
 }
 
 .numberstep {
-    background-color: #B48967;
+    padding-top: 15px;
+    background-color: #DAE3BB;
     border-radius: 50%;
     color: #fff;
     margin-right: 4px;
@@ -273,6 +263,7 @@ img {
 .productbox {
     height: 350px;
     background: rgba(0, 0, 0, 0.3);
+  /*  background-color: #DAE3BB;*/
     padding: 13px;
     border-radius: 13px;
     margin-bottom: 30px;

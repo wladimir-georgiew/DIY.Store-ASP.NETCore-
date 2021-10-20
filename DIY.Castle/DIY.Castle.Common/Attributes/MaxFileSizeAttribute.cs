@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace DIY.Castle.Common.Attributes
@@ -20,11 +21,14 @@ namespace DIY.Castle.Common.Attributes
         protected override ValidationResult IsValid(
             object value, ValidationContext validationContext)
         {
-            if (value is IFormFile file)
+            if (value is List<IFormFile> files)
             {
-                if (file.Length > this.maxFileSize)
+                foreach (var item in files)
                 {
-                    return new ValidationResult(this.GetErrorMessage());
+                    if (item.Length > this.maxFileSize)
+                    {
+                        return new ValidationResult(this.GetErrorMessage());
+                    }
                 }
             }
 

@@ -1,49 +1,76 @@
 ﻿@using DIY.Castle.Web.Areas.Administration.Models
 @model ProductsRequestModel
 
-<div class="col-md-10 mx-auto py-4">
+@{
+    var enumValues = Enum.GetValues(typeof(ProductTypeEnum));
+}
+
+<style>
+    .validation_summary ul {
+        list-style-type: none;
+        font-family:Verdana;
+    }
+</style>
+
+<div class="col-sm-5 mx-auto py-4">
     <div class="card">
         <div style="background-color:green" class="card-header text-uppercase text-white">
-            <h4>Create Menu Item</h4>
+            <h4>Създаване на продукт</h4>
         </div>
         <div class="card-body">
             <form enctype="multipart/form-data" asp-action="Create" method="post">
-                <div style="text-align:left;" asp-validation-summary="All" class="text-danger"></div>
+                <div class="validation_summary text-danger" style="text-align:left;list-style:none;" asp-validation-summary="All"></div>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="form-group">
-                            <label asp-for="@Model.Name" class="control-label"></label>
+                            <label asp-for="@Model.Name" class="control-label">Име</label>
                             <input asp-for="@Model.Name" class="form-control" />
                         </div>
                     </div>
-                    <div class="clearfix"></div>
-                    <div class="col-md-6">
+                </div>
+                     <div class="row">
+                    <div class="col-md-12">
                         <div class="form-group">
-                            <label asp-for="@Model.Description" class="control-label"></label>
-                            <textarea style="height:150px;resize:none;" asp-for="@Model.Description" class="form-control"> </textarea>
+                            <label asp-for="@Model.ProductType" class="control-label">Тип</label>
+                            <select asp-for="@Model.ProductType">
+                                @foreach (int enumValue in enumValues)
+                                {
+                                     <option value="@enumValue">@Enum.GetName(typeof(ProductTypeEnum), enumValue)</option>
+                                }
+                            </select>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
                         <div class="form-group">
-                            <label asp-for="@Model.Price" class="control-label"></label>
+                            <label asp-for="@Model.Description" class="control-label">Описание</label>
+                            <textarea style="height:150px;" asp-for="@Model.Description" class="form-control"> </textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="@Model.Price" class="control-label">Цена</label>
                             <input type="number" min="0.00" max="10000.00" step="1.00" asp-for="@Model.Price" class="form-control" />
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="form-group">
-                            <label asp-for="@Model.Image" class="control-label"></label>
+                            <label asp-for="@Model.Images" class="control-label">Снимки</label>
                             <div class="custom-file">
-                                <input asp-for="@Model.Image" class="custom-file-input" id="customFile">
-                                <label class="custom-file-label" for="customFile">Choose file</label>
+                                <input asp-for="@Model.Images" class="custom-file-input" id="customFile">
+                                <label class="custom-file-label" for="customFile">Избери снимки</label>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <a style="color: white" type="button" asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-lg btn-danger rounded-0 text-uppercase">cancel</a>
-                    <input type="submit" value="submit" class="btn btn-lg btn-primary rounded-0 text-uppercase" />
+                <div style="display:flex; justify-content:space-between;" class="form-group">
+                    <a style="color: white" type="button" asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-lg btn-danger rounded-0 text-uppercase">откажи</a>
+                    <input type="submit" value="създай" class="btn btn-lg btn-primary rounded-0 text-uppercase" />
                 </div>
             </form>
         </div>
@@ -54,6 +81,9 @@
         // Add the following code if you want the name of the file appear on select
         $(".custom-file-input").on("change", function () {
             var fileName = $(this).val().split("\\").pop();
+            if (fileName.length > 32) {
+                fileName = fileName.substring(0, 32) + "...";
+            }
             $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
         });
     </script>
