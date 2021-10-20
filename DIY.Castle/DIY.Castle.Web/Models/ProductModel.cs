@@ -8,7 +8,7 @@ namespace DIY.Castle.Web.Models
 
         public string Name { get; set; }
 
-        public string ProductType { get; set; }
+        public int ProductType { get; set; }
 
         public decimal Price { get; set; }
 
@@ -17,5 +17,7 @@ namespace DIY.Castle.Web.Models
         public List<string> ImagesSourcePaths { get; set; }
 
         public string CreatedOn { get; set; }
+
+        public bool IsNewProduct { get; set; } = false;
     }
 }

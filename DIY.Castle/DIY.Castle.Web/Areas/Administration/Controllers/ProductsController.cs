@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DIY.Castle.Data.Models;
 using DIY.Castle.Web.Areas.Administration.Models;
+using DIY.Castle.Web.Models;
 using DIY.Castle.Web.Services.ProductsService;
 using DIY.Castle.Web.Services.UploadFileService;
 using GlobalConstants;

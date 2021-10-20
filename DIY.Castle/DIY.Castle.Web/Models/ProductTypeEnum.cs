@@ -3,8 +3,10 @@
     public enum ProductTypeEnum
     {
         Unknown = 0,
-        Icon = 1,
-        BookSeparator = 2,
-        Candle = 3
+        Стикер = 1,
+        Разделител = 2,
+        Свещ = 3,
+        Картичка = 4,
+        Икона = 5,
     }
 }

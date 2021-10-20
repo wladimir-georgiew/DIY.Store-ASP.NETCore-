@@ -17,12 +17,13 @@ namespace DIY.Castle.Web.Areas.Administration.Models
         public double Price { get; set; }
 
         [Required]
-        public string ProductType { get; set; }
+        public int ProductType { get; set; }
 
         [Required(ErrorMessage = "Description is required")]
         [MaxLength(300, ErrorMessage = "Description max length is 300 characters")]
         public string Description { get; set; }
 
+        [Required(ErrorMessage = "Image is required")]
         [Display(Name = "Icon Image")]
         [DataType(DataType.Upload)]
         [AllowedExtensions(new[] { ".jpg", ".png" })]

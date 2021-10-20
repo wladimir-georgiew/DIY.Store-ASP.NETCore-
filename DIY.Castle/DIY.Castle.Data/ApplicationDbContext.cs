@@ -50,7 +50,7 @@ namespace DIY.Castle.Web.Data
                 Id = 1,
                 Price = 0.80M,
                 Name = "Book",
-                ProductType = "Icon",
+                ProductType = 1,
                 Description = "This is just a sample product with short description.",
                 CreatedOn = DateTime.UtcNow,
                 ImageSourcePath = "/images/stock/book1.jpg"
@@ -61,7 +61,7 @@ namespace DIY.Castle.Web.Data
                 Id = 2,
                 Price = 0.05M,
                 Name = "Book2",
-                ProductType = "BookSeparator",
+                ProductType = 2,
                 Description = "This is just a sample product with a medium description length.Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                 CreatedOn = DateTime.UtcNow,
                 ImageSourcePath = "/images/stock/book2.jpg"
@@ -72,7 +72,7 @@ namespace DIY.Castle.Web.Data
                 Id = 3,
                 Price = 150.00M,
                 Name = "Book3",
-                ProductType = "Candle",
+                ProductType = 3,
                 Description = "This is just a sample product with long description for testing the front-end.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
                 CreatedOn = DateTime.UtcNow,
                 ImageSourcePath = "/images/stock/book3.jpg"

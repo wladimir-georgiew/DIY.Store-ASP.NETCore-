@@ -18,9 +18,9 @@ async function postData(url = '', data = {}) {
 };
 
 function getCitiesPromise() {
-    let getOfficesUrl = 'https://ee.econt.com/services/Nomenclatures/NomenclaturesService.getCities.json';
+    let getCitiesUrl = 'https://ee.econt.com/services/Nomenclatures/NomenclaturesService.getCities.json';
 
-    return postData(getOfficesUrl, {
+    return postData(getCitiesUrl, {
         "countryCode": "BGR"
     })
         .then(data => {
