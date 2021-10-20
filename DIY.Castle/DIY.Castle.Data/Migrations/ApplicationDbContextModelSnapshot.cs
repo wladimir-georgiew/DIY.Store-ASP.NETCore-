@@ -86,17 +86,17 @@ namespace DIY.Castle.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "00000000-0000-0000-0000-000000000000",
+                            Id = "000AFADMIN000",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1ec85362-91e3-4731-a8a8-19a91317cb33",
+                            ConcurrencyStamp = "01b78104-8035-4148-b297-b7d4f8bca4ae",
                             Email = "admin@abv.bg",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ABV.BG",
                             NormalizedUserName = "ADMIN@ABV.BG",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOh5PxbU8SWPAecAq8iJ6MZifbD0xkQ6l5KPrhQW+J6W1XNMt1zJFtcPSkrSm1VjqA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHjA1NpLn7fqIQpY37R9iIAcihXCHKLSNufEGlufIrtf4ZYod4Dd30zfHFOJBRg04w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3db11b57-c9e5-45c1-bbbb-77405095c342",
+                            SecurityStamp = "000AFSECURITYSTAMP000",
                             TwoFactorEnabled = false,
                             UserName = "admin@abv.bg"
                         });
@@ -140,41 +140,6 @@ namespace DIY.Castle.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Products");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedOn = new DateTime(2021, 10, 20, 13, 22, 1, 271, DateTimeKind.Utc).AddTicks(2778),
-                            Description = "This is just a sample product with short description.",
-                            ImageSourcePath = "/images/stock/book1.jpg",
-                            IsDeleted = false,
-                            Name = "Book",
-                            Price = 0.80m,
-                            ProductType = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedOn = new DateTime(2021, 10, 20, 13, 22, 1, 271, DateTimeKind.Utc).AddTicks(3323),
-                            Description = "This is just a sample product with a medium description length.Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                            ImageSourcePath = "/images/stock/book2.jpg",
-                            IsDeleted = false,
-                            Name = "Book2",
-                            Price = 0.05m,
-                            ProductType = 2
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatedOn = new DateTime(2021, 10, 20, 13, 22, 1, 271, DateTimeKind.Utc).AddTicks(3354),
-                            Description = "This is just a sample product with long description for testing the front-end.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
-                            ImageSourcePath = "/images/stock/book3.jpg",
-                            IsDeleted = false,
-                            Name = "Book3",
-                            Price = 150.00m,
-                            ProductType = 3
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -207,14 +172,14 @@ namespace DIY.Castle.Data.Migrations
                         new
                         {
                             Id = "1",
-                            ConcurrencyStamp = "b131d82a-925a-4dd4-97a7-d6959361eec7",
+                            ConcurrencyStamp = "c5114163-7be1-494f-a388-f0d20ec9a810",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
                             Id = "0",
-                            ConcurrencyStamp = "257bf36c-25eb-4e76-8a7e-b0e2bfdf77d3",
+                            ConcurrencyStamp = "300159a1-bb40-4056-b283-cac4bfd03c5d",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -309,7 +274,7 @@ namespace DIY.Castle.Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "00000000-0000-0000-0000-000000000000",
+                            UserId = "000AFADMIN000",
                             RoleId = "0"
                         });
                 });
