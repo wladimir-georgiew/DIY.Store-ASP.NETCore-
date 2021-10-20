@@ -26,7 +26,7 @@
                             <div class="row">
                                 <div class="col-sm-4 hidden-lg"><img src="@item.Product.ImagesSourcePaths[0]" alt="..." class="img-responsive" /></div>
                                 <div class="col-sm-8">
-                                    <h4 class="nomargin">@item.Product.Name</h4>
+                                    <a asp-controller="ProductDetails" asp-action="Product" asp-route-id="@item.Product.Id"><h4 class="nomargin">@item.Product.Name</h4></a>
                                     <p>
                                         @(item.Product.Description.Length > 105
                                             ? (item.Product.Description.Substring(0, 105) + "...")
