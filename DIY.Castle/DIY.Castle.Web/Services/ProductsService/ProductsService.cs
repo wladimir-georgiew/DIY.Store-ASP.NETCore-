@@ -42,7 +42,7 @@ namespace DIY.Castle.Web.Services.ProductsService
         {
             var productModel = this._mapper.Map<ProductModel>(product);
             productModel.ImagesSourcePaths = this.GetProductImagesSrcPaths(product.Id);
-            productModel.ProductType = product.ProductType;
+            productModel.ProductType = Enum.GetName(typeof(ProductTypeEnum), product.ProductType);
             productModel.IsNewProduct = DateTime.UtcNow.Subtract(product.CreatedOn).TotalDays <= 7;
 
             return productModel;
