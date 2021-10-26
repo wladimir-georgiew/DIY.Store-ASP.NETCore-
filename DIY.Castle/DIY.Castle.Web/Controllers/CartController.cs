@@ -1,12 +1,14 @@
 ﻿using AutoMapper;
 using DIY.Castle.Web.Helpers;
 using DIY.Castle.Web.Models;
+using DIY.Castle.Web.Models.Response;
 using DIY.Castle.Web.Models.ViewModels;
 using DIY.Castle.Web.Services.ProductsService;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace DIY.Castle.Web.Controllers
 {
@@ -78,6 +80,9 @@ namespace DIY.Castle.Web.Controllers
             {
                 var product = this._productsService.GetProductById(id);
                 var productModel = this._productsService.GetProductModel(product);
+                bool itemAlreadyExists = false;
+                decimal totalPrice = 0.00M;
+                int updatedQuantity = 0;
 
                 if (SessionHelper.GetObjectFromJson<List<ProductCartModel>>(HttpContext.Session, "cart") == null)
                 {
@@ -90,6 +95,9 @@ namespace DIY.Castle.Web.Controllers
                     });
 
                     SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
+
+                    totalPrice = productModel.Price;
+                    updatedQuantity = quantity;
                 }
                 else
                 {
@@ -101,6 +109,9 @@ namespace DIY.Castle.Web.Controllers
                     if (index != -1)
                     {
                         cart[index].Quantity++;
+                        itemAlreadyExists = true;
+
+                        updatedQuantity = cart[index].Quantity;
                     }
                     // If it doesn't
                     else
@@ -110,18 +121,32 @@ namespace DIY.Castle.Web.Controllers
                             Product = productModel,
                             Quantity = quantity
                         });
+
+                        updatedQuantity = quantity;
                     }
 
                     SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
+
+
+                    totalPrice = cart == null
+                        ? Math.Round(0.00M, 2)
+                        : Math.Round(cart.Sum(p => p.Product.Price * p.Quantity), 2);
                 }
 
-                return this.Ok();
+                var response = new CartUpdateResponseModel()
+                {
+                    ItemAlreadyExists = itemAlreadyExists,
+                    UpdatedPrice = totalPrice.ToString("0.00"),
+                    UpdatedQuantity = updatedQuantity,
+                };
+
+                return this.Ok(Json(response));
             }
             catch (Exception)
             {
                 return this.BadRequest();
             }
-            
+
         }
 
         [Route("Remove/{id}")]

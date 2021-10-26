@@ -1,6 +1,6 @@
 ﻿@using GlobalConstants
-@{ 
-  
+@{
+
 }
 <style>
     .dropdown-item {
@@ -51,6 +51,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:200,300,400,500,600,700" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 </head>
 
 <body>
@@ -77,6 +78,14 @@
                             }
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index">Cart</a>
+                            </li>
+                            <li class="nav-item">
+                                @*<partial name="/Views/Cart/_cart.cshtml"></partial>*@
+
+                                <div id="side-cart">
+                                    <partial name="/Views/Cart/_cart.cshtml"></partial>
+                                </div>
+
                             </li>
 
                             <li style="cursor:pointer;" class="nav-item dropdown">
@@ -108,9 +117,7 @@
     </header>
 
     <div class="container">
-        <main role="main" class="pb-3">
             @RenderBody()
-        </main>
     </div>
 
     @*    <!-- FOOTER =============================-->
@@ -142,19 +149,24 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="/Toastr/toastr.min.js"></script>
     <script src="~/js/cart.js"></script>
+    
+    <script src="/side-shopping-cart/js/main.js"></script> <!-- Gem jQuery -->
+
 
     <script>
-        //----HOVER CAPTION---//
-        jQuery(document).ready(function ($) {
-            $('.fadeshop').hover(
-                function () {
-                    $(this).find('.captionshop').fadeIn(150);
-                },
-                function () {
-                    $(this).find('.captionshop').fadeOut(150);
-                }
-            );
-        });
+                    //----HOVER CAPTION---//
+                    jQuery(document).ready(function ($) {
+                        $('.fadeshop').hover(
+                            function () {
+                                $(this).find('.captionshop').fadeIn(150);
+                            },
+                            function () {
+                                $(this).find('.captionshop').fadeOut(150);
+                            }
+                        );
+                    });
+
+                    
     </script>
     @RenderSection("Scripts", required: false)
 </body>
