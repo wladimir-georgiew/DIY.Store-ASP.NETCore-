@@ -1,4 +1,7 @@
-﻿function itemAddedNotification(itemName) {
+﻿// Variables
+var cartItemsCountSpan = document.getElementById('cart-items-count');
+
+function itemAddedNotification(itemName) {
     toastr.success(`Добавихте ${itemName} в кошницата`);
 }
 
@@ -11,12 +14,17 @@ function AddToBasket(id, quantity, name, price) {
             return response.value;
         })
         .then((data) => {
-            console.log(data);
+            // Update the cart total products quantity
+            cartItemsCountSpan.innerHTML = data.updatedTotalQuantity;
+            cartItemsCountSpan.removeAttribute('hidden');
             // If item doesn't already exist => add new item
             if (data.itemAlreadyExists === false) {
                 var itemsContainer = document.getElementById('cart-items');
                 var li = document.createElement('li');
                 li.setAttribute('id', `item-id-${id}`)
+                var img = document.createElement('img');
+                img.classList.add('cart-product-img');
+                img.src = data.imageSource;
                 var spanQty = document.createElement('span');
                 spanQty.classList.add('cd-qty');
                 spanQty.innerHTML = `${data.updatedQuantity}X `;
@@ -32,31 +40,37 @@ function AddToBasket(id, quantity, name, price) {
                 a.setAttribute('data-ajax-success', `deleteItem(this, '${name}')`);
                 a.innerHTML = "Премахни";
 
+                li.appendChild(img);
                 li.appendChild(spanQty);
                 li.appendChild(spanName);
                 li.appendChild(div);
                 li.appendChild(a);
 
                 itemsContainer.appendChild(li);
+
+                // HTML
+                //<li>
+                //    <img class="cart-product-img" src="@item.Product.ImagesSourcePaths[0]">
+                //    <span class="cd-qty">@(item.Quantity)X</span> @item.Product.Name
+                //    <div class="cd-price">@item.Product.Price</div>
+                //    <a asp-controller="Cart" asp-action="Remove" asp-route-id="@item.Product.Id" data-ajax="true" data-ajax-success="deleteItem(this, '@item.Product.Name')"
+                //    id = "remove-item-@item.Product.Id" class="cd-item-remove cd-img-replace" > Премахни</a >
+                //</li>
             }
             // if it does => increase quantity
             else {
-                console.log('elese');
                 var spanQty = document.querySelector(`#item-id-${id} > span.cd-qty`);
                 spanQty.innerHTML = `${data.updatedQuantity}X `;
             }
-           
+
             return data;
-            //<li>
-            //    <span class="cd-qty">@(item.Quantity)X</span> @item.Product.Name
-            //    <div class="cd-price">@item.Product.Price</div>
-            //    <a asp-controller="Cart" asp-action="Remove" asp-route-id="@item.Product.Id" data-ajax="true" data-ajax-success="deleteItem(this, '@item.Product.Name')"
-            //    id = "remove-item-@item.Product.Id" class="cd-item-remove cd-img-replace" > Премахни</a >
-            //</li>
         })
         .then(data => {
             document.getElementById("total-price").innerHTML = `${data.updatedPrice} лв.`;
+
+            return data;
         })
+        /*.then(updateCartTotalItemQuantity(data.updatedTotalQuantity))*/
         .then(itemAddedNotification(name));
 }
 
@@ -71,6 +85,14 @@ function AddToBasket(id, quantity, name, price) {
 function deleteItem(form, itemName) {
     $(form).parentsUntil("ul").remove();
     toastr.error(`Премахнахте ${itemName} от кошницата`);
+
+    var cartItemsCount = Number(cartItemsCountSpan.innerHTML);
+    cartItemsCountSpan.innerHTML = cartItemsCount - 1;
+
+    if (cartItemsCount - 1 <= 0) {
+        cartItemsCountSpan.setAttribute('hidden', 'true');
+    }
+    
 
     updateTotalPrice();
 }

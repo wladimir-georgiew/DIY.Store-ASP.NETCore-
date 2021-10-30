@@ -7,5 +7,9 @@
         public string UpdatedPrice { get; set; }
 
         public int UpdatedQuantity { get; set; }
+
+        public int UpdatedTotalQuantity { get; set; }
+
+        public string ImageSource { get; set; }
     }
 }

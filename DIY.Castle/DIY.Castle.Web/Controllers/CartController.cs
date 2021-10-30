@@ -83,6 +83,8 @@ namespace DIY.Castle.Web.Controllers
                 bool itemAlreadyExists = false;
                 decimal totalPrice = 0.00M;
                 int updatedQuantity = 0;
+                int updatedTotalQuantity = 0;
+                string imageSource = productModel.ImagesSourcePaths.Any() ? productModel.ImagesSourcePaths[0] : string.Empty;
 
                 if (SessionHelper.GetObjectFromJson<List<ProductCartModel>>(HttpContext.Session, "cart") == null)
                 {
@@ -98,6 +100,7 @@ namespace DIY.Castle.Web.Controllers
 
                     totalPrice = productModel.Price;
                     updatedQuantity = quantity;
+                    updatedTotalQuantity = 1;
                 }
                 else
                 {
@@ -127,10 +130,10 @@ namespace DIY.Castle.Web.Controllers
 
                     SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
 
-
                     totalPrice = cart == null
                         ? Math.Round(0.00M, 2)
                         : Math.Round(cart.Sum(p => p.Product.Price * p.Quantity), 2);
+                    updatedTotalQuantity = cart.Count();
                 }
 
                 var response = new CartUpdateResponseModel()
@@ -138,6 +141,8 @@ namespace DIY.Castle.Web.Controllers
                     ItemAlreadyExists = itemAlreadyExists,
                     UpdatedPrice = totalPrice.ToString("0.00"),
                     UpdatedQuantity = updatedQuantity,
+                    UpdatedTotalQuantity = updatedTotalQuantity,
+                    ImageSource = imageSource,
                 };
 
                 return this.Ok(Json(response));

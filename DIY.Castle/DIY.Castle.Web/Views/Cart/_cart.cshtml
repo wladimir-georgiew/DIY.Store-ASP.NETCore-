@@ -11,6 +11,33 @@
     string priceString = totalPrice.ToString("0.00");
 }
 
+<style>
+    .tag2 {
+        position: absolute;
+        top: 20%;
+        right: 43%;
+        width: 25px;
+       /* height: 36px;*/
+        border-radius: 50%;
+       /* padding: 10px 0;*/
+       padding-left: 2px;
+        color: #fff;
+        font-size: 15px;
+        text-align: center;
+    }
+
+    .hot {
+        background-color: #a90329;
+    }
+
+    .cart-product-img{
+        width:50px;
+        height:50px;
+        border-radius:25px;
+    }
+</style>
+
+
 <!doctype html>
 <html lang="en" class="no-js">
 <head>
@@ -20,41 +47,42 @@
     @*<link rel="stylesheet" href="/side-shopping-cart/css/reset.css"> <!-- CSS reset -->*@
     <link rel="stylesheet" href="/side-shopping-cart/css/style.css"> <!-- Gem style -->
     @*<script src="/side-shopping-cart/js/modernizr.js"></script> <!-- Modernizr -->*@
-
-    <title>Side Cart</title>
 </head>
 <body class="foo">
     <div>
-        <div id="cd-cart-trigger"><a class="cd-img-replace">Cart1</a></div>
+        <div id="cd-cart-trigger">
+            <a class="cd-img-replace"></a>
+            <span id="cart-items-count" class="tag2 hot" @(cart?.Count() <= 0 ? "hidden" : "")>@cart?.Count()</span>
+        </div>
     </div>
 
     <div id="cd-shadow-layer"></div>
 
     <div style="font-family:Verdana; font-size: 16px;" id="cd-cart">
-        <h2>Cart</h2>
         <ul id="cart-items" class="cd-cart-items">
             @if (cart != null)
             {
                 foreach (var item in cart)
                 {
                     <li id="item-id-@item.Product.Id">
-                        <span class="cd-qty">@(item.Quantity)X </span><span>@item.Product.Name</span>
-                        <div class="cd-price">@item.Product.Price</div>
+                        <img class="cart-product-img" src="@item.Product.ImagesSourcePaths[0]">
+                        <span class="cd-qty">@(item.Quantity)X </span>
+                        <span>@item.Product.Name</span>
+                        <div class="cd-price">@item.Product.Price лв.</div>
                         <a asp-controller="Cart" asp-action="Remove" asp-route-id="@item.Product.Id" data-ajax="true" data-ajax-success="deleteItem(this, '@item.Product.Name')"
-                        id="remove-item-@item.Product.Id" class="cd-item-remove cd-img-replace">Премахни</a>
+                   id="remove-item-@item.Product.Id" class="cd-item-remove cd-img-replace">
+                            Премахни
+                        </a>
                     </li>
                 }
             }
-
-        </ul> <!-- cd-cart-items -->
+        </ul>
 
         <div id="total-price" class="cd-cart-total">
             <p>Total <span>@priceString лв.</span></p>
-        </div> <!-- cd-cart-total -->
+        </div>
 
         <a href="#0" class="checkout-btn">Checkout</a>
-
-        <p class="cd-go-to-cart"><a href="#0">Go to cart page</a></p>
-    </div> <!-- cd-cart -->
+    </div>
 </body>
 </html>

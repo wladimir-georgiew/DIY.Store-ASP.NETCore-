@@ -72,16 +72,15 @@
                             </li>
                             @if (User.IsInRole(UserRoles.ADMIN_ROLE_NAME))
                             {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="Administration" asp-controller="Products" asp-action="Create">Create</a>
-                                </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="Administration" asp-controller="Products" asp-action="Create">Create</a>
+                                    </li>
                             }
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index">Cart</a>
                             </li>
                             <li class="nav-item">
                                 @*<partial name="/Views/Cart/_cart.cshtml"></partial>*@
-
                                 <div id="side-cart">
                                     <partial name="/Views/Cart/_cart.cshtml"></partial>
                                 </div>
@@ -117,7 +116,7 @@
     </header>
 
     <div class="container">
-            @RenderBody()
+        @RenderBody()
     </div>
 
     @*    <!-- FOOTER =============================-->
@@ -149,7 +148,7 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="/Toastr/toastr.min.js"></script>
     <script src="~/js/cart.js"></script>
-    
+
     <script src="/side-shopping-cart/js/main.js"></script> <!-- Gem jQuery -->
 
 
@@ -166,7 +165,7 @@
                         );
                     });
 
-                    
+
     </script>
     @RenderSection("Scripts", required: false)
 </body>
