@@ -4,12 +4,12 @@
 
 <body>
 
-    <div class="autocomplete" style="width:300px;">
+    @*<div class="autocomplete" style="width:300px;">
         <input cityID="0" id="myInput" type="text" name="myCountry" placeholder="Град">
-    </div>
+    </div>*@
 
-    <select id="officesEcont">
-    </select>
+    @*<select id="officesEcont">
+    </select>*@
 </body>
 
 
@@ -27,15 +27,9 @@
       <span class="lname">Last Name <span class="required">*</span></span>
       <input type="text" name="lname">
     </label>
-    <label>
-      <span>Company Name (Optional)</span>
-      <input type="text" name="cn">
-    </label>
-    <label>
-      <span>Град <span class="required">*</span></span>
-     <div class="autocomplete" style="width:300px;">
-        <input cityID="0" id="myInput" type="text" name="myCountry" placeholder="Град">
-    </div>
+    <label class="autocomplete">
+            <span>Град <span class="required">*</span></span>
+            <input cityID="0" id="myInput" type="text" name="myCountry" placeholder="Град">
     </label>
     <label>
       <span>Street Address <span class="required">*</span></span>
