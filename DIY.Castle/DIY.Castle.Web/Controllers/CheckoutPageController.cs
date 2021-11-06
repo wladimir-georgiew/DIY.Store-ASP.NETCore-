@@ -2,6 +2,8 @@
 using DIY.Castle.Web.Models.InputModels;
 using DIY.Castle.Web.Services.EmailSender;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Globalization;
 using System.Threading.Tasks;
 
 namespace DIY.Castle.Web.Controllers
@@ -21,7 +23,23 @@ namespace DIY.Castle.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SendOrderSummaryEmailAsync(CreateOrderInputModel model)
+        public IActionResult Checkout(CheckoutFormModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                // TODO..
+            }
+
+            // Add the products in the input model
+
+
+            //await this.emailSender.SendEmailAsync($"sneakypeekymustard@gmail.com", $"{model.FirstName} {model.LastName}", $"{model.CustomerEmailAddress}", $"Akin-do Поръчка", viewHtml);
+
+            return this.View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SendOrderSummaryEmailToUserAsync(CreateOrderInputModel model)
         {
             if (!ModelState.IsValid)
             {

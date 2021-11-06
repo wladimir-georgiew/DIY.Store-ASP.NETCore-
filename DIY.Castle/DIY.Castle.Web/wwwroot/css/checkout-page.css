@@ -1,11 +1,19 @@
 ﻿@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700');
 
 /*the container must be positioned relative:*/
+/*#officesEcont option{
+    width:20%;
+}*/
+
+.cart-product-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+}
 .autocomplete {
     position: relative;
 }
-
-input {
+input{
     border: 1px solid transparent;
     background-color: #f1f1f1;
     padding: 10px;
@@ -93,6 +101,17 @@ input {
         width:100% !important;
     }
 }
+
+@media(max-width: 1180px){
+    .radio-options{
+        padding-left: 0px !important;
+    }
+}
+
+.radio-options {
+    display: -webkit-inline-box;
+    padding-left: 51px;
+}
 .d-flex {
     display: flex;
     flex-direction: row;
@@ -141,6 +160,9 @@ label, table {
         padding-right: 10px;
     }
 
+.radio-option span {
+    float: none !important;
+}
 input[type="text"], input[type="tel"], input[type="email"], select {
     width: 70%;
     height: 30px;
@@ -151,7 +173,7 @@ input[type="text"], input[type="tel"], input[type="email"], select {
 }
 
 select {
-    width: 72%;
+    width: 70%;
     height: 45px;
     padding: 5px 10px;
     margin-bottom: 10px;
@@ -174,12 +196,12 @@ th {
     padding: 10px 0;
 }
 
-tr > td:nth-child(1) {
+tr > td:nth-child(2) {
     text-align: left;
     color: #2d2d2a;
 }
 
-tr > td:nth-child(2) {
+tr > td:nth-child(3) {
     text-align: right;
     color: #52ad9c;
 }

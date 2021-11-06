@@ -1,92 +1,125 @@
-﻿<head>
-    <link rel="stylesheet" href="./css/checkout-page.css"/>
+﻿@using DIY.Castle.Web.Models.InputModels
+@using DIY.Castle.Web.Helpers;
+@using DIY.Castle.Web.Models.ViewModels;
+
+@model CheckoutFormModel
+
+@{
+    var cart = SessionHelper.GetObjectFromJson<List<ProductCartModel>>(Context.Session, "cart");
+
+    var totalPrice = cart == null
+        ? Math.Round(0.00M, 2)
+        : Math.Round(cart.Sum(p => p.Product.Price * p.Quantity), 2);
+
+    string priceString = totalPrice.ToString("0.00");
+}
+
+<head>
+    <link rel="stylesheet" href="./css/checkout-page.css" />
 </head>
 
 <body>
+    <div class="container">
+        <div class="title">
+            <h2>Финилизиране на поръчка</h2>
+        </div>
+        <div class="d-flex">
+            <form id="checkout-form" asp-action="Checkout" method="post">
+                <label>
+                    <span class="fname">Име <span class="required">*</span></span>
+                    <input type="text" asp-for="FirstName">
+                </label>
+                <label>
+                    <span class="lname">Фамилия <span class="required">*</span></span>
+                    <input type="text" asp-for="LastName">
+                </label>
+                <label>
+                    <span>Телефон <span class="required">*</span></span>
+                    <input type="tel" asp-for="PhoneNumber">
+                </label>
+                <label class="autocomplete">
+                    <span>Град <span class="required">*</span></span>
+                    <input asp-for="City" cityID="0" id="myInput" placeholder="Въведете град и изберете от менюто" type="text" autocomplete="disabled">
+                </label>
+                <label>
+                    <span>Куриер</span><span></span>
+                    <select id="courrierSelect" onchange="selectDeliveryCourrier()">
+                        <option disabled selected>Изберете куриер</option>
+                        <option>Econt</option>
+                        <option>Speedy</option>
+                    </select>
+                </label>
+                <label hidden class="radio-option" id="delivery-option">
+                    <span>Доставка до:</span><span></span>
+                    <label class="radio-options">
+                        <label style="display:inline-block">
+                            <input class="raido-option-choice" asp-for="DeliveryOption" type="radio" id="DeliveryOption" value="office">
+                            Офис
+                        </label>
 
-    @*<div class="autocomplete" style="width:300px;">
-        <input cityID="0" id="myInput" type="text" name="myCountry" placeholder="Град">
-    </div>*@
+                        <label style="display:inline-block">
+                            <input class="raido-option-choice" asp-for="DeliveryOption" type="radio" id="DeliveryOption" value="address">
+                            Адрес
+                        </label>
+                    </label>
+                </label>
+                <label hidden id="econtOfficeContainer">
+                    <span>Офис Еконт<span class="required">*</span></span>
+                    <select id="officesEcont" asp-for="EcontOffice">
+                    </select>
+                </label>
+                <label hidden id="speedyAddressContainer">
+                    <span>Адрес <span class="required">*</span></span>
+                    <input asp-for="Address" type="text" placeholder="Въведете адрес за доставка">
+                </label>
+                <label>
+                    <span>Email Address <span class="required">*</span></span>
+                    <input asp-for="CustomerEmailAddress" type="email">
+                </label>
+            </form>
+            <!-- Yorder -->
+            <div class="Yorder">
+                <table>
+                    <tr>
+                        <th colspan="3">Вашата поръчка</th>
+                    </tr>
+                    @if (cart != null &&
+                      cart.Any())
+                    {
+                        @foreach (var product in cart)
+                        {
+                            <tr>
+                                <td width="20%">
+                                    <img class="cart-product-img" src="@product.Product.ImagesSourcePaths[0]" />
+                                </td>
+                                <td width="50%">@product.Product.Name x @(product.Quantity)бр.</td>
+                                <td width="30%">@(product.Product.Price * product.Quantity) лв.</td>
+                                
+                            </tr>
+                        }
+                        <tr>
+                            <td>Сума</td>
+                            <td></td>
+                            <td>@totalPrice лв.</td>
+                        </tr>
+                    }
 
-    @*<select id="officesEcont">
-    </select>*@
+                    @*<tr>
+            <td>Shipping</td>
+            <td>Free shipping</td>
+        </tr>*@
+                </table><br>
+                <div>
+                    <input type="radio" name="dbt" value="cd"> Плащане при доставка
+                </div>
+                <button form="checkout-form" type="submit">Поръчай</button>
+            </div>
+            <!-- Yorder -->
+        </div>
+    </div>
 </body>
 
 
-<div class="container">
-  <div class="title">
-      <h2>Product Order Form</h2>
-  </div>
-<div class="d-flex">
-  <form action="" method="">
-    <label>
-      <span class="fname">First Name <span class="required">*</span></span>
-      <input type="text" name="fname">
-    </label>
-    <label>
-      <span class="lname">Last Name <span class="required">*</span></span>
-      <input type="text" name="lname">
-    </label>
-    <label class="autocomplete">
-            <span>Град <span class="required">*</span></span>
-            <input cityID="0" id="myInput" type="text" name="myCountry" placeholder="Град">
-    </label>
-    <label>
-      <span>Street Address <span class="required">*</span></span>
-      <input type="text" name="houseadd" placeholder="House number and street name" required>
-    </label>
-    <label>
-      <span>&nbsp;</span>
-      <input type="text" name="apartment" placeholder="Apartment, suite, unit etc. (optional)">
-    </label>
-    <label>
-      <span>Town / City <span class="required">*</span></span>
-      <input type="text" name="city"> 
-    </label>
-    <label>
-      <span>State / County <span class="required">*</span></span>
-      <input type="text" name="city"> 
-    </label>
-    <label>
-      <span>Postcode / ZIP <span class="required">*</span></span>
-      <input type="text" name="city"> 
-    </label>
-    <label>
-      <span>Phone <span class="required">*</span></span>
-      <input type="tel" name="city"> 
-    </label>
-    <label>
-      <span>Email Address <span class="required">*</span></span>
-      <input type="email" name="city"> 
-    </label>
-  </form>
-  <div class="Yorder">
-    <table>
-      <tr>
-        <th colspan="2">Your order</th>
-      </tr>
-      <tr>
-        <td>Product Name x 2(Qty)</td>
-        <td>$88.00</td>
-      </tr>
-      <tr>
-        <td>Subtotal</td>
-        <td>$88.00</td>
-      </tr>
-      <tr>
-        <td>Shipping</td>
-        <td>Free shipping</td>
-      </tr>
-    </table><br>
-    <div>
-      <input type="radio" name="dbt" value="cd"> Плащане при доставка
-    </div>
-    <button type="button">Place Order</button>
-  </div><!-- Yorder -->
- </div>
-</div>
-
-
-<script src="~/js/cart.js"></script>
+<script src="~/js/checkout-page.js"></script>
 <script src="~/js/jquery.min.v3.js"></script>
 <script src="~/js/econt_services2.js"></script>

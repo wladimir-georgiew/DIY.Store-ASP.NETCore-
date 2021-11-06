@@ -166,7 +166,6 @@ async function autocomplete(inp, arr) {
 (async () => {
     try {
         econtCities = await getCitiesPromise();
-        console.log(econtCities);
         /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
         autocomplete(document.getElementById("myInput"), econtCities);
     } catch (e) {
