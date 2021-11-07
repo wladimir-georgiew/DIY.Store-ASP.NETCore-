@@ -43,22 +43,22 @@
                 </label>
                 <label>
                     <span>Куриер</span><span></span>
-                    <select id="courrierSelect" onchange="selectDeliveryCourrier()">
+                    <select asp-for="CourrierOption" id="courrierSelect" onchange="selectDeliveryCourrier()">
                         <option disabled selected>Изберете куриер</option>
-                        <option>Econt</option>
-                        <option>Speedy</option>
+                        <option value="Econt">Econt</option>
+                        <option value="Speedy">Speedy</option>
                     </select>
                 </label>
                 <label hidden class="radio-option" id="delivery-option">
                     <span>Доставка до:</span><span></span>
                     <label class="radio-options">
                         <label style="display:inline-block">
-                            <input class="raido-option-choice" asp-for="DeliveryOption" type="radio" id="DeliveryOption" value="office">
+                            <input class="raido-option-choice" asp-for="DeliveryOption" type="radio" id="DeliveryOption" value="Office">
                             Офис
                         </label>
 
                         <label style="display:inline-block">
-                            <input class="raido-option-choice" asp-for="DeliveryOption" type="radio" id="DeliveryOption" value="address">
+                            <input class="raido-option-choice" asp-for="DeliveryOption" type="radio" id="DeliveryOption" value="Address">
                             Адрес
                         </label>
                     </label>
@@ -84,7 +84,7 @@
                         <th colspan="3">Вашата поръчка</th>
                     </tr>
                     @if (cart != null &&
-                      cart.Any())
+                     cart.Any())
                     {
                         @foreach (var product in cart)
                         {
@@ -94,7 +94,7 @@
                                 </td>
                                 <td width="50%">@product.Product.Name x @(product.Quantity)бр.</td>
                                 <td width="30%">@(product.Product.Price * product.Quantity) лв.</td>
-                                
+
                             </tr>
                         }
                         <tr>
@@ -103,8 +103,16 @@
                             <td>@totalPrice лв.</td>
                         </tr>
                     }
+                    else
+                    {
+                        <tr>
+                            <td></td>
+                            <td>Количката ви е празна</td>
+                            <td></td>
+                        </tr>
+                    }
 
-                    @*<tr>
+                    @*<tr>bb
             <td>Shipping</td>
             <td>Free shipping</td>
         </tr>*@

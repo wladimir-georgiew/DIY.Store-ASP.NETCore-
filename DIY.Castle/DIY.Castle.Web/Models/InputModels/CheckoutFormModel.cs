@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace DIY.Castle.Web.Models.InputModels
+﻿namespace DIY.Castle.Web.Models.InputModels
 {
     public class CheckoutFormModel
     {
@@ -14,6 +9,8 @@ namespace DIY.Castle.Web.Models.InputModels
         public string PhoneNumber { get; set; }
 
         public string City { get; set; }
+
+        public string CourrierOption { get; set; }
 
         public string Address { get; set; }
 

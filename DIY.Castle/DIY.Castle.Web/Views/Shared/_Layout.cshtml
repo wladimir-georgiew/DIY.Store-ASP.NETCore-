@@ -77,12 +77,15 @@
                                     </li>
                             }
                             <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index">Cart</a>
                             </li>
                             <li class="nav-item">
                                 @*<partial name="/Views/Cart/_cart.cshtml"></partial>*@
                                 <div id="side-cart">
-                                    <partial name="/Views/Cart/_cart.cshtml"></partial>
+                                    <partial name="/Views/Cart/_cart.cshtml"/>
                                 </div>
 
                             </li>

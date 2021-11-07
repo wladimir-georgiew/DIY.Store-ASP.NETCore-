@@ -1,0 +1,35 @@
+﻿@using DIY.Castle.Web.Models.Emails
+
+@model CheckoutModel
+
+<h1>Детайли:</h1>
+<h3>Име: @Model.UserFormModel.FirstName</h3>
+<h3>Фамилия: @Model.UserFormModel.LastName</h3>
+<h3>Телефон за връзка: @Model.UserFormModel.PhoneNumber</h3>
+<h3>Град: @Model.UserFormModel.City</h3>
+<h3>Куриерска фирма: @Model.UserFormModel.CourrierOption</h3>
+@if (Model.UserFormModel.CourrierOption == GlobalConstants.DeliveryOptions.Econt)
+{
+    <h3>Доставка до: @(Model.UserFormModel.DeliveryOption == GlobalConstants.DeliveryOptions.ToAddress ? "Адрес" : "Офис")</h3>
+}
+else
+{
+    <h3>Доставка до: Адрес</h3>
+}
+<h3>Адрес: @Model.UserFormModel.Address</h3>
+<h3>Email за връзка: @Model.UserFormModel.CustomerEmailAddress</h3>
+
+<hr />
+<h1>Продукти:</h1>
+
+<hr />
+@foreach (var item in Model.CartModel.Cart)
+{
+    <h3>Име на продукта: @item.Product.Name</h3>
+    <h3>Количество: @item.Quantity</h3>
+    <h3>Цена за един брой: @item.Product.Price</h3>
+    <hr />
+}
+
+<h1>Крайна цена: @Model.CartModel.TotalPrice лв.</h1>
+<hr />
