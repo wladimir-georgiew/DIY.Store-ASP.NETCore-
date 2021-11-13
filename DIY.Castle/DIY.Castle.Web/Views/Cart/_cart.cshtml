@@ -59,6 +59,7 @@
     <div id="cd-shadow-layer"></div>
 
     <div style="font-family:Verdana; font-size: 16px;" id="cd-cart">
+        <h3 style="text-align: center; padding-bottom:20px;">Количка с продукти</h3>
         <ul id="cart-items" class="cd-cart-items">
             @if (cart != null)
             {
@@ -70,7 +71,7 @@
                         <span>@item.Product.Name</span>
                         <div class="cd-price">@item.Product.Price лв.</div>
                         <a asp-controller="Cart" asp-action="Remove" asp-route-id="@item.Product.Id" data-ajax="true" data-ajax-success="deleteItem(this, '@item.Product.Name')"
-                   id="remove-item-@item.Product.Id" class="cd-item-remove cd-img-replace">
+                           id="remove-item-@item.Product.Id" class="cd-item-remove cd-img-replace">
                             Премахни
                         </a>
                     </li>
@@ -82,7 +83,7 @@
             <p>Total <span>@priceString лв.</span></p>
         </div>
 
-        <a href="#0" class="checkout-btn">Checkout</a>
+        <a asp-action="Index" asp-controller="CheckoutPage" class="checkout-btn">Завърши поръчката</a>
     </div>
 </body>
 </html>

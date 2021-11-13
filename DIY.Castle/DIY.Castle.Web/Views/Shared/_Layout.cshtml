@@ -68,24 +68,17 @@
                         <partial name="_LoginPartial" />
                         <ul style="position:center" class="navbar-nav flex-grow-1">
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">НАЧАЛО</a>
                             </li>
                             @if (User.IsInRole(UserRoles.ADMIN_ROLE_NAME))
                             {
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="Administration" asp-controller="Products" asp-action="Create">Create</a>
-                                    </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="Administration" asp-controller="Products" asp-action="Create">СЪЗДАЙ</a>
+                                </li>
                             }
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index">Cart</a>
-                            </li>
-                            <li class="nav-item">
-                                @*<partial name="/Views/Cart/_cart.cshtml"></partial>*@
                                 <div id="side-cart">
-                                    <partial name="/Views/Cart/_cart.cshtml"/>
+                                    <partial name="/Views/Cart/_cart.cshtml" />
                                 </div>
 
                             </li>
@@ -111,6 +104,9 @@
                                 </div>
                             </li>
 
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Контакти</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
