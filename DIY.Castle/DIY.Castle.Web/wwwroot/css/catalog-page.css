@@ -318,6 +318,10 @@
         transition: all 0.70s linear 0s;
     }
 
+    .btn-cart:hover span {
+        transform: translate(-9px);
+    }
+
 font-family .btn-cart:hover span {
     transform: translate(-9px);
 }

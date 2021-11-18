@@ -1,0 +1,82 @@
+﻿@using DIY.Castle.Web.Models
+@using DIY.Castle.Common
+@model PaginationList<ProductModel>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<style>
+    .pagination {
+        text-align: center;
+        justify-content: center;
+        font-family: Yarin;
+    }
+
+        .pagination a {
+            font-size: 25px;
+        }
+</style>
+
+@if (Model.HasPreviousPage || Model.HasNextPage)
+{
+    <div class="pagination">
+        <a asp-controller="Catalog" asp-action="Index"
+           asp-route-page="@(Model.PageIndex - 1)"
+           class="btn btn-default @prevDisabled">
+            Предишна
+        </a>
+
+        @*Three Previos Pages*@
+        @for (int i = 0; i < Model.ThreePreviousPages.Length; i++)
+        {
+            var page = Model.ThreePreviousPages[i];
+            string text = page.ToString();
+            if (i == 0 &&
+                page > 1)
+            {
+                text = $".. {page}";
+            }
+
+            <a asp-controller="Catalog" asp-action="Index"
+               asp-route-page="@(page)"
+               class="btn btn-default">
+                @(text)
+            </a>
+        }
+
+        @*Current Page*@
+        <a asp-controller="Catalog" asp-action="Index"
+           asp-route-page="@(Model.PageIndex)"
+           class="btn btn-default font-weight-bold disabled">
+            @(Model.PageIndex)
+        </a>
+
+        @*Three Next Pages*@
+        @for (int i = 0; i < Model.ThreeNextPages.Length; i++)
+        {
+            var page = Model.ThreeNextPages[i];
+            string text = page.ToString();
+            if (i == Model.ThreeNextPages.Length - 1 &&
+                page < Model.TotalPages)
+            {
+                text = $"{page} ..";
+            }
+
+            <a asp-controller="Catalog" asp-action="Index"
+               asp-route-page="@(page)"
+               class="btn btn-default">
+                @(text)
+            </a>
+        }
+
+
+        <a asp-controller="Catalog" asp-action="Index"
+           asp-route-page="@(Model.PageIndex + 1)"
+           class="btn btn-default @nextDisabled">
+            Следваща
+        </a>
+
+    </div>
+}
