@@ -5,6 +5,7 @@
 @{
     var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
     var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+    var doesHaveFilter = Context.Request.Query.TryGetValue("filter", out Microsoft.Extensions.Primitives.StringValues filterValue);
 }
 
 <style>
@@ -23,6 +24,7 @@
 {
     <div class="pagination">
         <a asp-controller="Catalog" asp-action="Index"
+           asp-route-filter="@filterValue"
            asp-route-page="@(Model.PageIndex - 1)"
            class="btn btn-default @prevDisabled">
             Предишна
@@ -40,6 +42,7 @@
             }
 
             <a asp-controller="Catalog" asp-action="Index"
+               asp-route-filter="@filterValue"
                asp-route-page="@(page)"
                class="btn btn-default">
                 @(text)
@@ -48,6 +51,7 @@
 
         @*Current Page*@
         <a asp-controller="Catalog" asp-action="Index"
+           asp-route-filter="@filterValue"
            asp-route-page="@(Model.PageIndex)"
            class="btn btn-default font-weight-bold disabled">
             @(Model.PageIndex)
@@ -65,6 +69,7 @@
             }
 
             <a asp-controller="Catalog" asp-action="Index"
+               asp-route-filter="@filterValue"
                asp-route-page="@(page)"
                class="btn btn-default">
                 @(text)
@@ -73,6 +78,7 @@
 
 
         <a asp-controller="Catalog" asp-action="Index"
+           asp-route-filter="@filterValue"
            asp-route-page="@(Model.PageIndex + 1)"
            class="btn btn-default @nextDisabled">
             Следваща
