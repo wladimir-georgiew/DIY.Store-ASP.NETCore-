@@ -30,11 +30,38 @@ namespace DIY.Castle.Web.Controllers
         }
 
         [HttpPost]
-        public async  Task<IActionResult> Checkout(CheckoutFormModel model)
+        public async Task<IActionResult> Checkout(CheckoutFormModel model)
         {
+            if (model.CourrierOption == GlobalConstants.DeliveryOptions.Econt)
+            {
+                if (model.DeliveryOption == GlobalConstants.DeliveryOptions.ToOffice &&
+                    string.IsNullOrEmpty(model.EcontOffice))
+                {
+                    ModelState.AddModelError("EcontOffice", "Нямате избран офис");
+                }
+                else if (model.DeliveryOption == GlobalConstants.DeliveryOptions.ToAddress &&
+                        string.IsNullOrEmpty(model.Address))
+                {
+                    ModelState.AddModelError("Address", "Нямате избран адрес");
+                }
+                else
+                {
+                    if (string.IsNullOrEmpty(model.DeliveryOption))
+                    {
+                        ModelState.AddModelError("DeliveryOption", "Трябва да изберете адрес или офис");
+                    }
+                }
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(model.Address))
+                {
+                    ModelState.AddModelError("Address", "Нямате избран адрес");
+                }
+            }
             if (!ModelState.IsValid)
             {
-                // TODO..
+                return this.View(nameof(Index), model);
             }
 
             var cart = SessionHelper.GetObjectFromJson<List<ProductCartModel>>(HttpContext.Session, "cart");
@@ -75,11 +102,6 @@ namespace DIY.Castle.Web.Controllers
 
         private async Task<IActionResult> SendOrderSummaryEmailToUserAsync(CheckoutModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                // TODO..
-            }
-
             var viewHtml = await this.RenderViewAsync("~/Views/EmailTemplates/OrderSummaryTemplate.cshtml", model, true);
 
             try
@@ -95,7 +117,7 @@ namespace DIY.Castle.Web.Controllers
                 return BadRequest();
             }
 
-            
+
         }
     }
 }

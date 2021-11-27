@@ -171,7 +171,10 @@ input[type="text"], input[type="tel"], input[type="email"], select {
     border: 1px solid #dadada;
     color: #888;
 }
-
+.validation_summary ul {
+    list-style-type: none;
+    font-family: Verdana;
+}
 select {
     width: 70%;
     height: 45px;
@@ -179,9 +182,13 @@ select {
     margin-bottom: 10px;
 }
 
+.disabled-button{
+    cursor:default !important;
+    background-color: lightgrey !important;
+    color: darkgrey;
+}
 .Yorder {
     margin-top: 15px;
-    height: 600px;
     padding: 20px;
     border: 1px solid #dadada;
 }
@@ -223,7 +230,7 @@ p {
 }
 
 button {
-    width: 100%;
+    width: 94%;
     margin-top: 10px;
     padding: 10px;
     border: none;

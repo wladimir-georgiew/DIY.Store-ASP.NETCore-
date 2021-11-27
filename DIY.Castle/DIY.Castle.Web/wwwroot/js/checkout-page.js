@@ -27,10 +27,12 @@
                 if (selectedDeliveryOption === 'Office') {
                     econtOfficeContainer.removeAttribute('hidden');
                     speedyAddressContainer.setAttribute('hidden', '');
+                    speedyAddressContainer.removeAttribute('required');
                 }
                 else if (selectedDeliveryOption === 'Address') {
                     econtOfficeContainer.setAttribute('hidden', '');
                     speedyAddressContainer.removeAttribute('hidden');
+                    speedyAddressContainer.setAttribute('required', '');
                 }
             }
         });
@@ -45,5 +47,6 @@
         speedyAddressContainer.removeAttribute('hidden');
         econtOfficeContainer.setAttribute('hidden', '');
         deliveryOptionsLi.setAttribute('hidden', '');
+        speedyAddressContainer.setAttribute('required', '');
     }
 }
