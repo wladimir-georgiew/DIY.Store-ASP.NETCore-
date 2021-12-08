@@ -9,16 +9,24 @@
 .searchTerm {
     width: 100%;
     border: 3px solid #798560;
+    background-color: #798560;
+    color: white;
     border-right: none;
     padding: 5px;
     border-radius: 5px 0 0 5px;
     outline: none;
-    color: #9DBFAF;
+    font-family: Arkhip;
 }
 
-    .searchTerm:focus {
-        color: #00B4CC;
+    .searchTerm::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color: lightgray;
+        opacity: 1; /* Firefox */
     }
+
+
+/*  .searchTerm:focus {
+        color: #6a8336;
+    }*/
 
 .searchButton {
     width: 40px;

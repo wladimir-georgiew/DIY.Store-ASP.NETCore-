@@ -6,6 +6,7 @@
     var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
     var nextDisabled = !Model.HasNextPage ? "disabled" : "";
     var doesHaveFilter = Context.Request.Query.TryGetValue("filter", out Microsoft.Extensions.Primitives.StringValues filterValue);
+    var doesHaveSearchQuery = Context.Request.Query.TryGetValue("searchQuery", out Microsoft.Extensions.Primitives.StringValues searchQuery);
 }
 
 <style>
@@ -26,6 +27,7 @@
         <a asp-controller="Catalog" asp-action="Index"
            asp-route-filter="@filterValue"
            asp-route-page="@(Model.PageIndex - 1)"
+           asp-route-searchQuery="@searchQuery"
            class="btn btn-default @prevDisabled">
             Предишна
         </a>
@@ -44,6 +46,7 @@
             <a asp-controller="Catalog" asp-action="Index"
                asp-route-filter="@filterValue"
                asp-route-page="@(page)"
+               asp-route-searchQuery="@searchQuery"
                class="btn btn-default">
                 @(text)
             </a>
@@ -53,6 +56,7 @@
         <a asp-controller="Catalog" asp-action="Index"
            asp-route-filter="@filterValue"
            asp-route-page="@(Model.PageIndex)"
+           asp-route-searchQuery="@searchQuery"
            class="btn btn-default font-weight-bold disabled">
             @(Model.PageIndex)
         </a>
@@ -71,6 +75,7 @@
             <a asp-controller="Catalog" asp-action="Index"
                asp-route-filter="@filterValue"
                asp-route-page="@(page)"
+               asp-route-searchQuery="@searchQuery"
                class="btn btn-default">
                 @(text)
             </a>
@@ -80,6 +85,7 @@
         <a asp-controller="Catalog" asp-action="Index"
            asp-route-filter="@filterValue"
            asp-route-page="@(Model.PageIndex + 1)"
+           asp-route-searchQuery="@searchQuery"
            class="btn btn-default @nextDisabled">
             Следваща
         </a>

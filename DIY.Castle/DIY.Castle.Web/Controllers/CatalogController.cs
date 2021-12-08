@@ -15,10 +15,14 @@ namespace DIY.Castle.Web.Controllers
             this.productsService = productsService;
         }
 
-        public IActionResult Index(string filter = null, int page = 1)
+        public IActionResult Index(string filter = null, int page = 1, string searchQuery = null)
         {
+            var isQueryNull = string.IsNullOrEmpty(searchQuery);
+            var searchQueryLower = !isQueryNull ? searchQuery.ToLower() : searchQuery;
+
             var productModels = this.productsService
                 .GetProductsByType(filter)
+                .Where(x => !isQueryNull ? x.Name.ToLower() == searchQueryLower || x.Name.ToLower().StartsWith(searchQueryLower) : true)
                 .OrderByDescending(x => x.CreatedOn)
                 .Select(x => this.productsService.GetProductModel(x))
                 .ToList();

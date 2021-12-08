@@ -2,6 +2,10 @@
 @using DIY.Castle.Common
 @model PaginationList<ProductModel>
 
+@{ 
+    var currenSearchQueryTry = Context.Request.Query.TryGetValue("searchQuery", out Microsoft.Extensions.Primitives.StringValues currenSearchQuery);
+}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,12 +14,14 @@
 
 <body>
     <div class="wrap">
-        <div class="search">
-            <input type="text" class="searchTerm" placeholder="Търсене на продукт">
-            <button type="submit" class="searchButton">
-                <i class="fa fa-search"></i>
-            </button>
-        </div>
+        <form>
+            <div class="search">
+                <input name="searchQuery" value="@currenSearchQuery" type="text" class="searchTerm" placeholder="Търсене на продукт...">
+                <button type="submit" class="searchButton">
+                    <i class="fa fa-search"></i>
+                </button>
+            </div>
+        </form>
     </div>
     <div class="@*container*@">
         <div class="row">
