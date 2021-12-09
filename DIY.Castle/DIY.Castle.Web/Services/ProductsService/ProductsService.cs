@@ -24,6 +24,20 @@ namespace DIY.Castle.Web.Services.ProductsService
 
         public IEnumerable<Product> GetAllProducts() => this._dbContext.Products;
 
+        public IEnumerable<Product> GetProductsByType(string productTypeFilter)
+        {
+            bool isFilterValid = Enum.TryParse(productTypeFilter, out ProductTypeEnum enumFilter);
+
+            if (string.IsNullOrEmpty(productTypeFilter) || !isFilterValid)
+            {
+                return this._dbContext.Products;
+            }
+
+            var products = this._dbContext.Products.Where(x => x.ProductType == (int)enumFilter);
+
+            return products;
+        }
+
         public async Task AddProduct(Product product)
         {
             product.CreatedOn = DateTime.UtcNow;
@@ -42,10 +56,31 @@ namespace DIY.Castle.Web.Services.ProductsService
         {
             var productModel = this._mapper.Map<ProductModel>(product);
             productModel.ImagesSourcePaths = this.GetProductImagesSrcPaths(product.Id);
-            productModel.ProductType = Enum.GetName(typeof(ProductTypeEnum), product.ProductType);
+            productModel.ProductType = GetProductType(product.ProductType);
             productModel.IsNewProduct = DateTime.UtcNow.Subtract(product.CreatedOn).TotalDays <= 7;
 
             return productModel;
+        }
+
+        private string GetProductType(int productType)
+        {
+            switch (productType)
+            {
+                case 0:
+                    return "Неизвестни";
+                case 1:
+                    return "Стикери";
+                case 2:
+                    return "Разделители";
+                case 3:
+                    return "Свещи";
+                case 4:
+                    return "Картички";
+                case 5:
+                    return "Икони";
+                default:
+                    return "Няма тип";
+            }
         }
     }
 }

@@ -85,6 +85,9 @@ namespace DIY.Castle.Web
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                //endpoints.MapControllerRoute(
+                //   name: "checkout",
+                //   pattern: "{controller=CheckoutPage}/{action=Checkout}/");
                 endpoints.MapRazorPages();
             });
         }

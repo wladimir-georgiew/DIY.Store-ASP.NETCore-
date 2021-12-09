@@ -94,7 +94,7 @@
                                     : product.Description)
                                     </p>
                                     <p>
-                                        <a asp-controller="Cart" asp-action="AddToBasket" asp-route-id="@product.Id" asp-route-quantity="1" data-ajax="true" data-ajax-success="itemAddedNotification('@product.Name')" type="submit" class="learn-more detailslearn"><i class="fa fa-shopping-cart"></i>Добави</a>
+                                        <a data-ajax="true" data-ajax-success="AddToBasket('@product.Id', '1' ,'@product.Name', '@product.Price')" type="submit" class="learn-more detailslearn"><i class="fa fa-shopping-cart"></i>Добави</a>
 
                                         <a asp-controller="ProductDetails" asp-action="Product" asp-route-id="@product.Id" class="learn-more detailslearn"><i class="fa fa-link"></i>Детайли</a>
                                     </p>
@@ -147,6 +147,11 @@
 
     <!-- SCRIPTS =============================-->
     <script src="~/js/jquery.min.v3.js"></script>
+
+    <script>
+        const logoEl = document.querySelector('.site_logo');
+        logoEl.classList.add('animate__animated', 'animate__bounce');
+    </script>
 
 </body>
 </html>

@@ -2,3 +2,7 @@
     font-family: "Yarin";
     src: url("../fonts/Yarin-Regular.ttf") format("truetype");
 }
+@font-face {
+    font-family: "Arkhip";
+    src: url("../fonts/Arkhip-Regular.ttf") format("truetype");
+}

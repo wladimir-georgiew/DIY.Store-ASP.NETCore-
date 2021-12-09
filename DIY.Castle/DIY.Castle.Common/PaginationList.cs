@@ -10,10 +10,16 @@ namespace DIY.Castle.Common
 
         public int TotalPages { get; set; }
 
+        public int[] ThreePreviousPages { get; set; }
+
+        public int[] ThreeNextPages { get; set; }
+
         public PaginationList(List<T> items, int count, int pageIndex, int pageSize)
         {
             this.PageIndex = pageIndex;
             this.TotalPages = (int)Math.Ceiling(count / (double)pageSize);
+            this.ThreePreviousPages = GetThreePreviousPageIndex(pageIndex);
+            this.ThreeNextPages = GetThreeNextPageIndex(pageIndex, TotalPages);
             this.AddRange(items);
         }
 
@@ -32,6 +38,34 @@ namespace DIY.Castle.Common
             var count = source.Count();
             var items = source.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
             return new PaginationList<T>(items, count, pageIndex, pageSize);
+        }
+
+        private int[] GetThreePreviousPageIndex(int currentPageNumber)
+        {
+            var pages =  new int[3]
+            {
+                currentPageNumber - 3,
+                currentPageNumber - 2,
+                currentPageNumber - 1
+            }
+            .Where(x => x > 0)
+            .ToArray();
+
+            return pages;
+        }
+
+        private int[] GetThreeNextPageIndex(int currentPageNumber, int totalPageCount)
+        {
+            var pages = new int[3]
+            {
+                currentPageNumber + 1,
+                currentPageNumber + 2,
+                currentPageNumber + 3
+            }
+            .Where(x => x <= totalPageCount)
+            .ToArray();
+
+            return pages;
         }
     }
 }

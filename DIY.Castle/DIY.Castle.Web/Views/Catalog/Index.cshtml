@@ -1,73 +1,102 @@
 ﻿@using DIY.Castle.Web.Models
-@model List<ProductModel>
+@using DIY.Castle.Common
+@model PaginationList<ProductModel>
+
+@{ 
+    var currenSearchQueryTry = Context.Request.Query.TryGetValue("searchQuery", out Microsoft.Extensions.Primitives.StringValues currenSearchQuery);
+}
 
 <!DOCTYPE html>
 <html>
 <head>
-  <link href="/css/catalog-page.css" rel="stylesheet" />
+    <link href="/css/catalog-page.css" rel="stylesheet" />
 </head>
 
 <body>
+    <div class="wrap">
+        <form>
+            <div class="search">
+                <input autocomplete="off" name="searchQuery" value="@currenSearchQuery" type="text" class="searchTerm" placeholder="Търсене на продукт...">
+                <button type="submit" class="searchButton">
+                    <i class="fa fa-search"></i>
+                </button>
+            </div>
+        </form>
+    </div>
     <div class="@*container*@">
         <div class="row">
-            @foreach (ProductModel product in Model)
+            @if (Model.Any())
             {
-                <div class="col-xs-12 col-md-6 col-lg-3">
-                    <!-- First product box start here-->
-                <div class="prod-info-main prod-wrap clearfix">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="product-image">
-                                    <img src="@product.ImagesSourcePaths[0]" class="img-responsive rotprod">
-                                    @if (product.IsNewProduct)
-                                    {
-                                        <span class="tag2 hot">
-                                            НОВО
-                                        </span>
-                                    }
+                foreach (ProductModel product in Model)
+                {
+                    <div class="col-xs-12 col-md-6 col-lg-3">
+                        <!-- First product box start here-->
+                        <div class="prod-info-main prod-wrap clearfix">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="product-image">
+                                        <img style="object-fit: contain;" src="@product.ImagesSourcePaths[0]" class="img-responsive rotprod">
+                                        @if (product.IsNewProduct)
+                                        {
+                                            <span class="tag2 hot">
+                                                НОВО
+                                            </span>
+                                        }
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="product-deatil">
-                                    <h5 class="name">
-                                        <a asp-controller="ProductDetails" asp-action="Product" asp-route-id="@product.Id">
-                                            @product.Name
-                                        </a>
-                                        <a class="product-type">
-                                            <span>@product.ProductType</span>
-                                        </a>
+                                <div class="col-12">
+                                    <div class="product-deatil">
+                                        <h5 class="name">
+                                            <a asp-controller="ProductDetails" asp-action="Product" asp-route-id="@product.Id">
+                                                @product.Name
+                                            </a>
+                                            <a class="product-type">
+                                                <span>@product.ProductType</span>
+                                            </a>
 
-                                    </h5>
-                                    <p class="price-container">
-                                        <span>@product.Price лв.</span>
-                                    </p>
-                                    <span class="tag1"></span>
-                                </div>
-                                @*<div class="description">
-                                    <p>
-                                    @(product.Description.Length > 105
-                                    ? (product.Description.Substring(0, 105) + "...")
-                                    : product.Description)
-                                    </p>
-                                    </div>*@
-                                <div class="product-info smart-form">
-                                    <div style="justify-content: space-between" class="row">
-                                            <a asp-controller="Cart" asp-action="AddToBasket" asp-route-id="@product.Id" asp-route-quantity="1" data-ajax="true" data-ajax-success="itemAddedNotification('@product.Name')" type="submit" class="btn btn-danger btn-cart"><span>Добави</span></a>
-                                       
+                                        </h5>
+                                        <p class="price-container">
+                                            <span>@product.Price лв.</span>
+                                        </p>
+                                        <span class="tag1"></span>
+                                    </div>
+                                    @*<div class="description">
+                                        <p>
+                                        @(product.Description.Length > 105
+                                        ? (product.Description.Substring(0, 105) + "...")
+                                        : product.Description)
+                                        </p>
+                                        </div>*@
+                                    <div class="product-info smart-form">
+                                        <div style="justify-content: space-between" class="row">
+                                            <a data-ajax="true" data-ajax-success="AddToBasket('@product.Id', '1' ,'@product.Name', '@product.Price')" type="submit" class="btn btn-success btn-cart"><span>Добави</span></a>
+
                                             <a asp-controller="ProductDetails" asp-action="Product" asp-route-id="@product.Id" class="btn btn-info"><span>Детайли</span></a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <!-- end product -->
                     </div>
-                    <!-- end product -->
-            </div>
+                }
+            }
+            else
+            {
+                <partial name="../Catalog/_NoProductsFound.cshtml" />
             }
         </div>
 
 
 
     </div>
+
+    @*Pagination*@
+
+    <partial name="../Shared/_Pagination.cshtml" model=@Model />
+
+    @*Pagination*@
+
 </body>
 </html>
 

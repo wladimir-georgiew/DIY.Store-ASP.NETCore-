@@ -1,4 +1,60 @@
-﻿.product-type {
+﻿
+
+.search {
+    width: 40%;
+    position: relative;
+    display: flex;
+}
+
+.searchTerm {
+    width: 100%;
+    border: 3px solid #798560;
+    background-color: #798560;
+    color: white;
+    border-right: none;
+    padding: 5px;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    font-family: Arkhip;
+}
+
+    .searchTerm::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color: lightgray;
+        opacity: 1; /* Firefox */
+    }
+
+
+/*  .searchTerm:focus {
+        color: #6a8336;
+    }*/
+
+.searchButton {
+    width: 40px;
+    border: 1px solid #798560;
+    background: #798560;
+    text-align: center;
+    color: #fff;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+/*Resize the wrap to see the search bar change!*/
+.wrap {
+    margin-top: 22px;
+    text-align: -webkit-right;
+}
+@media (max-width: 766px){
+    .wrap {
+        text-align: -webkit-left;
+    }
+    .search {
+        width: 100%;
+    }
+}
+
+
+.product-type {
     padding: 10px;
 }
 
@@ -316,6 +372,10 @@
     .btn-cart span {
         display: block;
         transition: all 0.70s linear 0s;
+    }
+
+    .btn-cart:hover span {
+        transform: translate(-9px);
     }
 
 font-family .btn-cart:hover span {

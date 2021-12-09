@@ -1,0 +1,247 @@
+﻿@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700');
+
+/*the container must be positioned relative:*/
+/*#officesEcont option{
+    width:20%;
+}*/
+
+.cart-product-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+}
+.autocomplete {
+    position: relative;
+}
+input{
+    border: 1px solid transparent;
+    background-color: #f1f1f1;
+    padding: 10px;
+    font-size: 16px;
+}
+
+    input[type=text] {
+        background-color: #f1f1f1;
+        width: 100%;
+    }
+
+    input[type=submit] {
+        background-color: DodgerBlue;
+        color: #fff;
+        cursor: pointer;
+    }
+
+.autocomplete-items {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    /*position the autocomplete items to be the same width as the container:*/
+    top: 100%;
+    left: 0;
+    right: 0;
+    width:70%;
+    margin-left:25%;
+}
+
+    .autocomplete-items div {
+        padding: 10px;
+        cursor: pointer;
+        background-color: #fff;
+        border-bottom: 1px solid #d4d4d4;
+    }
+
+        /*when hovering an item:*/
+        .autocomplete-items div:hover {
+            background-color: #e9e9e9;
+        }
+
+/*when navigating through the items using the arrow keys:*/
+.autocomplete-active {
+    background-color: DodgerBlue !important;
+    color: #ffffff;
+}
+
+*, ::after, ::before {
+    box-sizing: content-box !important;
+}
+
+    body {
+    background: url('http://all4desktop.com/data_images/original/4236532-background-images.jpg');
+    font-family: 'Roboto Condensed', sans-serif;
+    color: #262626;
+}
+
+.container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1140px;
+    }
+}
+@media (max-width: 750px){
+    .Yorder{
+        flex: 6 !important;
+    }
+    .d-flex {
+        flex-direction: column !important;
+    }
+    .container {
+        padding-right: 0px !important;
+        padding-left: 0px !important;
+    }
+    input[type="text"], input[type="tel"], input[type="email"], select{
+        width:100% !important;
+    }
+}
+
+@media(max-width: 1180px){
+    .radio-options{
+        padding-left: 0px !important;
+    }
+}
+
+.radio-options {
+    display: -webkit-inline-box;
+    padding-left: 51px;
+}
+.d-flex {
+    display: flex;
+    flex-direction: row;
+    background: #f6f6f6;
+    border-radius: 0 0 5px 5px;
+    padding: 25px;
+    margin-bottom: 50px;
+}
+
+form {
+    flex: 4;
+}
+
+.Yorder {
+    flex: 2;
+}
+
+.title {
+    background: -webkit-gradient(linear, left top, right bottom, color-stop(0, #5195A8), color-stop(100, #70EAFF));
+    background: -moz-linear-gradient(top left, #5195A8 0%, #70EAFF 100%);
+    background: -ms-linear-gradient(top left, #5195A8 0%, #70EAFF 100%);
+    background: -o-linear-gradient(top left, #5195A8 0%, #70EAFF 100%);
+    background: linear-gradient(to bottom right, #5195A8 0%, #70EAFF 100%);
+    padding: 20px;
+    color: #f6f6f6;
+}
+
+h2 {
+    margin: 0;
+    padding-left: 15px;
+}
+
+.required {
+    color: red;
+}
+
+label, table {
+    display: block;
+    margin: 15px;
+}
+
+    label > span {
+        float: left;
+        width: 25%;
+        margin-top: 12px;
+        padding-right: 10px;
+    }
+
+.radio-option span {
+    float: none !important;
+}
+input[type="text"], input[type="tel"], input[type="email"], select {
+    width: 70%;
+    height: 30px;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    border: 1px solid #dadada;
+    color: #888;
+}
+.validation_summary ul {
+    list-style-type: none;
+    font-family: Verdana;
+}
+select {
+    width: 70%;
+    height: 45px;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+}
+
+.disabled-button{
+    cursor:default !important;
+    background-color: lightgrey !important;
+    color: darkgrey;
+}
+.Yorder {
+    margin-top: 15px;
+    padding: 20px;
+    border: 1px solid #dadada;
+}
+
+table {
+    margin: 0;
+    padding: 0;
+}
+
+th {
+    border-bottom: 1px solid #dadada;
+    padding: 10px 0;
+}
+
+tr > td:nth-child(2) {
+    text-align: left;
+    color: #2d2d2a;
+}
+
+tr > td:nth-child(3) {
+    text-align: right;
+    color: #52ad9c;
+}
+
+td {
+    border-bottom: 1px solid #dadada;
+    padding: 25px 25px 25px 0;
+}
+
+p {
+    display: block;
+    color: #888;
+    margin: 0;
+    padding-left: 25px;
+}
+
+.Yorder > div {
+    padding: 15px 0;
+}
+
+button {
+    width: 94%;
+    margin-top: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 30px;
+    background: #52ad9c;
+    color: #fff;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+    button:hover {
+        cursor: pointer;
+        background: #428a7d;
+    }

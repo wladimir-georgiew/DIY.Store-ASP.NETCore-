@@ -11,6 +11,8 @@ namespace DIY.Castle.Web.Services.ProductsService
 
         IEnumerable<Product> GetAllProducts();
 
+        IEnumerable<Product> GetProductsByType(string productTypeFilter);
+
         Task AddProduct(Product product);
 
         List<string> GetProductImagesSrcPaths(int id);
