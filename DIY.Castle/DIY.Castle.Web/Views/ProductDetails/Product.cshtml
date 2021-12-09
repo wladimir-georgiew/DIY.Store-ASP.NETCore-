@@ -27,6 +27,7 @@ img {vertical-align: middle;}
   transition: 0.6s ease;
   border-radius: 0 3px 3px 0;
   user-select: none;
+  color: aliceblue !important;
 }
 
 /* Position the "next button" to the right */
@@ -53,7 +54,7 @@ img {vertical-align: middle;}
 
 /* Number text (1/3 etc) */
 .numbertext {
-  color: #f2f2f2;
+  color: aliceblue;
   font-size: 12px;
   padding: 8px 12px;
   position: absolute;
@@ -102,14 +103,14 @@ img {vertical-align: middle;}
     <!--Section: Block Content-->
     <section class="mb-5">
 
-        <div class="row" style=" flex-wrap: nowrap; align-items: start;">
-            <div style="display: flex; flex-direction: column; margin: 0 auto;">
+        <div class="row">
+            <div class="col-md-6">
                 <div class="slideshow-container">
                     @foreach (var image in Model.ImagesSourcePaths)
                     {
                         <div class="mySlides faded">
                             <div class="numbertext">@(Model.ImagesSourcePaths.IndexOf(image)+1)/@Model.ImagesSourcePaths.Count</div>
-                            <img src="@image" style=" object-fit: contain; height: 500px; width: 100%; background-color: #EBF8FE;">
+                            <img src="@image" style=" object-fit: contain; height: 500px; width: 100%; background-color: #798560;">
                         </div>
                     }
 
@@ -135,10 +136,7 @@ img {vertical-align: middle;}
                     @Model.Description
                 </p>
                 <hr>
-                @*<button type="button" class="btn btn-primary btn-md mr-1 mb-2">Buy now</button>*@
-                <button type="button" class="btn btn-info btn-md mr-1 mb-2">
-                    Add to cart
-                </button>
+                <a data-ajax="true" data-ajax-success="AddToBasket('@Model.Id', '1' ,'@Model.Name', '@Model.Price')" type="submit" class="btn btn-success btn-cart"><span>Добави в количката</span></a>
             </div>
         </div>
 

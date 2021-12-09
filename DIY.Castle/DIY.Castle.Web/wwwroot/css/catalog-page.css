@@ -44,6 +44,14 @@
     margin-top: 22px;
     text-align: -webkit-right;
 }
+@media (max-width: 766px){
+    .wrap {
+        text-align: -webkit-left;
+    }
+    .search {
+        width: 100%;
+    }
+}
 
 
 .product-type {
