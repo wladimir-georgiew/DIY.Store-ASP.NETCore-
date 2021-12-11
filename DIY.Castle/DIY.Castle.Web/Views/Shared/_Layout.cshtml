@@ -1,5 +1,5 @@
 ﻿@using GlobalConstants
-@using DIY.Castle.Web.Models 
+@using DIY.Castle.Web.Models
 @{
 
 }
@@ -58,6 +58,12 @@
 
 <body>
     <header class="item header margin-top-0">
+
+        @if (User.IsInRole(UserRoles.ADMIN_ROLE_NAME))
+        {
+            <partial name="~/Views/Shared/AdminPanel.cshtml" />
+        }
+
         <div class="wrapper">
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
                 <div class="container">
@@ -72,12 +78,6 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">НАЧАЛО</a>
                             </li>
-                            @if (User.IsInRole(UserRoles.ADMIN_ROLE_NAME))
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="Administration" asp-controller="Products" asp-action="Create">СЪЗДАЙ</a>
-                                </li>
-                            }
                             <li class="nav-item">
                                 <div id="side-cart">
                                     <partial name="/Views/Cart/_cart.cshtml" />

@@ -1,0 +1,16 @@
+﻿<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="~/css/admin-panel.css" media="all" />
+
+
+<div id="mySidebar" class="sidebar">
+    <div class="adminSidebarTitle">
+        <h2 style="color:#ffdd99; font-size:36px;">Админ Панел</h2>
+    </div>
+    <a asp-area="Administration" asp-controller="Products" asp-action="Create">Добави продукт</a>
+</div>
+
+<div id="main">
+    <button id="openSideBarBtn" class="openbtn" onclick="openNav()">☰</button>
+</div>
+
+<script src="~/js/admin-panel.js"></script>

@@ -229,7 +229,7 @@ p {
     padding: 15px 0;
 }
 
-button {
+.checkout-button {
     width: 94%;
     margin-top: 10px;
     padding: 10px;
