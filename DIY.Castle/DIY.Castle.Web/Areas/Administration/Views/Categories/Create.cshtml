@@ -24,6 +24,9 @@
             <form enctype="multipart/form-data" asp-action="Create" method="post">
                 <div class="row">
                     <div class="validation_summary text-danger" style="text-align:left;list-style:none;" asp-validation-summary="All"></div>
+                    <div class="col-md-12">
+                        <p>Име:</p>
+                    </div>
                     @*Create*@
                     <div class="col-md-8">
                         <div class="form-group">
@@ -49,6 +52,9 @@
                                 <option value="@category.Id">@category.Name</option>
                             }
                         </select>
+                    </div>
+                    <div class="col-md-12">
+                        <p>Ново име:</p>
                     </div>
                     <div class="col-md-8">
                         <div class="form-group">
