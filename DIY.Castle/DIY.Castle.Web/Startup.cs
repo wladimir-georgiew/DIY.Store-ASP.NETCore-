@@ -2,6 +2,7 @@ using DIY.Castle.Data;
 using DIY.Castle.Data.Models;
 using DIY.Castle.Web.AutoMapper;
 using DIY.Castle.Web.Data;
+using DIY.Castle.Web.Services.CategoriesService;
 using DIY.Castle.Web.Services.EmailSender;
 using DIY.Castle.Web.Services.ProductsService;
 using DIY.Castle.Web.Services.UploadFileService;
@@ -43,6 +44,7 @@ namespace DIY.Castle.Web
             services.AddTransient<IEmailSender>(
               x => new SendGridEmailSender(Configuration.GetSection("SendGrid")["ApiKey"]));
             services.AddTransient<IUploadFileService, UploadFileService>();
+            services.AddTransient<ICategoriesService, CategoriesService>();
             services.AddTransient<IProductsService, ProductsService>();
         }
 

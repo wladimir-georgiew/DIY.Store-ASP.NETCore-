@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace DIY.Castle.Web.Services.ProductsService
 {
@@ -22,18 +23,11 @@ namespace DIY.Castle.Web.Services.ProductsService
 
         public Product GetProductById(int id) => this._dbContext.Products?.FirstOrDefault(x => x.Id == id);
 
-        public IEnumerable<Product> GetAllProducts() => this._dbContext.Products;
+        public IEnumerable<Product> GetAllProducts() => this._dbContext.Products.Include("Category");
 
         public IEnumerable<Product> GetProductsByType(string productTypeFilter)
         {
-            bool isFilterValid = Enum.TryParse(productTypeFilter, out ProductTypeEnum enumFilter);
-
-            if (string.IsNullOrEmpty(productTypeFilter) || !isFilterValid)
-            {
-                return this._dbContext.Products;
-            }
-
-            var products = this._dbContext.Products.Where(x => x.ProductType == (int)enumFilter);
+            var products = this.GetAllProducts().Where(x => !string.IsNullOrEmpty(productTypeFilter) ? x.Category.Name == productTypeFilter : true);
 
             return products;
         }
@@ -56,31 +50,9 @@ namespace DIY.Castle.Web.Services.ProductsService
         {
             var productModel = this._mapper.Map<ProductModel>(product);
             productModel.ImagesSourcePaths = this.GetProductImagesSrcPaths(product.Id);
-            productModel.ProductType = GetProductType(product.ProductType);
             productModel.IsNewProduct = DateTime.UtcNow.Subtract(product.CreatedOn).TotalDays <= 7;
 
             return productModel;
-        }
-
-        private string GetProductType(int productType)
-        {
-            switch (productType)
-            {
-                case 0:
-                    return "Неизвестни";
-                case 1:
-                    return "Стикери";
-                case 2:
-                    return "Разделители";
-                case 3:
-                    return "Свещи";
-                case 4:
-                    return "Картички";
-                case 5:
-                    return "Икони";
-                default:
-                    return "Няма тип";
-            }
         }
     }
 }

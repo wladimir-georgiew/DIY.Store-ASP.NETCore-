@@ -1,10 +1,6 @@
 ﻿@using DIY.Castle.Web.Areas.Administration.Models
 @model ProductsRequestModel
 
-@{
-    var enumValues = Enum.GetValues(typeof(ProductTypeEnum));
-}
-
 <style>
     .validation_summary ul {
         list-style-type: none;
@@ -33,9 +29,9 @@
                         <div class="form-group">
                             <label asp-for="@Model.ProductType" class="control-label">Тип</label>
                             <select asp-for="@Model.ProductType">
-                                @foreach (int enumValue in enumValues)
+                                @foreach (var category in Model.Categories)
                                 {
-                                     <option value="@enumValue">@Enum.GetName(typeof(ProductTypeEnum), enumValue)</option>
+                                    <option value="@category.Name">@category.Name</option>
                                 }
                             </select>
                         </div>

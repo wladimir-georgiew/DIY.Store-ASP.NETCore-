@@ -88,18 +88,43 @@ namespace DIY.Castle.Data.Migrations
                         {
                             Id = "000AFADMIN000",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "01b78104-8035-4148-b297-b7d4f8bca4ae",
+                            ConcurrencyStamp = "13f3e633-ce50-4a94-991c-f52453bb55b0",
                             Email = "admin@abv.bg",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ABV.BG",
                             NormalizedUserName = "ADMIN@ABV.BG",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHjA1NpLn7fqIQpY37R9iIAcihXCHKLSNufEGlufIrtf4ZYod4Dd30zfHFOJBRg04w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBqkvqCVVNCp+TfU51ZYPW6gsTz9QK6W3E5+xHQ7PRQhvXCCjbmha3YZJPjroJXGug==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "000AFSECURITYSTAMP000",
                             TwoFactorEnabled = false,
                             UserName = "admin@abv.bg"
                         });
+                });
+
+            modelBuilder.Entity("DIY.Castle.Data.Models.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Category");
                 });
 
             modelBuilder.Entity("DIY.Castle.Data.Models.Product", b =>
@@ -108,6 +133,9 @@ namespace DIY.Castle.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -133,11 +161,9 @@ namespace DIY.Castle.Data.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(8,2)");
 
-                    b.Property<int>("ProductType")
-                        .HasColumnType("int")
-                        .HasMaxLength(25);
-
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
                 });
@@ -172,14 +198,14 @@ namespace DIY.Castle.Data.Migrations
                         new
                         {
                             Id = "1",
-                            ConcurrencyStamp = "c5114163-7be1-494f-a388-f0d20ec9a810",
+                            ConcurrencyStamp = "07712787-131e-4752-ab14-96d00292a884",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
                             Id = "0",
-                            ConcurrencyStamp = "300159a1-bb40-4056-b283-cac4bfd03c5d",
+                            ConcurrencyStamp = "676365f2-cf21-48a3-a0f6-ad78a29a13b8",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -298,6 +324,15 @@ namespace DIY.Castle.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("DIY.Castle.Data.Models.Product", b =>
+                {
+                    b.HasOne("DIY.Castle.Data.Models.Category", "Category")
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

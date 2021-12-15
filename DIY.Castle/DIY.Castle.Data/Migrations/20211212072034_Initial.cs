@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DIY.Castle.Data.Migrations
 {
-    public partial class Initialize : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -47,23 +47,19 @@ namespace DIY.Castle.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Products",
+                name: "Category",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(maxLength: 50, nullable: false),
-                    ProductType = table.Column<int>(maxLength: 25, nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(8,2)", nullable: false),
-                    Description = table.Column<string>(maxLength: 500, nullable: true),
-                    ImageSourcePath = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: false),
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Products", x => x.Id);
+                    table.PrimaryKey("PK_Category", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -172,20 +168,46 @@ namespace DIY.Castle.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.InsertData(
-                table: "AspNetRoles",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "1", "c5114163-7be1-494f-a388-f0d20ec9a810", "User", "USER" });
+            migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(maxLength: 50, nullable: false),
+                    CategoryId = table.Column<int>(nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(8,2)", nullable: false),
+                    Description = table.Column<string>(maxLength: 500, nullable: true),
+                    ImageSourcePath = table.Column<string>(nullable: true),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    DeletedOn = table.Column<DateTime>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Products_Category_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Category",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "0", "300159a1-bb40-4056-b283-cac4bfd03c5d", "Admin", "ADMIN" });
+                values: new object[] { "1", "07712787-131e-4752-ab14-96d00292a884", "User", "USER" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "0", "676365f2-cf21-48a3-a0f6-ad78a29a13b8", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "000AFADMIN000", 0, "01b78104-8035-4148-b297-b7d4f8bca4ae", "admin@abv.bg", false, false, null, "ADMIN@ABV.BG", "ADMIN@ABV.BG", "AQAAAAEAACcQAAAAEHjA1NpLn7fqIQpY37R9iIAcihXCHKLSNufEGlufIrtf4ZYod4Dd30zfHFOJBRg04w==", null, false, "000AFSECURITYSTAMP000", false, "admin@abv.bg" });
+                values: new object[] { "000AFADMIN000", 0, "13f3e633-ce50-4a94-991c-f52453bb55b0", "admin@abv.bg", false, false, null, "ADMIN@ABV.BG", "ADMIN@ABV.BG", "AQAAAAEAACcQAAAAEBqkvqCVVNCp+TfU51ZYPW6gsTz9QK6W3E5+xHQ7PRQhvXCCjbmha3YZJPjroJXGug==", null, false, "000AFSECURITYSTAMP000", false, "admin@abv.bg" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -230,6 +252,11 @@ namespace DIY.Castle.Data.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_CategoryId",
+                table: "Products",
+                column: "CategoryId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -257,6 +284,9 @@ namespace DIY.Castle.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Category");
         }
     }
 }

@@ -2,6 +2,7 @@
 using DIY.Castle.Data.Models;
 using DIY.Castle.Web.Areas.Administration.Models;
 using DIY.Castle.Web.Models;
+using DIY.Castle.Web.Services.CategoriesService;
 using DIY.Castle.Web.Services.ProductsService;
 using DIY.Castle.Web.Services.UploadFileService;
 using GlobalConstants;
@@ -18,18 +19,21 @@ namespace DIY.Castle.Web.Areas.Administration.Controllers
         private readonly IMapper _mapper;
         private readonly IUploadFileService _uploadFileService;
         private readonly IProductsService _productsService;
+        private readonly ICategoriesService _categoriesService;
 
-        public ProductsController(IMapper mapper, IUploadFileService uploadFileService, IProductsService productsService)
+        public ProductsController(IMapper mapper, IUploadFileService uploadFileService, IProductsService productsService, ICategoriesService categoriesService)
         {
             this._mapper = mapper;
             this._uploadFileService = uploadFileService;
             this._productsService = productsService;
+            this._categoriesService = categoriesService;
         }
 
         [HttpGet]
         public IActionResult Create()
         {
-            var model = new ProductsRequestModel();
+            var categories = _categoriesService.GetAllCategories().ToList();
+            var model = new ProductsRequestModel() { Categories = categories };
             return this.View(model);
         }
 
@@ -38,11 +42,12 @@ namespace DIY.Castle.Web.Areas.Administration.Controllers
         {
             if (!this.ModelState.IsValid)
             {
+                model.Categories = _categoriesService.GetAllCategories().ToList();
                 return this.View(model);
             }
 
             var product = this._mapper.Map<ProductsRequestModel, Product>(model);
-            product.ProductType = model.ProductType;
+            product.Category = this._categoriesService.GetCategoryByName(model.ProductType);
 
             var productImgSourcePaths = string.Empty;
 
