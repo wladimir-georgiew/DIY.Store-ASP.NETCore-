@@ -1,5 +1,5 @@
 ﻿using DIY.Castle.Common.Attributes;
-using DIY.Castle.Web.Models;
+using DIY.Castle.Data.Models;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -9,22 +9,24 @@ namespace DIY.Castle.Web.Areas.Administration.Models
 {
     public class ProductsRequestModel
     {
-        [Required(ErrorMessage = "Name is required")]
+        public List<Category> Categories { get; set; }
+
+        [Required(ErrorMessage = "Полето Име е задължително")]
+        [MaxLength(50, ErrorMessage = "Дължината на името не може да надвишава 50 символа")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Price is required")]
-        [Range(0.1, 10000.00, ErrorMessage = "Price should be between 0.10 and 10000.00")]
+        [Required(ErrorMessage = "Полето Цена е заължително")]
+        [Range(0.1, 10000.00, ErrorMessage = "Стойността на цената трябва да е между 0.10 и 10000.00")]
         public double Price { get; set; }
 
         [Required]
-        public int ProductType { get; set; }
+        public string ProductType { get; set; }
 
-        [Required(ErrorMessage = "Description is required")]
-        [MaxLength(300, ErrorMessage = "Description max length is 300 characters")]
+        [Required(ErrorMessage = "Полето Описание е задължително")]
+        [MaxLength(300, ErrorMessage = "Дължината на описанието не може да надвишава 300 символа")]
         public string Description { get; set; }
 
-        [Required(ErrorMessage = "Image is required")]
-        [Display(Name = "Icon Image")]
+        [Required(ErrorMessage = "Задължително е да предоставите поне 1 снимка")]
         [DataType(DataType.Upload)]
         [AllowedExtensions(new[] { ".jpg", ".png" })]
         [MaxFileSize(3 * 1024 * 1024)] // 3mb

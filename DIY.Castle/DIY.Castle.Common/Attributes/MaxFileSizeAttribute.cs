@@ -15,7 +15,7 @@ namespace DIY.Castle.Common.Attributes
 
         public string GetErrorMessage()
         {
-            return $"Maximum allowed file size is {this.maxFileSize / 1024 / 1024} mb.";
+            return $"Не може да качвате снимка по голяма от {this.maxFileSize / 1024 / 1024} mb.";
         }
 
         protected override ValidationResult IsValid(

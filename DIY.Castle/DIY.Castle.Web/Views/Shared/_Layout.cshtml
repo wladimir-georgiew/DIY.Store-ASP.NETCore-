@@ -1,7 +1,9 @@
 ﻿@using GlobalConstants
-@using DIY.Castle.Web.Models 
+@using DIY.Castle.Web.Models
+@using DIY.Castle.Web.Services.CategoriesService
+@inject ICategoriesService _categoriesService
 @{
-
+    var categories = _categoriesService.GetAllCategories();
 }
 <style>
     .dropdown-item {
@@ -58,6 +60,12 @@
 
 <body>
     <header class="item header margin-top-0">
+
+        @if (User.IsInRole(UserRoles.ADMIN_ROLE_NAME))
+        {
+            <partial name="~/Views/Shared/AdminPanel.cshtml" />
+        }
+
         <div class="wrapper">
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
                 <div class="container">
@@ -72,12 +80,6 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">НАЧАЛО</a>
                             </li>
-                            @if (User.IsInRole(UserRoles.ADMIN_ROLE_NAME))
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="Administration" asp-controller="Products" asp-action="Create">СЪЗДАЙ</a>
-                                </li>
-                            }
                             <li class="nav-item">
                                 <div id="side-cart">
                                     <partial name="/Views/Cart/_cart.cshtml" />
@@ -93,16 +95,11 @@
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" asp-controller="Catalog" asp-action="Index">ВСИЧКИ ПРОДУКТИ</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" asp-controller="Catalog" asp-action="Index" asp-route-filter="@ProductTypeEnum.Sticker">СТИКЕРИ</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" asp-controller="Catalog" asp-action="Index" asp-route-filter="@ProductTypeEnum.Divider">РАЗДЕЛИТЕЛИ</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" asp-controller="Catalog" asp-action="Index" asp-route-filter="@ProductTypeEnum.Candle">СВЕЩИ</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" asp-controller="Catalog" asp-action="Index" asp-route-filter="@ProductTypeEnum.Card">КАРТИЧКИ</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" asp-controller="Catalog" asp-action="Index" asp-route-filter="@ProductTypeEnum.Icon">ИКОНИ</a>
-                                    <div class="dropdown-divider"></div>
+                                    @foreach (var category in categories)
+                                    {
+                                        <a class="dropdown-item" asp-controller="Catalog" asp-action="Index" asp-route-filter="@category.Name">@category.Name</a>
+                                        <div class="dropdown-divider"></div>
+                                    }
                                 </div>
                             </li>
 

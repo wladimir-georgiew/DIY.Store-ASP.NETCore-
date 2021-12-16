@@ -130,7 +130,7 @@
                         <input type="radio" name="dbt" value="cd"> Плащане при доставка
                     </div>*@
                 <div>
-                    <button @(hasProducts ? "" : "disabled") class="@(hasProducts ? "" : "disabled-button")" form="checkout-form" type="submit">Поръчай</button>
+                    <button @(hasProducts ? "" : "disabled") class="checkout-button @(hasProducts ? "" : "disabled-button")" form="checkout-form" type="submit">Поръчай</button>
                 </div>
             </div>
             <!-- Yorder -->
