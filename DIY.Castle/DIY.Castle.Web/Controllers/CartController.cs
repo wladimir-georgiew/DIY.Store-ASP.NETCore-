@@ -111,7 +111,7 @@ namespace DIY.Castle.Web.Controllers
                     // If the item already exists in the cart
                     if (index != -1)
                     {
-                        cart[index].Quantity++;
+                        cart[index].Quantity += quantity;
                         itemAlreadyExists = true;
 
                         updatedQuantity = cart[index].Quantity;

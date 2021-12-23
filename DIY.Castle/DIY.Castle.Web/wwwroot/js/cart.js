@@ -6,6 +6,11 @@ function itemAddedNotification(itemName) {
 }
 
 function AddToBasket(id, quantity, name, price) {
+    var dynamicQuantity = document.getElementById('product-quantity')?.value;
+    if (dynamicQuantity !== undefined && dynamicQuantity !== null) {
+        quantity = dynamicQuantity;
+    }
+
     fetch(`/Cart/AddToBasket/${id}/${quantity}`)
         .then((response) => {
             return response.json();
