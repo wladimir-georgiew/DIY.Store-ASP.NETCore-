@@ -93,11 +93,11 @@
                                 </a>
                                 <div class="dropdown-menu">
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" asp-controller="Catalog" asp-action="Index">ВСИЧКИ ПРОДУКТИ</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Catalog" asp-action="Index">ВСИЧКИ ПРОДУКТИ</a>
                                     <div class="dropdown-divider"></div>
                                     @foreach (var category in categories)
                                     {
-                                        <a class="dropdown-item" asp-controller="Catalog" asp-action="Index" asp-route-filter="@category.Name">@category.Name</a>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Catalog" asp-action="Index" asp-route-filter="@category.Name">@category.Name</a>
                                         <div class="dropdown-divider"></div>
                                     }
                                 </div>

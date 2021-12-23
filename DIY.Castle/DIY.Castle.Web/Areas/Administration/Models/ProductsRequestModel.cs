@@ -23,7 +23,7 @@ namespace DIY.Castle.Web.Areas.Administration.Models
         public string ProductType { get; set; }
 
         [Required(ErrorMessage = "Полето Описание е задължително")]
-        [MaxLength(300, ErrorMessage = "Дължината на описанието не може да надвишава 300 символа")]
+        [MaxLength(490, ErrorMessage = "Дължината на описанието не може да надвишава 490 символа")]
         public string Description { get; set; }
 
         [Required(ErrorMessage = "Задължително е да предоставите поне 1 снимка")]
