@@ -176,7 +176,6 @@ namespace DIY.Castle.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(maxLength: 50, nullable: false),
                     CategoryId = table.Column<int>(nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(8,2)", nullable: false),
                     Description = table.Column<string>(maxLength: 500, nullable: true),
                     ImageSourcePath = table.Column<string>(nullable: true),
                     CreatedOn = table.Column<DateTime>(nullable: false),
@@ -194,20 +193,44 @@ namespace DIY.Castle.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.InsertData(
-                table: "AspNetRoles",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "1", "07712787-131e-4752-ab14-96d00292a884", "User", "USER" });
+            migrationBuilder.CreateTable(
+                name: "Variations",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    VariationName = table.Column<string>(nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(8,2)", nullable: false),
+                    ProductId = table.Column<int>(nullable: false),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    DeletedOn = table.Column<DateTime>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Variations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Variations_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "0", "676365f2-cf21-48a3-a0f6-ad78a29a13b8", "Admin", "ADMIN" });
+                values: new object[] { "1", "2ab4a043-eecd-4a31-8e94-904311ec2140", "User", "USER" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "0", "3f27661a-f737-4ff7-9095-e32ac56ded95", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "000AFADMIN000", 0, "13f3e633-ce50-4a94-991c-f52453bb55b0", "admin@abv.bg", false, false, null, "ADMIN@ABV.BG", "ADMIN@ABV.BG", "AQAAAAEAACcQAAAAEBqkvqCVVNCp+TfU51ZYPW6gsTz9QK6W3E5+xHQ7PRQhvXCCjbmha3YZJPjroJXGug==", null, false, "000AFSECURITYSTAMP000", false, "admin@abv.bg" });
+                values: new object[] { "000AFADMIN000", 0, "08ed0e19-e2b9-4d82-af61-d1a1826f437a", "admin@abv.bg", false, false, null, "ADMIN@ABV.BG", "ADMIN@ABV.BG", "AQAAAAEAACcQAAAAEM1hTmLORUDijixMXB5vuwzdG4FJLhXixaQmjd+zoIzaW/CWG8qMjKL4CCfGOGis9A==", null, false, "000AFSECURITYSTAMP000", false, "admin@abv.bg" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -257,6 +280,11 @@ namespace DIY.Castle.Data.Migrations
                 name: "IX_Products_CategoryId",
                 table: "Products",
                 column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Variations_ProductId",
+                table: "Variations",
+                column: "ProductId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -277,13 +305,16 @@ namespace DIY.Castle.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "Variations");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Products");
 
             migrationBuilder.DropTable(
                 name: "Category");

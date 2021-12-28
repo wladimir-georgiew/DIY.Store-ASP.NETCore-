@@ -67,7 +67,7 @@ namespace DIY.Castle.Web.Controllers
             var cart = SessionHelper.GetObjectFromJson<List<ProductCartModel>>(HttpContext.Session, "cart");
             var totalPrice = cart == null
                            ? Math.Round(0.00M, 2)
-                           : Math.Round(cart.Sum(p => p.Product.Price * p.Quantity), 2);
+                           : Math.Round(cart.Sum(p => p.ProductVariation.Price * p.Quantity), 2);
 
             var cartModel = new CartViewModel()
             {

@@ -1,5 +1,6 @@
 ﻿using DIY.Castle.Data.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -8,6 +9,11 @@ namespace DIY.Castle.Data.Models
     [Table("Products")]
     public class Product : IDeletableEntity
     {
+        public Product()
+        {
+            this.Variations = new HashSet<Variation>();
+        }
+
         [Key]
         public int Id { get; set; }
 
@@ -20,15 +26,12 @@ namespace DIY.Castle.Data.Models
 
         public Category Category { get; set; }
 
-        [Range(0.00, 100000.00)]
-        [Column(TypeName = "decimal(8,2)")]
-        [Required]
-        public decimal Price { get; set; }
-
         [MaxLength(500)]
         public string Description { get; set; }
 
         public string ImageSourcePath { get; set; }
+
+        public virtual ICollection<Variation> Variations { get; set; }
 
         [Required]
         public DateTime CreatedOn { get; set; }

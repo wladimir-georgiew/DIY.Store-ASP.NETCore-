@@ -46,8 +46,8 @@ namespace DIY.Castle.Web.Areas.Administration.Controllers
                 return this.View(model);
             }
 
+            var variation = this._mapper.Map<ProductsRequestModel, Variation>(model);
             var product = this._mapper.Map<ProductsRequestModel, Product>(model);
-            product.Category = this._categoriesService.GetCategoryByName(model.ProductType);
 
             var productImgSourcePaths = string.Empty;
 
@@ -60,8 +60,9 @@ namespace DIY.Castle.Web.Areas.Administration.Controllers
                 imgIndex++;
             }
 
+            product.Category = this._categoriesService.GetCategoryByName(model.ProductType);
             product.ImageSourcePath = productImgSourcePaths;
-            await this._productsService.AddProduct(product);
+            await this._productsService.AddProduct(product, variation);
 
             return this.RedirectToAction("Index", "Home", new { area = "" });
         }

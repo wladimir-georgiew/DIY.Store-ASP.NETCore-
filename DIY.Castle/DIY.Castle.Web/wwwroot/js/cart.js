@@ -5,7 +5,16 @@ function itemAddedNotification(itemName) {
     toastr.success(`Добавихте ${itemName} в кошницата`);
 }
 
-function AddToBasket(id, quantity, name, price) {
+function AddToBasket(quantity, id = null, name = null, price = null) {
+    if (id === null && name === null && price === null) {
+        var args = document.getElementById('selected-sku').value;
+        var argsArr = args.split('/');
+        id = argsArr[0];
+        name = argsArr[1];
+        price = argsArr[2];
+    }
+
+
     var dynamicQuantity = document.getElementById('product-quantity')?.value;
     if (dynamicQuantity !== undefined && dynamicQuantity !== null) {
         quantity = dynamicQuantity;
@@ -75,17 +84,8 @@ function AddToBasket(id, quantity, name, price) {
 
             return data;
         })
-        /*.then(updateCartTotalItemQuantity(data.updatedTotalQuantity))*/
         .then(itemAddedNotification(name));
 }
-
-//old cart
-//function deleteItem(form, itemName) {
-//    $(form).parentsUntil("tbody").remove();
-//    toastr.error(`Премахнахте ${itemName} от кошницата`);
-
-//    updateTotalPrice();
-//}
 
 function deleteItem(form, itemName) {
     $(form).parentsUntil("ul").remove();
@@ -116,17 +116,6 @@ function decreaseQuantity(id) {
         updateTotalPrice();
     }
 }
-
-//old
-//function updateTotalPrice() {
-//    fetch('/Cart/GetTotalPrice')
-//        .then((data) => {
-//            return data.json();
-//        })
-//        .then((response) => {
-//            document.getElementById("cart-total-amount-foot").innerHTML = `${response.toFixed(2)} лв.`;
-//        });
-//}
 
 function updateTotalPrice() {
     fetch('/Cart/GetTotalPrice')

@@ -1,4 +1,4 @@
-﻿@using DIY.Castle.Web.Models;
+﻿@using DIY.Castle.Web.Models.ViewModels;
 @model ProductModel
 
 <link href="/css/product-details.css" rel="stylesheet" />
@@ -11,10 +11,10 @@
             <div class="slideshow-container">
                 @foreach (var image in Model.ImagesSourcePaths)
                 {
-                <div class="mySlides faded">
-                    <div class="numbertext">@(Model.ImagesSourcePaths.IndexOf(image)+1)/@Model.ImagesSourcePaths.Count</div>
-                    <img src="@image" style=" object-fit: contain; height: 500px; width: 100%; background-color: #798560;">
-                </div>
+                    <div class="mySlides faded">
+                        <div class="numbertext">@(Model.ImagesSourcePaths.IndexOf(image)+1)/@Model.ImagesSourcePaths.Count</div>
+                        <img src="@image" style=" object-fit: contain; height: 500px; width: 100%; background-color: #798560;">
+                    </div>
                 }
 
                 <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
@@ -25,12 +25,12 @@
             <div style="text-align:center">
                 @foreach (var dot in Model.ImagesSourcePaths)
                 {
-                <span class="dot" onclick="currentSlide(@(Model.ImagesSourcePaths.IndexOf(dot)+1))"></span>
+                    <span class="dot" onclick="currentSlide(@(Model.ImagesSourcePaths.IndexOf(dot)+1))"></span>
                 }
             </div>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-6 details-area">
 
             <h5>@Model.Name</h5>
             <p class="mb-2 text-muted text-uppercase small">@Model.ProductType</p>
@@ -38,18 +38,44 @@
             <p class="product-description">
                 @Model.Description
             </p>
+
+
             <hr>
+
+            <select @(Model.ProductVariations.Count == 1 ? "hidden" : "") id="selected-sku">
+                @for (int i = 0; i < Model.ProductVariations.Count; i++)
+                {
+                    var sku = Model.ProductVariations[i];
+                    var name = Model.ProductVariations.Count == 1 ? Model.Name : $"{Model.Name} - {sku.VariationName}";
+                    var valueString = $"{ sku.Id}/{name}/{ sku.Price}";
+
+                    if (i == 0)
+                    {
+                        <option selected id="sku-@sku.Id" value="@valueString">@sku.VariationName</option>
+                    }
+                    else
+                    {
+                        <option id="sku-@sku.Id" value="@valueString")">@sku.VariationName</option>
+                    }
+                }
+            </select>
+
             <div class="counter btn">
                 <span class="down" onClick='decreaseCount(event, this)'>-</span>
                 <input id="product-quantity" type="text" value="1">
                 <span class="up" onClick='increaseCount(event, this)'>+</span>
             </div>
 
-            <a data-ajax="true" data-ajax-success="AddToBasket('@Model.Id', 1 ,'@Model.Name', '@Model.Price')" type="submit" class="btn button-product-details"><span>Добави в количката</span></a>
+            <div id="button-holder">
+                <a data-ajax="true" data-ajax-success="AddToBasket(1)" class="btn button-product-details"><span>Добави в количката ima samo 1 variaciq</span></a>
+            </div>
+          
+
+
         </div>
     </div>
 
 </section>
 <!--Section: Block Content-->
 
-<script src="/js/product-details.js" rel="stylesheet" ></script>
+<script src="/js/product-details.js" rel="stylesheet"></script>

@@ -1,17 +1,18 @@
-﻿using DIY.Castle.Data.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace DIY.Castle.Web.Models
 {
-    public class ProductModel
+    public class VariationProductModel
     {
         public int Id { get; set; }
 
+        public int ProductId { get; set; }
+
+        public string ProductName { get; set; }
+
+        public string VariationName { get; set; }
+
         public string Name { get; set; }
-
-        public string ProductType { get; set; }
-
-        public string Price { get; set; }
 
         public string Description { get; set; }
 
@@ -21,6 +22,6 @@ namespace DIY.Castle.Web.Models
 
         public bool IsNewProduct { get; set; } = false;
 
-        public List<Variation> ProductVariations { get; set; }
+        public decimal Price { get; set; }
     }
 }

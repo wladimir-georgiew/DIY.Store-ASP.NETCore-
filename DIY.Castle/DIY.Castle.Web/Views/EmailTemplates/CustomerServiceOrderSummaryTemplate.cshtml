@@ -25,9 +25,9 @@ else
 <hr />
 @foreach (var item in Model.CartModel.Cart)
 {
-    <h3>Име на продукта: @item.Product.Name</h3>
+    <h3>Име на продукта: @item.ProductVariation.Name</h3>
     <h3>Количество: @item.Quantity</h3>
-    <h3>Цена за един брой: @item.Product.Price</h3>
+    <h3>Цена за един брой: @item.ProductVariation.Price</h3>
     <hr />
 }
 

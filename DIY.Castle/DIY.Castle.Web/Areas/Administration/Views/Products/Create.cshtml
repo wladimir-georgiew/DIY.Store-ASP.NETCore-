@@ -17,10 +17,16 @@
             <form enctype="multipart/form-data" asp-action="Create" method="post">
                 <div class="validation_summary text-danger" style="text-align:left;list-style:none;" asp-validation-summary="All"></div>
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label asp-for="@Model.Name" class="control-label">Име</label>
                             <input asp-for="@Model.Name" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="@Model.VariationName" class="control-label">Име на подпродукт</label>
+                            <input asp-for="@Model.VariationName" class="form-control" />
                         </div>
                     </div>
                 </div>

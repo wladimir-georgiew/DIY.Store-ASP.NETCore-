@@ -14,7 +14,7 @@
 
     var totalPrice = cart == null
         ? Math.Round(0.00M, 2)
-        : Math.Round(cart.Sum(p => p.Product.Price * p.Quantity), 2);
+        : Math.Round(cart.Sum(p => p.ProductVariation.Price * p.Quantity), 2);
 
     string priceString = totalPrice.ToString("0.00");
 }
@@ -96,10 +96,10 @@
                         {
                             <tr>
                                 <td width="20%">
-                                    <img class="cart-product-img" src="@product.Product.ImagesSourcePaths[0]" />
+                                    <img class="cart-product-img" src="@product.ProductVariation.ImagesSourcePaths[0]" />
                                 </td>
-                                <td width="50%">@product.Product.Name x @(product.Quantity)бр.</td>
-                                <td width="30%">@(product.Product.Price * product.Quantity) лв.</td>
+                                <td width="50%">@product.ProductVariation.Name x @(product.Quantity)бр.</td>
+                                <td width="30%">@(product.ProductVariation.Price * product.Quantity) лв.</td>
 
                             </tr>
                         }
