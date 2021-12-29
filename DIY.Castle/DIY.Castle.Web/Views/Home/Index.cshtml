@@ -82,7 +82,6 @@
             <div class="row">
                 @foreach (var product in Model)
                 {
-                    var firstSku = product.ProductVariations.FirstOrDefault();
                     <div class="col-md-4">
 
                         <div class="productbox">
@@ -97,6 +96,7 @@
                                     <p>
                                         @if (product.ProductVariations.Count == 1)
                                         {
+                                            var firstSku = product.ProductVariations.FirstOrDefault();
                                             <a data-ajax="true" data-ajax-success="AddToBasket('1', '@firstSku.Id', '@product.Name', '@firstSku.Price')" type="submit" class="learn-more detailslearn"><i class="fa fa-shopping-cart"></i>Добави</a>
                                         }
 

@@ -69,7 +69,11 @@
                                         </div>*@
                                     <div class="product-info smart-form">
                                         <div style="justify-content: space-between" class="row">
-                                            @*<a data-ajax="true" data-ajax-success="AddToBasket('@product.Id', '1' ,'@product.Name', '@product.Price')" type="submit" class="btn btn-success btn-cart"><span>Добави</span></a>*@
+                                            @if (product.ProductVariations.Count == 1)
+                                            {
+                                                var firstSku = product.ProductVariations.FirstOrDefault();
+                                                <a data-ajax="true" data-ajax-success="AddToBasket('1', '@firstSku.Id', '@product.Name', '@firstSku.Price')" class="btn btn-info"><span>Добави</span></a>
+                                            }
 
                                             <a asp-controller="ProductDetails" asp-action="Product" asp-route-id="@product.Id" class="btn btn-info"><span>Детайли</span></a>
                                         </div>

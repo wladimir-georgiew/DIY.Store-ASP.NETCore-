@@ -1,5 +1,5 @@
 ﻿@using DIY.Castle.Web.Areas.Administration.Models
-@model ProductsRequestModel
+@model CreateProductModel
 
 <style>
     .validation_summary ul {
@@ -33,8 +33,8 @@
                      <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label asp-for="@Model.ProductType" class="control-label">Тип</label>
-                            <select asp-for="@Model.ProductType">
+                            <label asp-for="@Model.Category" class="control-label">Тип</label>
+                            <select asp-for="@Model.Category">
                                 @foreach (var category in Model.Categories)
                                 {
                                     <option value="@category.Name">@category.Name</option>

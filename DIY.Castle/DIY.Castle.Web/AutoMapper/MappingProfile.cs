@@ -23,14 +23,14 @@ namespace DIY.Castle.Web.AutoMapper
                 .ForMember(x => x.ProductType, y => y.MapFrom(z => z.Category.Name))
                 .ForAllOtherMembers(x => x.Ignore());
 
-            CreateMap<ProductsRequestModel, Product>()
+            CreateMap<CreateProductModel, Product>()
                .ForMember(x => x.Name, y => y.MapFrom(z => z.Name))
                 .ForMember(x => x.Description, y => y.MapFrom(z => z.Description))
                 .ForMember(x => x.ImageSourcePath, y => y.Ignore())
                 .ForMember(x => x.CreatedOn, y => y.MapFrom(z => DateTime.UtcNow))
                 .ForAllOtherMembers(x => x.Ignore());
 
-            CreateMap<ProductsRequestModel, Variation>()
+            CreateMap<CreateProductModel, Variation>()
                .ForMember(x => x.VariationName, y => y.MapFrom(z => z.VariationName))
                .ForMember(x => x.Price, y => y.MapFrom(z => z.Price))
                 .ForMember(x => x.CreatedOn, y => y.MapFrom(z => DateTime.UtcNow))

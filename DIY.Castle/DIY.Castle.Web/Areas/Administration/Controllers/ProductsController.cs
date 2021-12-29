@@ -33,12 +33,12 @@ namespace DIY.Castle.Web.Areas.Administration.Controllers
         public IActionResult Create()
         {
             var categories = _categoriesService.GetAllCategories().ToList();
-            var model = new ProductsRequestModel() { Categories = categories };
+            var model = new CreateProductModel() { Categories = categories };
             return this.View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(ProductsRequestModel model)
+        public async Task<IActionResult> Create(CreateProductModel model)
         {
             if (!this.ModelState.IsValid)
             {
@@ -46,8 +46,8 @@ namespace DIY.Castle.Web.Areas.Administration.Controllers
                 return this.View(model);
             }
 
-            var variation = this._mapper.Map<ProductsRequestModel, Variation>(model);
-            var product = this._mapper.Map<ProductsRequestModel, Product>(model);
+            var variation = this._mapper.Map<CreateProductModel, Variation>(model);
+            var product = this._mapper.Map<CreateProductModel, Product>(model);
 
             var productImgSourcePaths = string.Empty;
 
@@ -60,11 +60,37 @@ namespace DIY.Castle.Web.Areas.Administration.Controllers
                 imgIndex++;
             }
 
-            product.Category = this._categoriesService.GetCategoryByName(model.ProductType);
+            product.Category = this._categoriesService.GetCategoryByName(model.Category);
             product.ImageSourcePath = productImgSourcePaths;
             await this._productsService.AddProduct(product, variation);
 
             return this.RedirectToAction("Index", "Home", new { area = "" });
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int productId)
+        {
+            var allCategories = this._categoriesService.GetAllCategories().ToList();
+            var product = this._productsService.GetProductById(productId);
+
+            var vm = new EditProductModel(product.Name, product.Description, product.Category.Name, allCategories);
+            vm.ProductId = product.Id;
+
+            return this.View(vm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditProductModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                model.AllCategories = _categoriesService.GetAllCategories().ToList();
+                return this.View(model);
+            }
+
+            await this._productsService.UpdateProductAsync(model);
+
+            return this.RedirectToAction("Product", "ProductDetails", new { area = "", id = model.ProductId });
         }
     }
 }

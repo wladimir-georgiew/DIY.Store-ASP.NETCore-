@@ -1,4 +1,5 @@
 ﻿using DIY.Castle.Data.Models;
+using DIY.Castle.Web.Areas.Administration.Models;
 using DIY.Castle.Web.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,8 @@ namespace DIY.Castle.Web.Services.ProductsService
 {
     public interface IProductsService
     {
+        public Task UpdateProductAsync(EditProductModel model);
+
         Product GetProductById(int id);
 
         IEnumerable<Product> GetAllProducts();

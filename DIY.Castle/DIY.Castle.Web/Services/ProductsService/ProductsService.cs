@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using DIY.Castle.Web.Areas.Administration.Models;
+using DIY.Castle.Web.Services.CategoriesService;
 
 namespace DIY.Castle.Web.Services.ProductsService
 {
@@ -14,11 +16,13 @@ namespace DIY.Castle.Web.Services.ProductsService
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly IMapper _mapper;
+        private readonly ICategoriesService categoriesService;
 
-        public ProductsService(ApplicationDbContext dbContext, IMapper mapper)
+        public ProductsService(ApplicationDbContext dbContext, IMapper mapper, ICategoriesService categoriesService)
         {
             this._dbContext = dbContext;
             this._mapper = mapper;
+            this.categoriesService = categoriesService;
         }
 
         public IEnumerable<Variation> GetAllVariations() => this._dbContext.Variations?.Include("Product");
@@ -107,6 +111,20 @@ namespace DIY.Castle.Web.Services.ProductsService
             };
 
             return variationProductModel;
+        }
+
+        public async Task UpdateProductAsync(EditProductModel model)
+        {
+            var category = this.categoriesService.GetCategoryByName(model.Category);
+
+            var product = this.GetProductById(model.ProductId);
+
+            product.Name = model.Name;
+            product.Description = model.Description;
+            product.Category = category;
+            product.CategoryId = category.Id;
+
+            await this._dbContext.SaveChangesAsync();
         }
 
     }

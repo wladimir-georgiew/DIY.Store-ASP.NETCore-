@@ -47,7 +47,7 @@
 
                     <div class="form-group col-md-12">
                         <select class="category-dropdown" asp-for="@Model.Id">
-                            @foreach (var category in Model.Categories)
+                            @foreach (var category in Model.AllCategories)
                             {
                                 <option value="@category.Id">@category.Name</option>
                             }

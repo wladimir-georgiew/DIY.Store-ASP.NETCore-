@@ -11,6 +11,6 @@ namespace DIY.Castle.Web.Areas.Administration.Models
 
         public string Name { get; set; }
 
-        public List<Category> Categories { get; set; }
+        public List<Category> AllCategories { get; set; }
     }
 }

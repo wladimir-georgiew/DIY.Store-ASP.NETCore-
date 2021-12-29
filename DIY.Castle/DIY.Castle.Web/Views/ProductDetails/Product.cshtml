@@ -1,4 +1,4 @@
-﻿@using DIY.Castle.Web.Models.ViewModels;
+﻿@using GlobalConstants
 @model ProductModel
 
 <link href="/css/product-details.css" rel="stylesheet" />
@@ -32,6 +32,10 @@
 
         <div class="col-md-6 details-area">
 
+            @if (User.IsInRole(UserRoles.ADMIN_ROLE_NAME))
+            {
+                <a asp-action="Edit" asp-controller="Products" asp-area="Administration" asp-route-productId="@Model.Id">Промени</a>
+            }
             <h5>@Model.Name</h5>
             <p class="mb-2 text-muted text-uppercase small">@Model.ProductType</p>
             <p><span class="mr-1"><strong id="sku-price">@Model.Price лв.</strong></span></p>
@@ -55,7 +59,7 @@
                     }
                     else
                     {
-                        <option id="sku-@sku.Id" value="@valueString")">@sku.VariationName</option>
+                        <option id="sku-@sku.Id" value="@valueString" )">@sku.VariationName</option>
                     }
                 }
             </select>
@@ -67,9 +71,9 @@
             </div>
 
             <div id="button-holder">
-                <a data-ajax="true" data-ajax-success="AddToBasket(1)" class="btn button-product-details"><span>Добави в количката ima samo 1 variaciq</span></a>
+                <a data-ajax="true" data-ajax-success="AddToBasket(1)" class="btn button-product-details"><span>Добави в количката</span></a>
             </div>
-          
+
 
 
         </div>
