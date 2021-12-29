@@ -34,7 +34,7 @@
 
             <h5>@Model.Name</h5>
             <p class="mb-2 text-muted text-uppercase small">@Model.ProductType</p>
-            <p><span class="mr-1"><strong>@Model.Price лв.</strong></span></p>
+            <p><span class="mr-1"><strong id="sku-price">@Model.Price лв.</strong></span></p>
             <p class="product-description">
                 @Model.Description
             </p>
@@ -42,7 +42,7 @@
 
             <hr>
 
-            <select @(Model.ProductVariations.Count == 1 ? "hidden" : "") id="selected-sku">
+            <select onchange="updatePriceOnVariationSelect()" @(Model.ProductVariations.Count == 1 ? "hidden" : "") id="selected-sku">
                 @for (int i = 0; i < Model.ProductVariations.Count; i++)
                 {
                     var sku = Model.ProductVariations[i];
@@ -77,5 +77,14 @@
 
 </section>
 <!--Section: Block Content-->
+<script>
+    function updatePriceOnVariationSelect() {
+        var el = document.getElementById('sku-price');
+        var optionValueArgs = document.getElementById('selected-sku').value.split('/');
+        var skuPrice = optionValueArgs[2];
 
+        el.innerHTML = `${skuPrice} лв.`;
+    }
+
+</script>
 <script src="/js/product-details.js" rel="stylesheet"></script>
