@@ -6,6 +6,11 @@
     font-size: 17px;
 }
 
+.control-buttons{
+    width:150px;
+    margin-right: 15px;
+}
+
 .counter {
     display: inline-flex;
     border: solid 1px black;

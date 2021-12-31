@@ -34,7 +34,15 @@
 
             @if (User.IsInRole(UserRoles.ADMIN_ROLE_NAME))
             {
-                <a asp-action="Edit" asp-controller="Products" asp-area="Administration" asp-route-productId="@Model.Id">Промени</a>
+                <div style="padding-bottom:30px;">
+                    <a class="btn btn-warning control-buttons" asp-action="Edit" asp-controller="Products" asp-area="Administration" asp-route-productId="@Model.Id">Промени</a>
+
+                    <button type="button" class="btn btn-danger control-buttons" data-toggle="modal" data-target="#exampleModal">
+                        Изтрий
+                    </button>
+                    <partial name="~/Areas/Administration/Views/_ConfirmModal.cshtml" />
+                </div>
+
             }
             <h5>@Model.Name</h5>
             <p class="mb-2 text-muted text-uppercase small">@Model.ProductType</p>

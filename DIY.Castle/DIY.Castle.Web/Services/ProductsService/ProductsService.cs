@@ -9,6 +9,7 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using DIY.Castle.Web.Areas.Administration.Models;
 using DIY.Castle.Web.Services.CategoriesService;
+using DIY.Castle.Web.Services.UploadFileService;
 
 namespace DIY.Castle.Web.Services.ProductsService
 {
@@ -17,12 +18,14 @@ namespace DIY.Castle.Web.Services.ProductsService
         private readonly ApplicationDbContext _dbContext;
         private readonly IMapper _mapper;
         private readonly ICategoriesService categoriesService;
+        private readonly IUploadFileService uploadFileService;
 
-        public ProductsService(ApplicationDbContext dbContext, IMapper mapper, ICategoriesService categoriesService)
+        public ProductsService(ApplicationDbContext dbContext, IMapper mapper, ICategoriesService categoriesService, IUploadFileService uploadFileService)
         {
             this._dbContext = dbContext;
             this._mapper = mapper;
             this.categoriesService = categoriesService;
+            this.uploadFileService = uploadFileService;
         }
 
         public IEnumerable<Variation> GetAllVariations() => this._dbContext.Variations?.Include("Product");
@@ -42,7 +45,7 @@ namespace DIY.Castle.Web.Services.ProductsService
             return products;
         }
 
-        public async Task AddProduct(Product product, Variation variation)
+        public async Task AddProductAsync(Product product, Variation variation)
         {
             product.CreatedOn = DateTime.UtcNow;
             product.Variations.Add(variation);
@@ -123,6 +126,28 @@ namespace DIY.Castle.Web.Services.ProductsService
             product.Description = model.Description;
             product.Category = category;
             product.CategoryId = category.Id;
+
+            await this._dbContext.SaveChangesAsync();
+        }
+
+        public async Task DeleteProductAsync(int productId)
+        {
+            var product = this.GetProductById(productId);
+            var variations = product.Variations;
+            var productImagesPaths = product.ImageSourcePath
+                .Split(';')
+                .ToList()
+                //Removes the " /images/ " string from the name
+                .Select(x => x.Substring(8))
+                .ToList();
+
+            foreach (var variation in variations)
+            {
+                this._dbContext.Variations.Remove(variation);
+            }
+
+            this.uploadFileService.DeleteFiles(productImagesPaths);
+            this._dbContext.Products.Remove(product);
 
             await this._dbContext.SaveChangesAsync();
         }

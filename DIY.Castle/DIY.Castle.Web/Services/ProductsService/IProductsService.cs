@@ -17,7 +17,7 @@ namespace DIY.Castle.Web.Services.ProductsService
 
         IEnumerable<Product> GetProductsByType(string productTypeFilter);
 
-        Task AddProduct(Product product, Variation variation);
+        Task AddProductAsync(Product product, Variation variation);
 
         IEnumerable<Variation> GetAllVariations();
 
@@ -30,5 +30,7 @@ namespace DIY.Castle.Web.Services.ProductsService
         ProductModel GetProductModel(Product product, int variationId = -1);
 
         VariationProductModel GetProductVariationModel(Variation variation);
+
+        public Task DeleteProductAsync(int productId);
     }
 }

@@ -62,7 +62,7 @@ namespace DIY.Castle.Web.Areas.Administration.Controllers
 
             product.Category = this._categoriesService.GetCategoryByName(model.Category);
             product.ImageSourcePath = productImgSourcePaths;
-            await this._productsService.AddProduct(product, variation);
+            await this._productsService.AddProductAsync(product, variation);
 
             return this.RedirectToAction("Index", "Home", new { area = "" });
         }
@@ -91,6 +91,15 @@ namespace DIY.Castle.Web.Areas.Administration.Controllers
             await this._productsService.UpdateProductAsync(model);
 
             return this.RedirectToAction("Product", "ProductDetails", new { area = "", id = model.ProductId });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int productId)
+        {
+            // Deletes the product and his variations
+            await this._productsService.DeleteProductAsync(productId);
+
+            return this.RedirectToAction("Index", "Home", new { area = "" });
         }
     }
 }
