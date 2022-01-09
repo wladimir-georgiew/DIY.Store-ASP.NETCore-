@@ -24,32 +24,32 @@
                     <tr>
                         <td data-th="Product">
                             <div class="row">
-                                <div class="col-sm-4 hidden-lg"><img src="@item.Product.ImagesSourcePaths[0]" alt="..." class="img-responsive" /></div>
+                                <div class="col-sm-4 hidden-lg"><img src="@item.ProductVariation.ImagesSourcePaths[0]" alt="..." class="img-responsive" /></div>
                                 <div class="col-sm-8">
-                                    <a asp-controller="ProductDetails" asp-action="Product" asp-route-id="@item.Product.Id"><h4 class="nomargin">@item.Product.Name</h4></a>
+                                    <a asp-controller="ProductDetails" asp-action="Product" asp-route-id="@item.ProductVariation.Id"><h4 class="nomargin">@item.ProductVariation.Name</h4></a>
                                     <p>
-                                        @(item.Product.Description.Length > 105
-                                            ? (item.Product.Description.Substring(0, 105) + "...")
-                                            : item.Product.Description)
+                                        @(item.ProductVariation.Description.Length > 105
+                                            ? (item.ProductVariation.Description.Substring(0, 105) + "...")
+                                            : item.ProductVariation.Description)
                                     </p>
                                 </div>
                             </div>
                         </td>
-                        <td data-th="Price">@item.Product.Price лв.</td>
+                        <td data-th="Price">@item.ProductVariation.Price лв.</td>
                         <td data-th="Quantity">
-                            <input id="quantity-item-@item.Product.Id" type="number" disabled="disabled" class="form-control text-center" value=@item.Quantity>
+                            <input id="quantity-item-@item.ProductVariation.Id" type="number" disabled="disabled" class="form-control text-center" value=@item.Quantity>
                             <div style="display:inline-flex">
-                                <form asp-controller="Cart" asp-action="IncreaseQuantity" asp-route-id="@item.Product.Id" data-ajax="true" data-ajax-success="increaseQuantity('@item.Product.Id')">
+                                <form asp-controller="Cart" asp-action="IncreaseQuantity" asp-route-id="@item.ProductVariation.Id" data-ajax="true" data-ajax-success="increaseQuantity('@item.ProductVariation.Id')">
                                     <button type="submit" class="btn btn-info btn-sm"><i class="fa fa-plus"></i></button>
                                 </form>
-                                <form asp-controller="Cart" asp-action="DecreaseQuantity" asp-route-id="@item.Product.Id" data-ajax="true" data-ajax-success="decreaseQuantity('@item.Product.Id')">
+                                <form asp-controller="Cart" asp-action="DecreaseQuantity" asp-route-id="@item.ProductVariation.Id" data-ajax="true" data-ajax-success="decreaseQuantity('@item.ProductVariation.Id')">
                                     <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-minus"></i></button>
                                 </form>
                             </div>
                         </td>
-                        <td id="cart-subtotal-amount-@item.Product.Id" data-th="Subtotal" class="text-center">@(item.Product.Price * item.Quantity) лв.</td>
+                        <td id="cart-subtotal-amount-@item.ProductVariation.Id" data-th="Subtotal" class="text-center">@(item.ProductVariation.Price * item.Quantity) лв.</td>
                         <td class="actions" data-th="">
-                            <form asp-controller="Cart" asp-action="Remove" asp-route-id="@item.Product.Id" data-ajax="true" data-ajax-success="deleteItem(this, '@item.Product.Name')">
+                            <form asp-controller="Cart" asp-action="Remove" asp-route-id="@item.ProductVariation.Id" data-ajax="true" data-ajax-success="deleteItem(this, '@item.ProductVariation.Name')">
                                 <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>
                             </form>
                         </td>

@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using System;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using DIY.Castle.Web.Areas.Administration.Models;
+using DIY.Castle.Web.Services.CategoriesService;
+using DIY.Castle.Web.Services.UploadFileService;
 
 namespace DIY.Castle.Web.Services.ProductsService
 {
@@ -14,16 +17,26 @@ namespace DIY.Castle.Web.Services.ProductsService
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly IMapper _mapper;
+        private readonly ICategoriesService categoriesService;
+        private readonly IUploadFileService uploadFileService;
 
-        public ProductsService(ApplicationDbContext dbContext, IMapper mapper)
+        public ProductsService(ApplicationDbContext dbContext, IMapper mapper, ICategoriesService categoriesService, IUploadFileService uploadFileService)
         {
             this._dbContext = dbContext;
             this._mapper = mapper;
+            this.categoriesService = categoriesService;
+            this.uploadFileService = uploadFileService;
         }
 
-        public Product GetProductById(int id) => this._dbContext.Products?.FirstOrDefault(x => x.Id == id);
+        public IEnumerable<Variation> GetAllVariations() => this._dbContext.Variations?.Include("Product");
 
-        public IEnumerable<Product> GetAllProducts() => this._dbContext.Products.Include("Category");
+        public IEnumerable<Variation> GetProductVariations(int productId) => this.GetAllVariations().Where(x => x.ProductId == productId);
+
+        public Variation GetVariationById(int id) => this._dbContext.Variations?.Include("Product").FirstOrDefault(x => x.Id == id);
+
+        public Product GetProductById(int id) => this._dbContext.Products?.Include("Variations").Include("Category").FirstOrDefault(x => x.Id == id);
+
+        public IEnumerable<Product> GetAllProducts() => this._dbContext.Products.Include("Category").Include("Variations");
 
         public IEnumerable<Product> GetProductsByType(string productTypeFilter)
         {
@@ -32,10 +45,14 @@ namespace DIY.Castle.Web.Services.ProductsService
             return products;
         }
 
-        public async Task AddProduct(Product product)
+        public async Task AddProductAsync(Product product, Variation variation)
         {
             product.CreatedOn = DateTime.UtcNow;
+            product.Variations.Add(variation);
+            variation.Product = product;
+
             await this._dbContext.AddAsync(product);
+            await this._dbContext.AddAsync(variation);
             await this._dbContext.SaveChangesAsync();
         }
 
@@ -46,13 +63,94 @@ namespace DIY.Castle.Web.Services.ProductsService
             return product.ImageSourcePath.Split(';').ToList();
         }
 
-        public ProductModel GetProductModel(Product product)
+        public ProductModel GetProductModel(Product product, int variationId = -1)
         {
-            var productModel = this._mapper.Map<ProductModel>(product);
-            productModel.ImagesSourcePaths = this.GetProductImagesSrcPaths(product.Id);
-            productModel.IsNewProduct = DateTime.UtcNow.Subtract(product.CreatedOn).TotalDays <= 7;
+            var productModel = new ProductModel
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Description = product.Description,
+                ProductType = product.Category.Name,
+                ImagesSourcePaths = this.GetProductImagesSrcPaths(product.Id),
+                IsNewProduct = DateTime.UtcNow.Subtract(product.CreatedOn).TotalDays <= 7,
+                ProductVariations = this.GetProductVariations(product.Id).OrderBy(x => x.Price).ToList(),
+            };
+
+            var productPrice = string.Empty;
+            if (productModel.ProductVariations.Count == 1)
+            {
+                productPrice = productModel.ProductVariations.FirstOrDefault().Price.ToString();
+            }
+            else
+            {
+                var lowestPrice = productModel.ProductVariations.Select(x => x.Price).OrderBy(x => x).FirstOrDefault();
+                var highestPrice = productModel.ProductVariations.Select(x => x.Price).OrderByDescending(x => x).FirstOrDefault();
+
+                productPrice = $"{lowestPrice} - {highestPrice}";
+            }
+               
+
+            productModel.Price = productPrice;
 
             return productModel;
         }
+        public VariationProductModel GetProductVariationModel(Variation variation)
+        {
+            var productFamily = variation.Product;
+            var variationsCount = this.GetProductById(productFamily.Id).Variations.Count();
+
+            var variationProductModel = new VariationProductModel
+            {
+                Id = variation.Id,
+                ProductId = productFamily.Id,
+                ProductName = productFamily.Name,
+                VariationName = variation.VariationName,
+                Name = variationsCount == 1 ? productFamily.Name : $"{productFamily.Name} - {variation.VariationName}",
+                Description = productFamily.Description,
+                Price = variation.Price,
+                ImagesSourcePaths = this.GetProductImagesSrcPaths(productFamily.Id),
+                IsNewProduct = DateTime.UtcNow.Subtract(productFamily.CreatedOn).TotalDays <= 7,
+                CreatedOn = productFamily.CreatedOn.ToString("d"),
+            };
+
+            return variationProductModel;
+        }
+
+        public async Task UpdateProductAsync(EditProductModel model)
+        {
+            var category = this.categoriesService.GetCategoryByName(model.Category);
+
+            var product = this.GetProductById(model.ProductId);
+
+            product.Name = model.Name;
+            product.Description = model.Description;
+            product.Category = category;
+            product.CategoryId = category.Id;
+
+            await this._dbContext.SaveChangesAsync();
+        }
+
+        public async Task DeleteProductAsync(int productId)
+        {
+            var product = this.GetProductById(productId);
+            var variations = product.Variations;
+            var productImagesPaths = product.ImageSourcePath
+                .Split(';')
+                .ToList()
+                //Removes the " /images/ " string from the name
+                .Select(x => x.Substring(8))
+                .ToList();
+
+            foreach (var variation in variations)
+            {
+                this._dbContext.Variations.Remove(variation);
+            }
+
+            this.uploadFileService.DeleteFiles(productImagesPaths);
+            this._dbContext.Products.Remove(product);
+
+            await this._dbContext.SaveChangesAsync();
+        }
+
     }
 }

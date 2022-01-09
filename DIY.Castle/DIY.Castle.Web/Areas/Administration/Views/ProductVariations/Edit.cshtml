@@ -1,0 +1,44 @@
+﻿@using DIY.Castle.Web.Areas.Administration.Models.Variations
+@model EditVariationProductRequestModel
+
+<style>
+    .validation_summary ul {
+        list-style-type: none;
+        font-family: Verdana;
+    }
+</style>
+
+<div class="col-sm-5 mx-auto py-4">
+    <div class="card">
+        <div style="background-color:green" class="card-header text-uppercase text-white">
+            <h4>Промяна на подпродукт</h4>
+        </div>
+        <div class="card-body">
+            <form asp-area="Administration" asp-controller="ProductVariations" asp-action="Edit" method="post">
+                <input hidden value="@Model.VariationId" asp-for="@Model.VariationId" />
+                <input hidden value="@Model.ProductId" asp-for="@Model.ProductId" />
+                <div class="validation_summary text-danger" style="text-align:left;list-style:none;" asp-validation-summary="All"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="@Model.Name" class="control-label">Име</label>
+                            <input asp-for="@Model.Name" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="@Model.Price" class="control-label">Цена на продпродукт</label>
+                            <input min="0.00" max="10000.00"  asp-for="@Model.Price" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div style="display:flex; justify-content:space-between;" class="form-group">
+                    <a style="color: white" type="button" asp-area="" asp-controller="ProductDetails" asp-action="Product" asp-route-id="@Model.ProductId" class="btn btn-lg btn-danger rounded-0 text-uppercase">откажи</a>
+                    <input type="submit" value="промени" class="btn btn-lg btn-primary rounded-0 text-uppercase" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

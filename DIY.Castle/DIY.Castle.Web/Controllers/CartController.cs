@@ -16,34 +16,11 @@ namespace DIY.Castle.Web.Controllers
     public class CartController : BaseController
     {
         private readonly IProductsService _productsService;
-        private readonly IMapper _mapper;
 
         public CartController(
-            IProductsService productsService,
-            IMapper mapper)
+            IProductsService productsService)
         {
             this._productsService = productsService;
-            this._mapper = mapper;
-        }
-
-        [Route("index")]
-        public IActionResult Index()
-        {
-            this.ViewData["showSmallHeroBanner"] = true;
-            this.ViewData["titleText"] = "CART";
-
-            var cart = SessionHelper.GetObjectFromJson<List<ProductCartModel>>(HttpContext.Session, "cart");
-            var totalPrice = cart == null
-               ? Math.Round(0.00M, 2)
-               : Math.Round(cart.Sum(p => p.Product.Price * p.Quantity), 2);
-
-            var viewModel = new CartViewModel
-            {
-                Cart = cart,
-                TotalPrice = totalPrice,
-            };
-
-            return View(viewModel);
         }
 
         [Route("GetTotalPrice")]
@@ -52,7 +29,7 @@ namespace DIY.Castle.Web.Controllers
             var cart = SessionHelper.GetObjectFromJson<List<ProductCartModel>>(HttpContext.Session, "cart");
             var totalPrice = cart == null
                 ? Math.Round(0.00M, 2)
-                : Math.Round(cart.Sum(p => p.Product.Price * p.Quantity), 2);
+                : Math.Round(cart.Sum(p => p.ProductVariation.Price * p.Quantity), 2);
 
             string response = totalPrice.ToString("0.00");
             return this.Ok(response);
@@ -67,24 +44,26 @@ namespace DIY.Castle.Web.Controllers
             var cartProduct = index != -1 ? cart[index] : null;
 
             var subTotalPrice = cartProduct == null ? 0.00M :
-               Math.Round((cartProduct.Quantity * cartProduct.Product.Price), 2);
+               Math.Round((cartProduct.Quantity * cartProduct.ProductVariation.Price), 2);
 
             string response = subTotalPrice.ToString("0.00");
             return this.Ok(response);
         }
 
         [Route("AddToBasket/{id}/{quantity}")]
+        // pass variation id instead of product
         public IActionResult AddToBasket(int id, int quantity)
         {
             try
             {
-                var product = this._productsService.GetProductById(id);
-                var productModel = this._productsService.GetProductModel(product);
+                var variation = this._productsService.GetVariationById(id);
                 bool itemAlreadyExists = false;
                 decimal totalPrice = 0.00M;
                 int updatedQuantity = 0;
                 int updatedTotalQuantity = 0;
-                string imageSource = productModel.ImagesSourcePaths.Any() ? productModel.ImagesSourcePaths[0] : string.Empty;
+                var variationProductModel = this._productsService.GetProductVariationModel(variation);
+
+                string imageSource = variationProductModel.ImagesSourcePaths.Any() ? variationProductModel.ImagesSourcePaths[0] : string.Empty;
 
                 if (SessionHelper.GetObjectFromJson<List<ProductCartModel>>(HttpContext.Session, "cart") == null)
                 {
@@ -92,13 +71,13 @@ namespace DIY.Castle.Web.Controllers
 
                     cart.Add(new ProductCartModel
                     {
-                        Product = productModel,
+                        ProductVariation = variationProductModel,
                         Quantity = quantity
                     });
 
                     SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
 
-                    totalPrice = productModel.Price;
+                    totalPrice = variation.Price;
                     updatedQuantity = quantity;
                     updatedTotalQuantity = 1;
                 }
@@ -111,7 +90,7 @@ namespace DIY.Castle.Web.Controllers
                     // If the item already exists in the cart
                     if (index != -1)
                     {
-                        cart[index].Quantity++;
+                        cart[index].Quantity += quantity;
                         itemAlreadyExists = true;
 
                         updatedQuantity = cart[index].Quantity;
@@ -121,7 +100,7 @@ namespace DIY.Castle.Web.Controllers
                     {
                         cart.Add(new ProductCartModel
                         {
-                            Product = productModel,
+                            ProductVariation = variationProductModel,
                             Quantity = quantity
                         });
 
@@ -132,7 +111,7 @@ namespace DIY.Castle.Web.Controllers
 
                     totalPrice = cart == null
                         ? Math.Round(0.00M, 2)
-                        : Math.Round(cart.Sum(p => p.Product.Price * p.Quantity), 2);
+                        : Math.Round(cart.Sum(p => p.ProductVariation.Price * p.Quantity), 2);
                     updatedTotalQuantity = cart.Count();
                 }
 
@@ -147,7 +126,7 @@ namespace DIY.Castle.Web.Controllers
 
                 return this.Ok(Json(response));
             }
-            catch (Exception)
+            catch (Exception msg)
             {
                 return this.BadRequest();
             }
@@ -205,7 +184,7 @@ namespace DIY.Castle.Web.Controllers
 
             for (int i = 0; i < cart.Count; i++)
             {
-                if (cart[i].Product.Id.Equals(id))
+                if (cart[i].ProductVariation.Id.Equals(id))
                 {
                     return i;
                 }

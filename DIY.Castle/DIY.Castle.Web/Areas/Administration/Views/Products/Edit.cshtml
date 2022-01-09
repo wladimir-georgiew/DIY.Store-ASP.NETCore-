@@ -1,0 +1,63 @@
+﻿@using DIY.Castle.Web.Areas.Administration.Models
+@model EditProductModel
+
+<style>
+    .validation_summary ul {
+        list-style-type: none;
+        font-family: Verdana;
+    }
+</style>
+
+<div class="col-sm-5 mx-auto py-4">
+    <div class="card">
+        <div style="background-color:green" class="card-header text-uppercase text-white">
+            <h4>Промяна на продукт</h4>
+        </div>
+        <div class="card-body">
+            <form asp-controller="Products" asp-action="Edit" method="post">
+                <input hidden value="@Model.ProductId" asp-for="@Model.ProductId"/>
+                <div class="validation_summary text-danger" style="text-align:left;list-style:none;" asp-validation-summary="All"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="@Model.Name" class="control-label">Име</label>
+                            <input asp-for="@Model.Name" class="form-control"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="@Model.Category" class="control-label">Тип</label>
+                            <select asp-for="@Model.Category">
+                                @foreach (var category in Model.AllCategories)
+                                {
+                                    if (Model.Category == category.Name)
+                                    {
+                                        <option style="color: red" selected value="@category.Name">@category.Name</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@category.Name">@category.Name</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="@Model.Description" class="control-label">Описание</label>
+                            <textarea style="height:150px;" asp-for="@Model.Description" class="form-control" ></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div style="display:flex; justify-content:space-between;" class="form-group">
+                    <a style="color: white" type="button" asp-area="" asp-controller="ProductDetails" asp-action="Product" asp-route-id="@Model.ProductId" class="btn btn-lg btn-danger rounded-0 text-uppercase">откажи</a>
+                    <input type="submit" value="промени" class="btn btn-lg btn-primary rounded-0 text-uppercase" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

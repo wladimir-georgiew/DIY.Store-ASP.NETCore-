@@ -1,0 +1,22 @@
+﻿<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form style="display:inline-block;" method="post" asp-action="Delete" asp-controller="Products" asp-area="Administration" asp-route-productId="@Model.Id">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Потвърждение</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Сигурни ли сте, че искате да изтриете този продукт (това включва неговите подпродукти и снимки)?
+                </div>
+                <div style="justify-content: space-between;" class="modal-footer">
+                    <a class="btn btn-outline-warning" data-dismiss="modal">Затвори</a>
+                    <button type="submit" class="btn btn-danger">Изтрий</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -36,6 +36,7 @@ namespace DIY.Castle.Web.Controllers
                 .GetProductsByType(filter)
                 .Where(searchQuery.Length < 4 ? filterByStartsWith : filterByStartsWithAndContains)
                 .OrderByDescending(x => x.CreatedOn)
+                //.Select(x => this.productsService.GetProductModel(x))
                 .Select(x => this.productsService.GetProductModel(x))
                 .ToList();
 

@@ -25,7 +25,7 @@ namespace DIY.Castle.Web.Areas.Administration.Controllers
             var categories = this.categoriesService.GetAllCategories().ToList();
 
             var model = new CategoryRequestModel();
-            model.Categories = this.categoriesService.GetAllCategories().ToList();
+            model.AllCategories = this.categoriesService.GetAllCategories().ToList();
 
             return this.View(model);
         }
@@ -35,7 +35,7 @@ namespace DIY.Castle.Web.Areas.Administration.Controllers
         {
             if (!ModelState.IsValid)
             {
-                model.Categories = this.categoriesService.GetAllCategories().ToList();
+                model.AllCategories = this.categoriesService.GetAllCategories().ToList();
                 return this.View(model);
             }
 
@@ -56,7 +56,7 @@ namespace DIY.Castle.Web.Areas.Administration.Controllers
         {
             if (!ModelState.IsValid)
             {
-                model.Categories = this.categoriesService.GetAllCategories().ToList();
+                model.AllCategories = this.categoriesService.GetAllCategories().ToList();
                 return this.View("../Views/Categories/Create");
             }
 

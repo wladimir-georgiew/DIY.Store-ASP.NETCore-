@@ -1,5 +1,6 @@
-﻿using System;
+﻿using DIY.Castle.Data.Models;
 using System.Collections.Generic;
+
 namespace DIY.Castle.Web.Models
 {
     public class ProductModel
@@ -10,7 +11,8 @@ namespace DIY.Castle.Web.Models
 
         public string ProductType { get; set; }
 
-        public decimal Price { get; set; }
+        // The price of the variation ( if the product has only 1 variation ) or the ({minimum variation price} - {maximum variation price})
+        public string Price { get; set; }
 
         public string Description { get; set; }
 
@@ -19,5 +21,7 @@ namespace DIY.Castle.Web.Models
         public string CreatedOn { get; set; }
 
         public bool IsNewProduct { get; set; } = false;
+
+        public List<Variation> ProductVariations { get; set; }
     }
 }

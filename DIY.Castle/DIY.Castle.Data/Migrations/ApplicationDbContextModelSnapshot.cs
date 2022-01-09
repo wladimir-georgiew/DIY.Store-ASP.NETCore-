@@ -88,13 +88,13 @@ namespace DIY.Castle.Data.Migrations
                         {
                             Id = "000AFADMIN000",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "13f3e633-ce50-4a94-991c-f52453bb55b0",
+                            ConcurrencyStamp = "08ed0e19-e2b9-4d82-af61-d1a1826f437a",
                             Email = "admin@abv.bg",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ABV.BG",
                             NormalizedUserName = "ADMIN@ABV.BG",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBqkvqCVVNCp+TfU51ZYPW6gsTz9QK6W3E5+xHQ7PRQhvXCCjbmha3YZJPjroJXGug==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEM1hTmLORUDijixMXB5vuwzdG4FJLhXixaQmjd+zoIzaW/CWG8qMjKL4CCfGOGis9A==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "000AFSECURITYSTAMP000",
                             TwoFactorEnabled = false,
@@ -158,14 +158,44 @@ namespace DIY.Castle.Data.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(8,2)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("DIY.Castle.Data.Models.Variation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(8,2)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("VariationName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Variations");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -198,14 +228,14 @@ namespace DIY.Castle.Data.Migrations
                         new
                         {
                             Id = "1",
-                            ConcurrencyStamp = "07712787-131e-4752-ab14-96d00292a884",
+                            ConcurrencyStamp = "2ab4a043-eecd-4a31-8e94-904311ec2140",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
                             Id = "0",
-                            ConcurrencyStamp = "676365f2-cf21-48a3-a0f6-ad78a29a13b8",
+                            ConcurrencyStamp = "3f27661a-f737-4ff7-9095-e32ac56ded95",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -331,6 +361,15 @@ namespace DIY.Castle.Data.Migrations
                     b.HasOne("DIY.Castle.Data.Models.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("DIY.Castle.Data.Models.Variation", b =>
+                {
+                    b.HasOne("DIY.Castle.Data.Models.Product", "Product")
+                        .WithMany("Variations")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -13,6 +13,6 @@ namespace DIY.Castle.Web.Models.ViewModels
     {
         public int Quantity { get; set; }
 
-        public ProductModel Product { get; set; }
+        public VariationProductModel ProductVariation { get; set; }
     }
 }

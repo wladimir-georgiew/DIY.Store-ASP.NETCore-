@@ -6,7 +6,7 @@
 
     var totalPrice = cart == null
         ? Math.Round(0.00M, 2)
-        : Math.Round(cart.Sum(p => p.Product.Price * p.Quantity), 2);
+        : Math.Round(cart.Sum(p => p.ProductVariation.Price * p.Quantity), 2);
 
     string priceString = totalPrice.ToString("0.00");
 }
@@ -65,13 +65,13 @@
             {
                 foreach (var item in cart)
                 {
-                    <li id="item-id-@item.Product.Id">
-                        <img class="cart-product-img" src="@item.Product.ImagesSourcePaths[0]">
+                    <li id="item-id-@item.ProductVariation.Id">
+                        <img class="cart-product-img" src="@item.ProductVariation.ImagesSourcePaths[0]">
                         <span class="cd-qty">@(item.Quantity)X </span>
-                        <span>@item.Product.Name</span>
-                        <div class="cd-price">@item.Product.Price лв.</div>
-                        <a asp-controller="Cart" asp-action="Remove" asp-route-id="@item.Product.Id" data-ajax="true" data-ajax-success="deleteItem(this, '@item.Product.Name')"
-                           id="remove-item-@item.Product.Id" class="cd-item-remove cd-img-replace">
+                        <span>@item.ProductVariation.Name</span>
+                        <div class="cd-price">@item.ProductVariation.Price лв.</div>
+                        <a asp-controller="Cart" asp-action="Remove" asp-route-id="@item.ProductVariation.Id" data-ajax="true" data-ajax-success="deleteItem(this, '@item.ProductVariation.Name')"
+                           id="remove-item-@item.ProductVariation.Id" class="cd-item-remove cd-img-replace">
                             Премахни
                         </a>
                     </li>
@@ -80,7 +80,7 @@
         </ul>
 
         <div id="total-price" class="cd-cart-total">
-            <p>Total <span>@priceString лв.</span></p>
+            <p>Крайна цена <span>@priceString лв.</span></p>
         </div>
 
         <a asp-action="Index" asp-controller="CheckoutPage" class="checkout-btn">Завърши поръчката</a>
