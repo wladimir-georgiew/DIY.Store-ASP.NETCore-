@@ -73,7 +73,7 @@ namespace DIY.Castle.Web.Services.ProductsService
                 ProductType = product.Category.Name,
                 ImagesSourcePaths = this.GetProductImagesSrcPaths(product.Id),
                 IsNewProduct = DateTime.UtcNow.Subtract(product.CreatedOn).TotalDays <= 7,
-                ProductVariations = this.GetProductVariations(product.Id).ToList(),
+                ProductVariations = this.GetProductVariations(product.Id).OrderBy(x => x.Price).ToList(),
             };
 
             var productPrice = string.Empty;

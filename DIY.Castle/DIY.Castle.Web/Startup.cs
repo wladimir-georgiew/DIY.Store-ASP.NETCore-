@@ -5,6 +5,7 @@ using DIY.Castle.Web.Data;
 using DIY.Castle.Web.Services.CategoriesService;
 using DIY.Castle.Web.Services.EmailSender;
 using DIY.Castle.Web.Services.ProductsService;
+using DIY.Castle.Web.Services.ProductVariationsService;
 using DIY.Castle.Web.Services.UploadFileService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -46,6 +47,7 @@ namespace DIY.Castle.Web
             services.AddTransient<IUploadFileService, UploadFileService>();
             services.AddTransient<ICategoriesService, CategoriesService>();
             services.AddTransient<IProductsService, ProductsService>();
+            services.AddTransient<IProductVariationsService, ProductVariationsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -101,5 +101,11 @@ namespace DIY.Castle.Web.Areas.Administration.Controllers
 
             return this.RedirectToAction("Index", "Home", new { area = "" });
         }
+
+        //[HttpPost]
+        //public async Task<IActionResult> AddVariation(int productId)
+        //{
+            
+        //}
     }
 }

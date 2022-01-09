@@ -1,0 +1,58 @@
+﻿<link rel="stylesheet" href="~/font-awesome-4.7.0/css/font-awesome.min.css">
+
+<!-- Modal -->
+<div class="modal fade" id="variationsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Подпродукти</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div style="text-align: -webkit-center;" >
+                    <p style="font-weight:bold">Добави</p>
+                    <a class="btn btn-success" asp-controller="ProductVariations" asp-area="Administration" asp-action="Add" asp-route-productId="@Model.Id">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                    </a>
+                    <hr />
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Име</th>
+                                <th scope="col">Цена</th>
+                                <th scope="col">Промени</th>
+                                <th scope="col">Изтрий</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var variation in Model.ProductVariations)
+                            {
+                                <tr>
+                                    <th>
+                                        <p>@variation.VariationName</p>
+                                    </th>
+                                    <th>
+                                        <p>@variation.Price</p>
+                                    </th>
+                                    <th>
+                                        <a class="btn btn-warning" asp-controller="ProductVariations" asp-area="Administration" asp-action="Edit" asp-route-variationId="@variation.Id">
+                                            <i class="fa fa-pencil-square-o"></i>
+                                        </a>
+                                    </th>
+                                    <th style="margin-left:50px;">
+                                        <a class="btn btn-danger" asp-controller="ProductVariations" asp-area="Administration" asp-action="Delete" asp-route-variationId="@variation.Id">
+                                            <i class="fa fa-times" aria-hidden="true"></i>
+                                        </a>
+                                    </th>
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+        </div>
+    </div>
+</div>
