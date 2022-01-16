@@ -32,5 +32,7 @@ namespace DIY.Castle.Web.Services.ProductsService
         VariationProductModel GetProductVariationModel(Variation variation);
 
         public Task DeleteProductAsync(int productId);
+
+        public List<Product> GetRandomProducts(int count = 8);
     }
 }
