@@ -90,12 +90,13 @@ namespace DIY.Castle.Web.Controllers
             }
 
             // Send Email To Customer Service
-            var customerServiceViewHtml = await this.RenderViewAsync("~/Views/EmailTemplates/CustomerServiceOrderSummaryTemplate.cshtml", checkoutModel, true);
+            //var customerServiceViewHtml = await this.RenderViewAsync("~/Views/EmailTemplates/CustomerServiceOrderSummaryTemplate.cshtml", checkoutModel, true);
+            var customerServiceViewHtml = await this.RenderViewAsync("~/Views/EmailTemplates/OrderTemplate.cshtml", checkoutModel, true);
 
             await this.emailSender.SendEmailAsync($"sneakypeekymustard@gmail.com", "Akin-do Поръчка", $"akindo.customerservice@gmail.com", $"{model.FirstName} {model.LastName}", customerServiceViewHtml);
 
             // Send Email To Customer
-            await this.SendOrderSummaryEmailToUserAsync(checkoutModel);
+            //await this.SendOrderSummaryEmailToUserAsync(checkoutModel);
 
             return this.View();
         }

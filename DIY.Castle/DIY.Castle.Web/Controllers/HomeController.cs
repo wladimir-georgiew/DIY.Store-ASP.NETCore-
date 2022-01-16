@@ -41,7 +41,7 @@ namespace DIY.Castle.Web.Controllers
                 .ToList();
 
             var randomProducts =
-                this.productsService.GetRandomProducts(8)
+                this.productsService.GetRandomProducts(9)
                 .Select(x => this.productsService.GetProductModel(x))
                 .ToList();
 
