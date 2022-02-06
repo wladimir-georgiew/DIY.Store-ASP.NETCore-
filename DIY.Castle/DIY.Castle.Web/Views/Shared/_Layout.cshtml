@@ -33,9 +33,9 @@
     }
 
     .site_logo {
-        max-width: 100px;
+        max-width: 130px;
         max-height: 80px;
-        padding-top: 10px;
+        padding-bottom: 10px;
     }
 </style>
 
@@ -68,7 +68,7 @@
         <div class="wrapper">
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
                 <div class="container">
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img class="site_logo" src="~/images/logo/logo_akindo_png.png" /></a>
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img class="site_logo" src="~/images/logo/logo_akindo.png" /></a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -79,13 +79,6 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">НАЧАЛО</a>
                             </li>
-                            <li class="nav-item">
-                                <div id="side-cart">
-                                    <partial name="/Views/Cart/_cart.cshtml" />
-                                </div>
-
-                            </li>
-
                             <li style="cursor:pointer;" class="nav-item dropdown">
                                 <a role="button" class="nav-link dropdown-toggle" data-toggle="dropdown">
                                     Продукти
@@ -104,6 +97,17 @@
 
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Контакти</a>
+                            </li>
+
+                            @*To be removed*@
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <div id="side-cart">
+                                    <partial name="/Views/Cart/_cart.cshtml" />
+                                </div>
                             </li>
                         </ul>
                     </div>

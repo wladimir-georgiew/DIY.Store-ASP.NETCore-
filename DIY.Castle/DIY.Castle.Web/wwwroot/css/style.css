@@ -18,8 +18,23 @@ body {
     background: rgba(0, 0, 0, 0.3);
 }
 
+.numbertext {
+    font-family: Guerrilla;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 38px;
+    color: white;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 17px;
+    margin-top: 8px;
+}
+
+
 .numbertext-description {
-    color: lightgrey;
+    color: #FAF8F0;
+    font-family: Sensei;
+    font-size: 20px;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -129,22 +144,15 @@ header .navbar-white {
     margin-top: -100px;
     padding-top: 30px;
 }
-
-.numbertext {
-    font-weight: 700;
-    font-size: 20px;
-    line-height: 38px;
-    color: white;
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 10px;
+.numberstep-icon{
+    padding-top:4px;
 }
 
 .numberstep {
     padding-top: 15px;
     background-color: #DAE3BB;
     border-radius: 50%;
-    color: #fff;
+    color: #6D7758;
     margin-right: 4px;
     text-align: center;
     height: 60px;
@@ -268,14 +276,17 @@ img {
     border-radius: 13px;
     margin-bottom: 30px;
 }
-
+.edd_price {
+    font-family: 'Phenomena-Bold';
+    font-size: 20px;
+}
 .latest-items .productbox {
     margin-bottom: 30px;
 }
-
 .productbox h1 {
+    font-family: Guerrilla;
     display: block;
-    font-size: 17px;
+    font-size: 22px;
     text-transform: uppercase;
     margin-top: 15px;
     border-bottom: double medium #eee;

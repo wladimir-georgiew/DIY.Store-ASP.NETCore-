@@ -65,8 +65,8 @@ Modules - reusable parts of our design
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100%;
-    width: 120px;
-    height: 100%;
+    width: 50px;
+    height: 50px;
 }
 
 /* -------------------------------- 
@@ -116,7 +116,6 @@ xheader
 }*/
 
 #cd-hamburger-menu, #cd-cart-trigger {
-    position: absolute;
     top: 0;
     height: 100%;
 }
@@ -145,14 +144,12 @@ xheader
 
 @media only screen and (min-width: 1200px) {
     #cd-cart-trigger {
+        margin-left: 580px;
         /* cart right margin on desktop */
         right: 0;
     }
 
         #cd-cart-trigger a {
-            position: relative;
-            border-left: none;
-            margin-right: 10px;
         }
 }
 
