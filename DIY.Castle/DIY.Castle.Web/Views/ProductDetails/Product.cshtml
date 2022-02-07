@@ -11,8 +11,8 @@
                 @foreach (var image in Model.ImagesSourcePaths)
                 {
                     <div class="mySlides faded">
-                        <div class="numbertext">@(Model.ImagesSourcePaths.IndexOf(image)+1)/@Model.ImagesSourcePaths.Count</div>
-                        <img src="@image" style=" object-fit: contain; height: 100%; width: 100%; background-color: #798560;">
+                        @*<div class="numbertext">@(Model.ImagesSourcePaths.IndexOf(image)+1)/@Model.ImagesSourcePaths.Count</div>*@
+                        <img src="@image" style=" object-fit: contain; height: 100%; width: 100%;">
                     </div>
                 }
 
@@ -48,42 +48,48 @@
                 </div>
 
             }
-            <h5>@Model.Name</h5>
-            <p class="mb-2 text-muted text-uppercase small">@Model.ProductType</p>
-            <p><span class="mr-1"><strong id="sku-price">@Model.Price лв.</strong></span></p>
+            <h5 class="heading">@Model.Name</h5>
+            <p class="product-details-type text-muted text-uppercase small">@Model.ProductType</p>
             <p class="product-description">
                 @Model.Description
             </p>
 
 
             <hr>
-
-            <select onchange="updatePriceOnVariationSelect()" @(Model.ProductVariations.Count == 1 ? "hidden" : "") id="selected-sku">
-                @for (int i = 0; i < Model.ProductVariations.Count; i++)
-                {
-                    var sku = Model.ProductVariations[i];
-                    var name = Model.ProductVariations.Count == 1 ? Model.Name : $"{Model.Name} - {sku.VariationName}";
-                    var valueString = $"{ sku.Id}/{name}/{ sku.Price}";
-
-                    if (i == 0)
-                    {
-                        <option selected id="sku-@sku.Id" value="@valueString">@sku.VariationName</option>
-                    }
-                    else
-                    {
-                        <option id="sku-@sku.Id" value="@valueString" )">@sku.VariationName</option>
-                    }
-                }
-            </select>
-
-            <div class="counter btn">
-                <span class="down" onClick='decreaseCount(event, this)'>-</span>
-                <input id="product-quantity" type="text" value="1">
-                <span class="up" onClick='increaseCount(event, this)'>+</span>
+            <div style="display:flex; justify-content: space-between;">
+                <div class="counter btn">
+                    <span class="down" onClick='decreaseCount(event, this)'>-</span>
+                    <input id="product-quantity" type="text" value="1">
+                    <span class="up" onClick='increaseCount(event, this)'>+</span>
+                </div>
+                <p style="text-align:right; right:0;"><strong class="product-details-price" id="sku-price">@Model.Price лв.</strong></p>
             </div>
 
-            <div id="button-holder">
-                <a data-ajax="true" data-ajax-success="AddToBasket(1)" class="btn button-product-details"><span>Добави в количката</span></a>
+
+            <div>
+                <select class="product-details-select" onchange="updatePriceOnVariationSelect()" @(Model.ProductVariations.Count == 1 ? "hidden" : "") id="selected-sku">
+                    @for (int i = 0; i < Model.ProductVariations.Count; i++)
+                    {
+                        var sku = Model.ProductVariations[i];
+                        var name = Model.ProductVariations.Count == 1 ? Model.Name : $"{Model.Name} - {sku.VariationName}";
+                        var valueString = $"{ sku.Id}/{name}/{ sku.Price}";
+
+                        if (i == 0)
+                        {
+                            <option selected id="sku-@sku.Id" value="@valueString">@sku.VariationName</option>
+                        }
+                        else
+                        {
+                            <option id="sku-@sku.Id" value="@valueString" )">@sku.VariationName</option>
+                        }
+                    }
+                </select>
+            </div>
+
+
+
+            <div style="padding-top:8px;" id="button-holder">
+                <a style="font-size: 25px; font-family: Guerrilla;" href="" data-ajax="true" data-ajax-success="AddToBasket(1)" class="btn button-product-details"><span style="color: #ab793d;">Добави в количката</span></a>
             </div>
 
 

@@ -47,11 +47,11 @@
                                 <div class="col-12">
                                     <div class="product-deatil">
                                         <h5 class="name">
-                                            <a asp-controller="ProductDetails" asp-action="Product" asp-route-id="@product.Id">
+                                            <a style="color: #ab793d; font-family: 'Phenomena-ExtraBold'; font-size:24px;" asp-controller="ProductDetails" asp-action="Product" asp-route-id="@product.Id">
                                                 @product.Name
                                             </a>
                                             <a class="product-type">
-                                                <span>@product.ProductType</span>
+                                                <span style="padding-top:7px;">@product.ProductType</span>
                                             </a>
 
                                         </h5>
@@ -72,7 +72,7 @@
                                             @if (product.ProductVariations.Count == 1)
                                             {
                                                 var firstSku = product.ProductVariations.FirstOrDefault();
-                                                <a data-ajax="true" data-ajax-success="AddToBasket('1', '@firstSku.Id', '@product.Name', '@firstSku.Price')" class="btn btn-info"><span>Добави</span></a>
+                                                <a href="" data-ajax="true" data-ajax-success="AddToBasket('1', '@firstSku.Id', '@product.Name', '@firstSku.Price')" class="btn btn-info"><span>Добави</span></a>
                                             }
 
                                             <a asp-controller="ProductDetails" asp-action="Product" asp-route-id="@product.Id" class="btn btn-info"><span>Детайли</span></a>

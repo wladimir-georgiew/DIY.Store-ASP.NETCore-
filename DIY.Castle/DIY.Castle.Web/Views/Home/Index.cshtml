@@ -11,6 +11,7 @@
         width:100%;
         height:100%;
         object-fit:cover;
+        border-radius:7px;
     }
 </style>
 
@@ -87,8 +88,9 @@
                         <div class="productbox">
                             <div class="fadeshop">
                                 <div class="captionshop text-center" style="display: none;">
-                                    <h3>@product.Name</h3>
-                                    <p>
+                                    @*<h3>@product.Name</h3>*@
+                                    <h3> </h3>
+                                    <p style="font-family: 'Guerrilla';">
                                         @(product.Description.Length > 105
                                     ? (product.Description.Substring(0, 105) + "...")
                                     : product.Description)
@@ -97,11 +99,11 @@
                                         @if (product.ProductVariations.Count == 1)
                                         {
                                             var firstSku = product.ProductVariations.FirstOrDefault();
-                                            <a data-ajax="true" data-ajax-success="AddToBasket('1', '@firstSku.Id', '@product.Name', '@firstSku.Price')" type="submit" class="learn-more detailslearn"><i class="fa fa-shopping-cart"></i>Добави</a>
+                                            <a data-ajax="true" data-ajax-success="AddToBasket('1', '@firstSku.Id', '@product.Name', '@firstSku.Price')" type="submit" class="learn-more detailslearn">Добави</a>
                                         }
 
 
-                                        <a asp-controller="ProductDetails" asp-action="Product" asp-route-id="@product.Id" class="learn-more detailslearn"><i class="fa fa-link"></i>Детайли</a>
+                                        <a asp-controller="ProductDetails" asp-action="Product" asp-route-id="@product.Id" class="learn-more detailslearn">Детайли</a>
                                     </p>
                                 </div>
                                <img class="product-card-image" src="@product.ImagesSourcePaths[0]" alt="">
