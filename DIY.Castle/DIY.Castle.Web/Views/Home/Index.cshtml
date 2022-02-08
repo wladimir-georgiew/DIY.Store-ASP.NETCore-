@@ -90,9 +90,9 @@
                                 <div class="captionshop text-center" style="display: none;">
                                     @*<h3>@product.Name</h3>*@
                                     <h3> </h3>
-                                    <p style="font-family: 'Guerrilla';">
-                                        @(product.Description.Length > 105
-                                    ? (product.Description.Substring(0, 105) + "...")
+                                    <p style="font-family: 'Guerrilla'; word-wrap: break-word;">
+                                        @(product.Description.Length > 85
+                                    ? (product.Description.Substring(0, 85) + "...")
                                     : product.Description)
                                     </p>
                                     <p>
@@ -109,7 +109,7 @@
                                <img class="product-card-image" src="@product.ImagesSourcePaths[0]" alt="">
                             </div>
                             <div class="product-details">
-                                <a href="#">
+                                <a asp-controller="ProductDetails" asp-action="Product" asp-route-id="@product.Id">
                                     <h1>@product.Name</h1>
                                 </a>
                                 <span class="price">

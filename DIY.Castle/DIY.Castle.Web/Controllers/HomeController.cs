@@ -62,7 +62,7 @@ namespace DIY.Castle.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Contact(ContactInputModel input)
         {
-            await this.emailSender.SendEmailAsync($"sneakypeekymustard@gmail.com", $"{input.EmailAddress}", $"ravenouscrow@abv.bg", $"ContactForm by {input.Name}", $"{input.Message}");
+            await this.emailSender.SendEmailAsync($"sneakypeekymustard@gmail.com", $"Message from: {input.EmailAddress}", $"akindo.customerservice@gmail.com", $"ContactForm by {input.Name}", $"{input.Message}");
 
             return this.View();
         }
