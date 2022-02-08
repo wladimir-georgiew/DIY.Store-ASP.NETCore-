@@ -51,7 +51,7 @@
             <h5 class="heading">@Model.Name</h5>
             <p class="product-details-type text-muted text-uppercase small">@Model.ProductType</p>
             <p class="product-description">
-                @Model.Description
+                @Html.Raw(Model.Description)
             </p>
 
 
@@ -80,7 +80,7 @@
                         }
                         else
                         {
-                            <option id="sku-@sku.Id" value="@valueString" )">@sku.VariationName</option>
+                            <option id="sku-@sku.Id" value="@valueString">@sku.VariationName</option>
                         }
                     }
                 </select>

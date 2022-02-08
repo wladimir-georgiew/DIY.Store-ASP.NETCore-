@@ -8,6 +8,8 @@
     }
 </style>
 
+<script src="/ckeditor/ckeditor.js"></script>
+
 <div class="col-sm-5 mx-auto py-4">
     <div class="card">
         <div style="background-color:green" class="card-header text-uppercase text-white">
@@ -15,13 +17,13 @@
         </div>
         <div class="card-body">
             <form asp-controller="Products" asp-action="Edit" method="post">
-                <input hidden value="@Model.ProductId" asp-for="@Model.ProductId"/>
+                <input hidden value="@Model.ProductId" asp-for="@Model.ProductId" />
                 <div class="validation_summary text-danger" style="text-align:left;list-style:none;" asp-validation-summary="All"></div>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
                             <label asp-for="@Model.Name" class="control-label">Име</label>
-                            <input asp-for="@Model.Name" class="form-control"/>
+                            <input asp-for="@Model.Name" class="form-control" />
                         </div>
                     </div>
                 </div>
@@ -49,7 +51,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label asp-for="@Model.Description" class="control-label">Описание</label>
-                            <textarea style="height:150px;" asp-for="@Model.Description" class="form-control" ></textarea>
+                            <textarea id="description-editor2" style="height:150px;" asp-for="@Model.Description" class="form-control"></textarea>
                         </div>
                     </div>
                 </div>
@@ -61,3 +63,7 @@
         </div>
     </div>
 </div>
+
+<script>
+    CKEDITOR.replace('description-editor2');
+</script>

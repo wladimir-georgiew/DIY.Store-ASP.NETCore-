@@ -1,6 +1,4 @@
 ﻿@model HomePageViewModel
-@using DIY.Castle.Web.Helpers;
-@using DIY.Castle.Web.Models;
 @using DIY.Castle.Web.Models.ViewModels;
 
 @{
@@ -19,15 +17,6 @@
 <html>
 
 <body>
-    @* <div class="row">
-        <div class="col-4">
-        </div>
-        <div class="col-4">
-        </div>
-        <div class="col-4">
-        <img style="max-height:200px;" class="top-right-side-frog" src="./images/top-right-side-frog.png" />
-        </div>
-        </div>*@
     <!-- STEPS =============================-->
     <div style="background-color:rgba(0, 0, 0, 0.3);border-radius: 35px;">
         <div class="row text-center">
@@ -90,18 +79,18 @@
                                 <div class="captionshop text-center" style="display: none;">
                                     @*<h3>@product.Name</h3>*@
                                     <h3> </h3>
-                                    <p style="font-family: 'Guerrilla'; word-wrap: break-word;">
+                                     <h3> </h3>
+                                    @*<p style="font-family: 'Guerrilla'; word-wrap: break-word;">
                                         @(product.Description.Length > 85
-                                    ? (product.Description.Substring(0, 85) + "...")
-                                    : product.Description)
-                                    </p>
+                                    ? (Html.Raw(product.Description.Substring(0, 85)))
+                                    : Html.Raw(product.Description))
+                                    </p>*@
                                     <p>
                                         @if (product.ProductVariations.Count == 1)
                                         {
                                             var firstSku = product.ProductVariations.FirstOrDefault();
                                             <a data-ajax="true" data-ajax-success="AddToBasket('1', '@firstSku.Id', '@product.Name', '@firstSku.Price')" type="submit" class="learn-more detailslearn">Добави</a>
                                         }
-
 
                                         <a asp-controller="ProductDetails" asp-action="Product" asp-route-id="@product.Id" class="learn-more detailslearn">Детайли</a>
                                     </p>
