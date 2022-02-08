@@ -26,29 +26,29 @@
 <body>
     <div class="container">
         <div class="title">
-            <h2>Финализиране на поръчка</h2>
+            <h2 class="title-heading">Финализиране на поръчка</h2>
         </div>
         <div class="d-flex">
             <form id="checkout-form" asp-action="Checkout" method="post">
                 <div class="validation_summary text-danger" style="text-align:left;list-style:none;" asp-validation-summary="All"></div>
                 <label>
-                    <span class="fname">Име <span class="required">*</span></span>
+                    <span class="fname form-label-txt">Име <span class="required">*</span></span>
                     <input required type="text" asp-for="FirstName">
                 </label>
                 <label>
-                    <span class="lname">Фамилия <span class="required">*</span></span>
+                    <span class="lname form-label-txt">Фамилия <span class="required">*</span></span>
                     <input required type="text" asp-for="LastName">
                 </label>
                 <label>
-                    <span>Телефон <span class="required">*</span></span>
+                    <span class="form-label-txt">Телефон <span class="required">*</span></span>
                     <input required type="tel" asp-for="PhoneNumber">
                 </label>
                 <label class="autocomplete">
-                    <span>Град <span class="required">*</span></span>
+                    <span class="form-label-txt">Град <span class="required">*</span></span>
                     <input required asp-for="City" cityID="0" id="myInput" placeholder="Въведете град и изберете от менюто" type="text" autocomplete="disabled">
                 </label>
                 <label>
-                    <span>Куриер</span><span></span>
+                    <span class="form-label-txt">Куриер<span class="required">*</span></span>
                     <select asp-for="CourrierOption" id="courrierSelect" onchange="selectDeliveryCourrier()">
                         <option disabled selected>Изберете куриер</option>
                         <option value="Econt">Econt</option>
@@ -56,45 +56,45 @@
                     </select>
                 </label>
                 <label hidden class="radio-option" id="delivery-option">
-                    <span>Доставка до:</span><span></span>
+                    <span class="form-label-txt">Доставка до:</span><span></span>
                     <label class="radio-options">
-                        <label style="display:inline-block">
+                        <label class="form-label-txt" style="display:inline-block">
                             <input class="raido-option-choice" asp-for="DeliveryOption" type="radio" id="DeliveryOption" value="Office">
                             Офис
                         </label>
 
-                        <label style="display:inline-block">
+                        <label class="form-label-txt" style="display:inline-block">
                             <input class="raido-option-choice" asp-for="DeliveryOption" type="radio" id="DeliveryOption" value="Address">
                             Адрес
                         </label>
                     </label>
                 </label>
                 <label hidden id="econtOfficeContainer">
-                    <span>Офис Еконт<span class="required">*</span></span>
+                    <span class="form-label-txt">Офис Еконт<span class="required">*</span></span>
                     <select id="officesEcont" asp-for="EcontOffice">
                     </select>
                 </label>
                 <label hidden id="speedyAddressContainer">
-                    <span>Адрес <span class="required">*</span></span>
+                    <span class="form-label-txt">Адрес <span class="required">*</span></span>
                     <input asp-for="Address" type="text" placeholder="Въведете адрес за доставка">
                 </label>
                 <label>
-                    <span>Email Address <span class="required">*</span></span>
+                    <span class="form-label-txt">Email Address <span class="required">*</span></span>
                     <input asp-for="CustomerEmailAddress" type="email">
                 </label>
             </form>
             <!-- Yorder -->
             <div class="Yorder">
                 <table>
-                    <tr>
-                        <th colspan="3">Вашата поръчка</th>
+                    <tr class="right-side-heading">
+                        <th style="text-align: center; color: #4c5636;" colspan="3">Вашата поръчка</th>
                     </tr>
                     @if (cart != null &&
                     cart.Any())
                     {
                         @foreach (var product in cart)
                         {
-                            <tr>
+                            <tr class="right-side-body">
                                 <td width="20%">
                                     <img class="cart-product-img" src="@product.ProductVariation.ImagesSourcePaths[0]" />
                                 </td>
@@ -104,9 +104,9 @@
                             </tr>
                         }
                         <tr>
-                            <td>Сума</td>
+                            <td class="right-side-sum-txt">Сума</td>
                             <td></td>
-                            <td>@totalPrice лв.</td>
+                            <td class="right-side-sum-value">@totalPrice лв.</td>
                         </tr>
                     }
                     else

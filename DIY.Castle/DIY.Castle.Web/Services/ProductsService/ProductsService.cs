@@ -152,5 +152,7 @@ namespace DIY.Castle.Web.Services.ProductsService
             await this._dbContext.SaveChangesAsync();
         }
 
+        public List<Product> GetRandomProducts(int count = 8) => this.GetAllProducts().OrderBy(x => Guid.NewGuid()).Take(count).ToList();
+
     }
 }

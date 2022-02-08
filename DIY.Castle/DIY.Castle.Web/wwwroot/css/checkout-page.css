@@ -67,8 +67,8 @@ input{
     box-sizing: content-box !important;
 }
 
-    body {
-    background: url('http://all4desktop.com/data_images/original/4236532-background-images.jpg');
+body {
+    background-color: #AEBE89;
     font-family: 'Roboto Condensed', sans-serif;
     color: #262626;
 }
@@ -129,14 +129,36 @@ form {
     flex: 2;
 }
 
+.form-label-txt {
+    color: #4c5636;
+    font-family: Guerrilla;
+}
+.right-side-sum-txt {
+    font-family: Guerrilla;
+    font-size: 22px;
+    color: #4c5636;
+}
+.right-side-sum-value {
+    font-family: 'Phenomena-ExtraBold';
+    font-size: 22px;
+    color: #4c5636;
+}
+.right-side-heading{
+    font-size:25px;
+    font-family:Guerrilla;
+}
+.right-side-body {
+    font-family: 'Phenomena-Bold';
+    font-size: 18px;
+}
 .title {
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(0, #5195A8), color-stop(100, #70EAFF));
-    background: -moz-linear-gradient(top left, #5195A8 0%, #70EAFF 100%);
-    background: -ms-linear-gradient(top left, #5195A8 0%, #70EAFF 100%);
-    background: -o-linear-gradient(top left, #5195A8 0%, #70EAFF 100%);
-    background: linear-gradient(to bottom right, #5195A8 0%, #70EAFF 100%);
+    background-color: #6D7758;
     padding: 20px;
-    color: #f6f6f6;
+}
+
+.title-heading {
+    color: #FAF8F0;
+    font-family: Guerrilla;
 }
 
 h2 {
@@ -168,7 +190,8 @@ input[type="text"], input[type="tel"], input[type="email"], select {
     height: 30px;
     padding: 5px 10px;
     margin-bottom: 10px;
-    border: 1px solid #dadada;
+    border: 1px solid #6D7758;
+    border-radius:20px;
     color: #888;
 }
 .validation_summary ul {
@@ -208,10 +231,6 @@ tr > td:nth-child(2) {
     color: #2d2d2a;
 }
 
-tr > td:nth-child(3) {
-    text-align: right;
-    color: #52ad9c;
-}
 
 td {
     border-bottom: 1px solid #dadada;
@@ -237,8 +256,11 @@ p {
     border-radius: 30px;
     background: #52ad9c;
     color: #fff;
+    background-color: #6D7758;
     font-size: 15px;
     font-weight: bold;
+    font-family: 'Guerrilla';
+    font-size: 27px;
 }
 
     button:hover {

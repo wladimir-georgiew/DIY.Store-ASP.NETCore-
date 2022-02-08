@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ProductModel>
+﻿@model HomePageViewModel
 @using DIY.Castle.Web.Helpers;
 @using DIY.Castle.Web.Models;
 @using DIY.Castle.Web.Models.ViewModels;
@@ -11,6 +11,7 @@
         width:100%;
         height:100%;
         object-fit:cover;
+        border-radius:7px;
     }
 </style>
 
@@ -32,8 +33,8 @@
         <div class="row text-center">
             <div class="col-md-4">
                 <div class="col editContent">
-                    <span class="numberstep"><i class="fa fa-shopping-cart"></i></span>
-                    <h3 class="numbertext">Choose our Products</h3>
+                    <span class="numberstep"><i class="numberstep-icon fa fa-check-square-o"></i></span>
+                    <h3 class="numbertext">Материали с качество</h3>
                     <p class="numbertext-description">
                         Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Nullam quis risus eget urna mollis ornare vel eu leo. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
                     </p>
@@ -43,8 +44,8 @@
             <!-- /.col-md-4 col -->
             <div class="col-md-4 editContent">
                 <div class="col">
-                    <span class="numberstep"><i class="fa fa-gift"></i></span>
-                    <h3 class="numbertext">Pay with PayPal or Card</h3>
+                    <span class="numberstep"><i class="numberstep-icon fa fa-heart"></i></span>
+                    <h3 class="numbertext">Направено с любов</h3>
                     <p class="numbertext-description">
                         Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Nullam quis risus eget urna mollis ornare vel eu leo. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
                     </p>
@@ -54,8 +55,8 @@
             <!-- /.col-md-4 col -->
             <div class="col-md-4 editContent">
                 <div class="col">
-                    <span class="numberstep"><i class="fa fa-download"></i></span>
-                    <h3 class="numbertext">Get Instand Download</h3>
+                    <span class="numberstep"><i class="numberstep-icon fa fa-align-center"></i></span>
+                    <h3 class="numbertext">Книжно вдъхновение</h3>
                     <p class="numbertext-description">
                         Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Nullam quis risus eget urna mollis ornare vel eu leo. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
                     </p>
@@ -69,7 +70,7 @@
         <div class="container">
             <div class="underlined-title">
                 <div class="editContent">
-                    <h2 style="font-family: Arkhip; font-weight:300;" class="text-center latestitems">ПОСЛЕДНО ДОБАВЕНИ</h2>
+                    <h2 style="font-family: Yarin; font-weight:500; font-size:50px" class="text-center latestitems">ПОСЛЕДНО ДОБАВЕНИ</h2>
                 </div>
                 <div class="wow-hr type_short">
                     <span class="wow-hr-h">
@@ -80,34 +81,35 @@
                 </div>
             </div>
             <div class="row">
-                @foreach (var product in Model)
+                @foreach (var product in Model.LatestProducts)
                 {
                     <div class="col-md-4">
 
                         <div class="productbox">
                             <div class="fadeshop">
                                 <div class="captionshop text-center" style="display: none;">
-                                    <h3>@product.Name</h3>
-                                    <p>
-                                        @(product.Description.Length > 105
-                                    ? (product.Description.Substring(0, 105) + "...")
+                                    @*<h3>@product.Name</h3>*@
+                                    <h3> </h3>
+                                    <p style="font-family: 'Guerrilla'; word-wrap: break-word;">
+                                        @(product.Description.Length > 85
+                                    ? (product.Description.Substring(0, 85) + "...")
                                     : product.Description)
                                     </p>
                                     <p>
                                         @if (product.ProductVariations.Count == 1)
                                         {
                                             var firstSku = product.ProductVariations.FirstOrDefault();
-                                            <a data-ajax="true" data-ajax-success="AddToBasket('1', '@firstSku.Id', '@product.Name', '@firstSku.Price')" type="submit" class="learn-more detailslearn"><i class="fa fa-shopping-cart"></i>Добави</a>
+                                            <a data-ajax="true" data-ajax-success="AddToBasket('1', '@firstSku.Id', '@product.Name', '@firstSku.Price')" type="submit" class="learn-more detailslearn">Добави</a>
                                         }
 
 
-                                        <a asp-controller="ProductDetails" asp-action="Product" asp-route-id="@product.Id" class="learn-more detailslearn"><i class="fa fa-link"></i>Детайли</a>
+                                        <a asp-controller="ProductDetails" asp-action="Product" asp-route-id="@product.Id" class="learn-more detailslearn">Детайли</a>
                                     </p>
                                 </div>
                                <img class="product-card-image" src="@product.ImagesSourcePaths[0]" alt="">
                             </div>
                             <div class="product-details">
-                                <a href="#">
+                                <a asp-controller="ProductDetails" asp-action="Product" asp-route-id="@product.Id">
                                     <h1>@product.Name</h1>
                                 </a>
                                 <span class="price">
@@ -122,33 +124,7 @@
         </div>
     </section>
 
-    <!-- BUTTON =============================-->
-    <div class="item content">
-        <div class="container text-center">
-            <a href="shop.html" style="background-color:#ADDCCA;" class="homebrowseitems">
-                Browse All Products
-                <div class="homebrowseitemsicon">
-                    <i class="fa fa-star fa-spin"></i>
-                </div>
-            </a>
-        </div>
-    </div>
-    <br />
-
-    <!-- CALL TO ACTION =============================-->
-    <section class="content-block" style="background-color:#ADDCCA;">
-        <div class="container text-center">
-            <div class="row">
-                <div class="col-sm-10 col-sm-offset-1">
-                    <div class="item" data-scrollreveal="enter top over 0.4s after 0.1s">
-                        <h1 class="callactiontitle">
-                            Promote Items Area Give Discount to Buyers <span class="callactionbutton"><i class="fa fa-gift"></i> WOW24TH</span>
-                        </h1>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <partial name="~/Views/Shared/_Carousel.cshtml" model="@Model.RandomProducts"/>
 
     <!-- SCRIPTS =============================-->
     <script src="~/js/jquery.min.v3.js"></script>

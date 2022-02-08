@@ -14,13 +14,13 @@
 <style>
     .tag2 {
         position: absolute;
-        top: 20%;
-        right: 43%;
+        /* top: 20%; */
+        /* right: 43%; */
         width: 25px;
-       /* height: 36px;*/
+        /* height: 36px; */
         border-radius: 50%;
-       /* padding: 10px 0;*/
-       padding-left: 2px;
+        /* padding: 10px 0; */
+        padding-left: 2px;
         color: #fff;
         font-size: 15px;
         text-align: center;
@@ -34,6 +34,12 @@
         width:50px;
         height:50px;
         border-radius:25px;
+    }
+
+    .cd-cart-heading {
+        text-align: center;
+        padding-bottom: 20px;
+        font-family:Yarin;
     }
 </style>
 
@@ -58,8 +64,8 @@
 
     <div id="cd-shadow-layer"></div>
 
-    <div style="font-family:Verdana; font-size: 16px;" id="cd-cart">
-        <h3 style="text-align: center; padding-bottom:20px;">Количка с продукти</h3>
+    <div style="font-family: Verdana; font-size: 16px; background-color: #FAF8F0;" id="cd-cart">
+        <h3 class="cd-cart-heading">Количка с продукти</h3>
         <ul id="cart-items" class="cd-cart-items">
             @if (cart != null)
             {

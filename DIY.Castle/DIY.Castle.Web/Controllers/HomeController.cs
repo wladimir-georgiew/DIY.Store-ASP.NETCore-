@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DIY.Castle.Web.Models;
 using DIY.Castle.Web.Models.InputModels;
+using DIY.Castle.Web.Models.ViewModels;
 using DIY.Castle.Web.Services.EmailSender;
 using DIY.Castle.Web.Services.ProductsService;
 using Microsoft.AspNetCore.Mvc;
@@ -32,19 +33,25 @@ namespace DIY.Castle.Web.Controllers
 
         public IActionResult Index()
         {
-            this.ViewData["showBigHeroBanner"] = true;
-            this.ViewData["titleText"] = "Title text";
-            this.ViewData["descriptionText"] = "Description text";
-
-            var latestProductsViewModel = 
+            var latestProducts = 
                 this.productsService.GetAllProducts()
                 .OrderByDescending(x => x.CreatedOn)
                 .Take(3)
-                //.Select(x => this.productsService.GetProductModel(x))
                 .Select(x => this.productsService.GetProductModel(x))
                 .ToList();
 
-            return View(latestProductsViewModel);
+            var randomProducts =
+                this.productsService.GetRandomProducts(9)
+                .Select(x => this.productsService.GetProductModel(x))
+                .ToList();
+
+            var vm = new HomePageViewModel()
+            {
+                LatestProducts = latestProducts,
+                RandomProducts = randomProducts,
+            };
+
+            return View(vm);
         }
 
         public IActionResult Contact()
@@ -55,7 +62,7 @@ namespace DIY.Castle.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Contact(ContactInputModel input)
         {
-            await this.emailSender.SendEmailAsync($"sneakypeekymustard@gmail.com", $"{input.EmailAddress}", $"ravenouscrow@abv.bg", $"ContactForm by {input.Name}", $"{input.Message}");
+            await this.emailSender.SendEmailAsync($"sneakypeekymustard@gmail.com", $"Message from: {input.EmailAddress}", $"akindo.customerservice@gmail.com", $"ContactForm by {input.Name}", $"{input.Message}");
 
             return this.View();
         }

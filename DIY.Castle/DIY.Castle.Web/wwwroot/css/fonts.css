@@ -6,3 +6,39 @@
     font-family: "Arkhip";
     src: url("../fonts/Arkhip-Regular.ttf") format("truetype");
 }
+@font-face {
+    font-family: "Guerrilla";
+    src: url("../fonts/GUERRILLA-Normal.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Sensei";
+    src: url("../fonts/Sensei-Medium.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Phenomena-Black";
+    src: url("../fonts/Phenomena-Black.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Phenomena-Bold";
+    src: url("../fonts/Phenomena-Bold.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Phenomena-ExtraBold";
+    src: url("../fonts/Phenomena-ExtraBold.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Phenomena-ExtraLight";
+    src: url("../fonts/Phenomena-ExtraLight.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Phenomena-Light";
+    src: url("../fonts/Phenomena-Light.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Phenomena-Regular";
+    src: url("../fonts/Phenomena-Regular.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Phenomena-Thin";
+    src: url("../fonts/Phenomena-Thin.ttf") format("truetype");
+}

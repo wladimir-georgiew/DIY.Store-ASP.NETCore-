@@ -1,0 +1,28 @@
+﻿.contacts-post-image {
+    max-height: 700px;
+    max-width: 400px;
+}
+
+.w3ls-title {
+    font-family: Yarin;
+    font-size: 50px;
+    color: bisque;
+}
+
+.contact-form {
+    justify-content: center;
+}
+
+.contact-text {
+    font-family: Sensei;
+    font-weight: 100;
+    font-size: 23px;
+    color: #4c5636;
+}
+
+.btn-contact-us {
+    font-family: Guerrilla;
+    font-size: 20px;
+    background-color: #4c5636;
+    color:beige;
+}

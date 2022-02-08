@@ -56,16 +56,15 @@
 
 .product-type {
     padding: 10px;
+    font-family:Arkhip;
 }
 
 .prod-info-main {
-    border: 1px solid #CEEFFF;
+    border-radius: 7px;
     margin-bottom: 20px;
     margin-top: 10px;
-    background: #fff;
+    background: #FAF8F0;
     padding: 6px;
-    -webkit-box-shadow: 0 1px 4px 0 rgba(21,180,255,0.5);
-    box-shadow: 0 1px 1px 0 rgba(21,180,255,0.5);
 }
 
     .prod-info-main .product-image {
@@ -74,9 +73,9 @@
         min-height: 238px;
         overflow: hidden;
         position: relative;
-        border: 1px solid #CEEFFF;
+        border-radius: 7px;
     }
-
+/*
 .rotprod {
     -webkit-transition-duration: 0.8s;
     -moz-transition-duration: 0.8s;
@@ -89,14 +88,12 @@
         -moz-transform: rotate(360deg);
         -o-transform: rotate(360deg);
     }
-
+*/
 .prod-info-main .product-deatil {
-    border-bottom: 1px solid #dfe5e9;
     padding-bottom: 17px;
     padding-left: 16px;
     padding-top: 16px;
     position: relative;
-    background: #fff
 }
 
 .product-content .product-deatil h5 a {
@@ -163,6 +160,10 @@
 }
 
 .product-info.smart-form .btn {
+    color:white;
+    border-radius:7px;
+    font-family:Guerrilla;
+    background-color: #6D7758;
     padding: 6px 12px;
     margin-top: -10px
 }
@@ -384,14 +385,16 @@ font-family .btn-cart:hover span {
 
 /*--Button effect classes for More info*/
 .btn-info {
-    border-radius: 0;
+    border: none;
+    font-size: 20px;
+    /*border-radius: 0;
     position: relative;
     color: #fff;
     border: 1px solid transparent;
     text-transform: uppercase;
-    transition: all 0.40s ease 0s;
+    transition: all 0.40s ease 0s;*/
 }
-
+/*
     .btn-info:after {
         content: "\f129";
         font-family: fontawesome;
@@ -415,4 +418,4 @@ font-family .btn-cart:hover span {
 
     .btn-info:hover span {
         transform: translate(-9px);
-    }
+    }*/

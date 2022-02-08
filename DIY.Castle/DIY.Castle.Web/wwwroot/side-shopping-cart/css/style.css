@@ -60,6 +60,13 @@ Modules - reusable parts of our design
     overflow: hidden;
     text-indent: 100%;
     white-space: nowrap;
+    /*   background: #FAF8F0 url("~/images/cart/cart.png") no-repeat center center;*/
+    background-image: url("/images/cart/cart.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    width: 50px;
+    height: 50px;
 }
 
 /* -------------------------------- 
@@ -109,14 +116,12 @@ xheader
 }*/
 
 #cd-hamburger-menu, #cd-cart-trigger {
-    position: absolute;
     top: 0;
     height: 100%;
 }
 
     #cd-hamburger-menu a, #cd-cart-trigger a {
-        width: 60px;
-        height: 100%;
+        
     }
 
 #cd-hamburger-menu {
@@ -137,21 +142,14 @@ xheader
     right: 0;
 }
 
-    #cd-cart-trigger a {
-        background: #FAF8F0 url("../img/cart-1.svg") no-repeat center center;
-        background-size: 100%;
-    }
-
 @media only screen and (min-width: 1200px) {
     #cd-cart-trigger {
+        margin-left: 580px;
         /* cart right margin on desktop */
         right: 0;
     }
 
         #cd-cart-trigger a {
-            position: relative;
-            border-left: none;
-            margin-right: 10px;
         }
 }
 
@@ -216,6 +214,8 @@ xheader
             position: relative;
             padding: 1em;
             border-top: 1px solid #e0e6ef;
+            font-family:Phenomena-Bold;
+            font-size:20px;
         }
 
             #cd-cart .cd-cart-items li:last-child {
@@ -224,6 +224,7 @@ xheader
 
     #cd-cart .cd-qty, #cd-cart .cd-price {
         color: #a5aebc;
+        font-family: Phenomena-Bold;
     }
 
     #cd-cart .cd-price {
@@ -251,8 +252,10 @@ xheader
 }
 
 #cd-cart .cd-cart-total {
+    font-family: 'Phenomena-ExtraBold';
     padding-top: 1em;
     padding-bottom: 1em;
+    font-size: 22px;
 }
 
     #cd-cart .cd-cart-total span {
@@ -271,9 +274,13 @@ xheader
     width: 100%;
     height: 60px;
     line-height: 60px;
-    background: #7dcf85;
+    background: #6D7758;
     color: #FFF;
     text-align: center;
+    font-family: Guerrilla;
+    font-size: 22px;
+    position:absolute;
+    bottom:0px;
 }
 
 .no-touch #cd-cart .checkout-btn:hover {
