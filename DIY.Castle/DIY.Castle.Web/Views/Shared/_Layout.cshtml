@@ -53,11 +53,13 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:200,300,400,500,600,700" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
     <link href="/css/animate-4-1-1.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="~/css/footer.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 </head>
 
-<body>
+<body style="position: relative; min-height: 100vh;">
     <header class="item header margin-top-0">
 
         @if (User.IsInRole(UserRoles.ADMIN_ROLE_NAME))
@@ -116,9 +118,11 @@
         </div>
     </header>
 
-    <div class="container">
+    <div style="padding-bottom:15rem;" class="container">
         @RenderBody()
     </div>
+
+    <partial name="_Footer.cshtml" />
 
     @*    <!-- FOOTER =============================-->
         <div id="footer-bottom" class="footer text-center">
