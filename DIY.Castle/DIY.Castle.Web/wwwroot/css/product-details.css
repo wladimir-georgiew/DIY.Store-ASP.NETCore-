@@ -111,6 +111,12 @@ img {
 .product-description {
     word-break: break-all;
     white-space: normal;
+    font-family: Guerrilla;
+    font-size: 20px;
+}
+
+.product-description ol, ul{
+    padding-left:20px;
 }
 
 /* Caption text */
