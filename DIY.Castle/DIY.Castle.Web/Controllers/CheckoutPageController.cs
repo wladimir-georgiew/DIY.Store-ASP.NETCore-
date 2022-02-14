@@ -98,6 +98,11 @@ namespace DIY.Castle.Web.Controllers
             // Send Email To Customer
             //await this.SendOrderSummaryEmailToUserAsync(checkoutModel);
 
+            return this.RedirectToAction(nameof(OrderCompleted));
+        }
+
+        public IActionResult OrderCompleted()
+        {
             return this.View();
         }
 

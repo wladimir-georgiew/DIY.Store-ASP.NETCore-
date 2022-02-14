@@ -279,7 +279,7 @@ xheader
     text-align: center;
     font-family: Guerrilla;
     font-size: 22px;
-    position:absolute;
+    /*position:absolute;*/
     bottom:0px;
 }
 
