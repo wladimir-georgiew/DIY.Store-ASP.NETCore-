@@ -10,12 +10,14 @@ namespace DIY.Castle.Web.Areas.Administration.Models
 
         }
 
-        public EditProductModel(string name, string description, string category, List<Category> allCategories)
+        public EditProductModel(string name, string description, string category, List<Category> allCategories, string subcategory, List<Subcategory> allSubcategories)
         {
             base.Name = name;
             base.Description = description;
+            base.Subcategory = subcategory;
             base.Category = category;
             base.AllCategories = allCategories;
+            base.AllSubcategories = allSubcategories;
         }
 
         public int ProductId { get; set; }

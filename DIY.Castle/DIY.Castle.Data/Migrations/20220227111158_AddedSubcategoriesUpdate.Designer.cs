@@ -4,14 +4,16 @@ using DIY.Castle.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DIY.Castle.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220227111158_AddedSubcategoriesUpdate")]
+    partial class AddedSubcategoriesUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -88,13 +90,13 @@ namespace DIY.Castle.Data.Migrations
                         {
                             Id = "000AFADMIN000",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8fe48e68-9a08-4e21-b769-9b394dd35a60",
+                            ConcurrencyStamp = "c40df306-b46b-4ae3-aff0-6649b1d5e459",
                             Email = "admin@abv.bg",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ABV.BG",
                             NormalizedUserName = "ADMIN@ABV.BG",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDCAp4T0TsIr3OEnaO2NCwp8Wq4HhXoLE69qhKxywzb62SPJ+IBJOgkPUn/zdyHkYw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJ1z9vmoJwS4bJ3BoJ8mbcHxzE4UDUJe6nvgb4ACVBJIJbNLYDWnnAKgF4MhvRKVrg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "000AFSECURITYSTAMP000",
                             TwoFactorEnabled = false,
@@ -158,7 +160,7 @@ namespace DIY.Castle.Data.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
-                    b.Property<int>("SubcategoryId")
+                    b.Property<int?>("SubcategoryId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -258,14 +260,14 @@ namespace DIY.Castle.Data.Migrations
                         new
                         {
                             Id = "1",
-                            ConcurrencyStamp = "14bfadc7-8add-45d6-9628-9471745dc758",
+                            ConcurrencyStamp = "47077687-f843-4ff5-a388-14015526a50b",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
                             Id = "0",
-                            ConcurrencyStamp = "ac94d59a-b292-4363-b20f-455bf168c93c",
+                            ConcurrencyStamp = "5b730d6c-89cd-4c46-ab9d-b4e85edfcacd",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -396,9 +398,7 @@ namespace DIY.Castle.Data.Migrations
 
                     b.HasOne("DIY.Castle.Data.Models.Subcategory", "Subcategory")
                         .WithMany("Products")
-                        .HasForeignKey("SubcategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SubcategoryId");
                 });
 
             modelBuilder.Entity("DIY.Castle.Data.Models.Variation", b =>

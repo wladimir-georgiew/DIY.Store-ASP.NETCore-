@@ -30,7 +30,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label asp-for="@Model.Category" class="control-label">Тип</label>
+                            <label asp-for="@Model.Category" class="control-label">Продуктова категория</label>
                             <select asp-for="@Model.Category">
                                 @foreach (var category in Model.AllCategories)
                                 {
@@ -41,6 +41,26 @@
                                     else
                                     {
                                         <option value="@category.Name">@category.Name</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="@Model.Subcategory" class="control-label">Раздел/Автор</label>
+                            <select asp-for="@Model.Subcategory">
+                                @foreach (var subcategory in Model.AllSubcategories)
+                                {
+                                    if (Model.Subcategory == subcategory.Name)
+                                    {
+                                        <option style="color: red" selected value="@subcategory.Name">@subcategory.Name</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@subcategory.Name">@subcategory.Name</option>
                                     }
                                 }
                             </select>

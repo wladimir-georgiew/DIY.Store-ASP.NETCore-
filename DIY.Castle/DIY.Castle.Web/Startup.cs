@@ -6,6 +6,7 @@ using DIY.Castle.Web.Services.CategoriesService;
 using DIY.Castle.Web.Services.EmailSender;
 using DIY.Castle.Web.Services.ProductsService;
 using DIY.Castle.Web.Services.ProductVariationsService;
+using DIY.Castle.Web.Services.SubcategoriesService;
 using DIY.Castle.Web.Services.UploadFileService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -46,6 +47,7 @@ namespace DIY.Castle.Web
               x => new SendGridEmailSender(Configuration.GetSection("SendGrid")["ApiKey"]));
             services.AddTransient<IUploadFileService, UploadFileService>();
             services.AddTransient<ICategoriesService, CategoriesService>();
+            services.AddTransient<ISubcategoriesService, SubcategoriesService>();
             services.AddTransient<IProductsService, ProductsService>();
             services.AddTransient<IProductVariationsService, ProductVariationsService>();
         }

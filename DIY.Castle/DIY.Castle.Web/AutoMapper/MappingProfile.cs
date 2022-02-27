@@ -21,6 +21,7 @@ namespace DIY.Castle.Web.AutoMapper
                 .ForMember(x => x.Description, y => y.MapFrom(z => z.Description))
                 .ForMember(x => x.CreatedOn, y => y.MapFrom(z => z.CreatedOn))
                 .ForMember(x => x.ProductType, y => y.MapFrom(z => z.Category.Name))
+                .ForMember(x => x.Subcategory, y => y.MapFrom(z => z.Subcategory.Name))
                 .ForAllOtherMembers(x => x.Ignore());
 
             CreateMap<CreateProductModel, Product>()
