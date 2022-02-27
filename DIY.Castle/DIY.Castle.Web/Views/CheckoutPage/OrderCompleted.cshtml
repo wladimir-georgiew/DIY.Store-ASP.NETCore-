@@ -1,0 +1,42 @@
+﻿<style>
+    .checkout-continue-button {
+        position: center;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        padding-left: 50px;
+        padding-right: 50px;
+        border: none;
+        font-size: 25px;
+        border-radius: 40px;
+        background: #6D7758;
+        font-family: 'Guerrilla';
+        color:white;
+    }
+    .checkout-continue-button:hover {
+        color: black;
+    }
+
+    .checkout-thank-you-img {
+        height: 70%;
+    }
+
+    .checkout-container {
+        text-align: center;
+    }
+
+    @@media only screen and (max-width: 768px) {
+        .checkout-thank-you-img {
+            height: 35%;
+        }
+        .checkout-continue-button {
+            margin-top:80px;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+    }
+</style>
+
+<div class="checkout-container">
+    <img class="checkout-thank-you-img" src="~/images/checkout/order-completed.png" />
+    <a asp-controller="Catalog" asp-action="Index" type="submit" class="checkout-continue-button">Продължи с пазаруването</a>
+</div>

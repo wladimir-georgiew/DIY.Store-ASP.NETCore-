@@ -80,7 +80,16 @@ function AddToBasket(quantity, id = null, name = null, price = null) {
             return data;
         })
         .then(data => {
-            document.getElementById("total-price").innerHTML = `${data.updatedPrice} лв.`;
+            /*document.getElementById("total-price").innerHTML = `${data.updatedPrice} лв.`;*/
+            let p = document.createElement("p");
+            let innerP = document.createTextNode("Крайна цена ");
+            let span = document.createElement("span");
+            span.innerHTML = `${data.updatedPrice} лв.`;
+
+            p.appendChild(innerP);
+            p.appendChild(span);
+
+            document.getElementById("total-price").innerHTML = p.innerHTML;
 
             return data;
         })

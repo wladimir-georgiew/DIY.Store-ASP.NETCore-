@@ -4,100 +4,104 @@
 <link href="/css/product-details.css" rel="stylesheet" />
 
 <!--Section: Block Content-->
-<section class="mb-5">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="slideshow-container">
-                @foreach (var image in Model.ImagesSourcePaths)
-                {
-                    <div class="mySlides faded">
-                        @*<div class="numbertext">@(Model.ImagesSourcePaths.IndexOf(image)+1)/@Model.ImagesSourcePaths.Count</div>*@
-                        <img src="@image" style=" object-fit: contain; height: 100%; width: 100%;">
-                    </div>
-                }
-
-                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-                <a class="next" onclick="plusSlides(1)">&#10095;</a>
-
-            </div>
-
-            <div style="text-align:center">
-                @foreach (var dot in Model.ImagesSourcePaths)
-                {
-                    <span class="dot" onclick="currentSlide(@(Model.ImagesSourcePaths.IndexOf(dot)+1))"></span>
-                }
-            </div>
-        </div>
-
-        <div class="col-md-6 details-area">
-
-            @if (User.IsInRole(UserRoles.ADMIN_ROLE_NAME))
-            {
-                <div style="padding-bottom:30px;">
-                    <a class="btn btn-warning control-buttons" asp-action="Edit" asp-controller="Products" asp-area="Administration" asp-route-productId="@Model.Id">Промени</a>
-
-                    <button type="button" class="btn btn-danger control-buttons" data-toggle="modal" data-target="#deleteModal">
-                        Изтрий
-                    </button>
-                    <partial name="~/Areas/Administration/Views/_ConfirmModal.cshtml" />
-
-                    <button type="button" class="btn btn-info control-buttons" data-toggle="modal" data-target="#variationsModal">
-                        Подпродукти
-                    </button>
-                    <partial name="~/Areas/Administration/Views/Products/Variations.cshtml" />
-                </div>
-
-            }
-            <h5 class="heading">@Model.Name</h5>
-            <p class="product-details-type text-muted text-uppercase small">@Model.ProductType</p>
-            <p class="product-description">
-                @Model.Description
-            </p>
-
-
-            <hr>
-            <div style="display:flex; justify-content: space-between;">
-                <div class="counter btn">
-                    <span class="down" onClick='decreaseCount(event, this)'>-</span>
-                    <input id="product-quantity" type="text" value="1">
-                    <span class="up" onClick='increaseCount(event, this)'>+</span>
-                </div>
-                <p style="text-align:right; right:0;"><strong class="product-details-price" id="sku-price">@Model.Price лв.</strong></p>
-            </div>
-
-
-            <div>
-                <select class="product-details-select" onchange="updatePriceOnVariationSelect()" @(Model.ProductVariations.Count == 1 ? "hidden" : "") id="selected-sku">
-                    @for (int i = 0; i < Model.ProductVariations.Count; i++)
+<body>
+    <section class="mb-5">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="slideshow-container">
+                    @foreach (var image in Model.ImagesSourcePaths)
                     {
-                        var sku = Model.ProductVariations[i];
-                        var name = Model.ProductVariations.Count == 1 ? Model.Name : $"{Model.Name} - {sku.VariationName}";
-                        var valueString = $"{ sku.Id}/{name}/{ sku.Price}";
-
-                        if (i == 0)
-                        {
-                            <option selected id="sku-@sku.Id" value="@valueString">@sku.VariationName</option>
-                        }
-                        else
-                        {
-                            <option id="sku-@sku.Id" value="@valueString" )">@sku.VariationName</option>
-                        }
+                        <div class="mySlides faded">
+                            @*<div class="numbertext">@(Model.ImagesSourcePaths.IndexOf(image)+1)/@Model.ImagesSourcePaths.Count</div>*@
+                            <img src="@image" style=" object-fit: contain; height: 100%; width: 100%;">
+                        </div>
                     }
-                </select>
+
+                    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+                </div>
+
+                <div style="text-align:center">
+                    @foreach (var dot in Model.ImagesSourcePaths)
+                    {
+                        <span class="dot" onclick="currentSlide(@(Model.ImagesSourcePaths.IndexOf(dot)+1))"></span>
+                    }
+                </div>
             </div>
 
+            <div class="col-md-6 details-area">
+
+                @if (User.IsInRole(UserRoles.ADMIN_ROLE_NAME))
+                {
+                    <div style="padding-bottom:30px;">
+                        <a class="btn btn-warning control-buttons" asp-action="Edit" asp-controller="Products" asp-area="Administration" asp-route-productId="@Model.Id">Промени</a>
+
+                        <button type="button" class="btn btn-danger control-buttons" data-toggle="modal" data-target="#deleteModal">
+                            Изтрий
+                        </button>
+                        <partial name="~/Areas/Administration/Views/_ConfirmModal.cshtml" />
+
+                        <button type="button" class="btn btn-info control-buttons" data-toggle="modal" data-target="#variationsModal">
+                            Подпродукти
+                        </button>
+                        <partial name="~/Areas/Administration/Views/Products/Variations.cshtml" />
+                    </div>
+
+                }
+                <h5 class="heading">@Model.Name</h5>
+                <p class="product-details-type text-muted text-uppercase small">@Model.ProductType</p>
+                <div class="product-description">
+                    @Html.Raw(Model.Description)
+                </div>
 
 
-            <div style="padding-top:8px;" id="button-holder">
-                <a style="font-size: 25px; font-family: Guerrilla;" href="" data-ajax="true" data-ajax-success="AddToBasket(1)" class="btn button-product-details"><span style="color: #ab793d;">Добави в количката</span></a>
+                <hr>
+                <div style="display:flex; justify-content: space-between;">
+                    <div class="counter btn">
+                        <span class="down" onClick='decreaseCount(event, this)'>-</span>
+                        <input id="product-quantity" type="text" value="1">
+                        <span class="up" onClick='increaseCount(event, this)'>+</span>
+                    </div>
+                    <p style="text-align:right; right:0;"><strong class="product-details-price" id="sku-price">@Model.Price лв.</strong></p>
+                </div>
+
+
+                <div>
+                    <select class="product-details-select" onchange="updatePriceOnVariationSelect()" @(Model.ProductVariations.Count == 1 ? "hidden" : "") id="selected-sku">
+                        @for (int i = 0; i < Model.ProductVariations.Count; i++)
+                        {
+                            var sku = Model.ProductVariations[i];
+                            var name = Model.ProductVariations.Count == 1 ? Model.Name : $"{Model.Name} - {sku.VariationName}";
+                            var valueString = $"{ sku.Id}/{name}/{ sku.Price}";
+
+                            if (i == 0)
+                            {
+                                <option selected id="sku-@sku.Id" value="@valueString">@sku.VariationName</option>
+                            }
+                            else
+                            {
+                                <option id="sku-@sku.Id" value="@valueString">@sku.VariationName</option>
+                            }
+                        }
+                    </select>
+                </div>
+
+
+
+                <div style="padding-top:8px;" id="button-holder">
+                    <a style="font-size: 25px; font-family: Guerrilla;" href="" data-ajax="true" data-ajax-success="AddToBasket(1)" class="btn button-product-details"><span style="color: #ab793d;">Добави в количката</span></a>
+                </div>
+
+
+
             </div>
-
-
-
         </div>
-    </div>
 
-</section>
+    </section>
+
+
+</body>
 <!--Section: Block Content-->
 <script>
     function updatePriceOnVariationSelect() {

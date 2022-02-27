@@ -4,9 +4,11 @@
 <style>
     .validation_summary ul {
         list-style-type: none;
-        font-family:Verdana;
+        font-family: Verdana;
     }
 </style>
+
+<script src="/ckeditor/ckeditor.js"></script>
 
 <div class="col-sm-5 mx-auto py-4">
     <div class="card">
@@ -30,7 +32,7 @@
                         </div>
                     </div>
                 </div>
-                     <div class="row">
+                <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
                             <label asp-for="@Model.Category" class="control-label">Тип</label>
@@ -47,7 +49,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label asp-for="@Model.Description" class="control-label">Описание</label>
-                            <textarea style="height:150px;" asp-for="@Model.Description" class="form-control"> </textarea>
+                            <textarea id="description-editor" style="height:150px;" asp-for="@Model.Description" class="form-control"> </textarea>
                         </div>
                     </div>
                 </div>
@@ -80,6 +82,7 @@
 </div>
 @section scripts{
     <script type="text/javascript">
+        CKEDITOR.replace('description-editor');
         // Add the following code if you want the name of the file appear on select
         $(".custom-file-input").on("change", function () {
             var fileName = $(this).val().split("\\").pop();

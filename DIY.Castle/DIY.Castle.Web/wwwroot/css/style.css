@@ -334,6 +334,8 @@ img {
         font-size: 15px;
         margin: 0 20px 15px;
         height: 75px;
+        display:flex;   
+        justify-content:space-evenly;
     }
 
     .captionshop a.learn-more {
@@ -345,14 +347,15 @@ img {
         text-decoration: none;
         border: 1px solid;
         display: inline-block;
-        min-width: 120px;
+        min-width: 100px;
         text-transform: uppercase;
         font-family: 'Guerrilla';
         font-size: 18px;
+        height:50px;
     }
 
         .captionshop a.learn-more.detailslearn {
-            margin-left: -1px;
+            margin-left: -9px;
         }
 
         .captionshop a.learn-more:hover {

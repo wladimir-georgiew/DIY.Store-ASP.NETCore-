@@ -137,9 +137,16 @@ namespace DIY.Castle.Web.Controllers
         public IActionResult Remove(int id)
         {
             List<ProductCartModel> cart = SessionHelper.GetObjectFromJson<List<ProductCartModel>>(HttpContext.Session, "cart");
-            int index = GetItemIndexInCart(id);
-            cart.RemoveAt(index);
-            SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
+            try
+            {
+                int index = GetItemIndexInCart(id);
+                cart.RemoveAt(index);
+                SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
             return NoContent();
         }
 
