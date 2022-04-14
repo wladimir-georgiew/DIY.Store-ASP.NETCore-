@@ -1,6 +1,7 @@
 ﻿@model DIY.Castle.Web.Models.InputModels.ContactInputModel
 
 <link href="/css/contacts.css" rel="stylesheet" />
+<link href="/Toastr/toastr.css" rel="stylesheet" />
 
 <link href="/css/product-details.css" rel="stylesheet" />
 <div class="topImageNavBlack">
@@ -34,7 +35,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="contact-text" for="contactcomment">Съобщение</label>
-                                    <textarea asp-for="Message" class="form-control" rows="5" id="contactcomment" required></textarea>
+                                    <textarea minlength="10" asp-for="Message" class="form-control" rows="5" id="contactcomment" required></textarea>
                                 </div>
                                 <button type="submit" class="btn btn-block btn-contact-us">Изпрати</button>
                             </form>
@@ -51,3 +52,18 @@
     </div>
 </section>
 <!-- //contact -->
+@*<script src="/Toastr/toastr.min.js"></script>
+<script>
+    function sendMessage() {
+        toastr.options.positionClass = 'toast-bottom-right';
+        toastr.success(`Вашето съобщение беше успешно изпратено!`);
+
+        let name = document.getElementById('contactusername');
+        let email = document.getElementById('contactemail');
+        let message = document.getElementById('contactcomment');
+
+        name.value = '';
+        email.value = '';
+        message.value = '';
+    }
+</script>*@

@@ -1,1 +1,8 @@
-﻿<h1>Няма намерени продукти :(</h1>
+﻿<div style="place-content: center" class="row">
+    <img class="no-products-found" style="max-width:45%" src="~/images/error/product-does-not-exist.png" />
+</div>
+
+<script>
+    const element = document.querySelector('.no-products-found');
+    element.classList.add('animate__animated', 'animate__rubberBand');
+</script>
