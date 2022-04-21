@@ -1,5 +1,6 @@
 ﻿using DIY.Castle.Data.Models;
 using DIY.Castle.Web.Data;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -22,7 +23,7 @@ namespace DIY.Castle.Web.Services.CategoriesService
 
         public IQueryable<Category> GetAllCategories()
         {
-            var categories = this.dbContext.Categories.AsQueryable();
+            var categories = this.dbContext.Categories.Include(x => x.Products).AsQueryable();
             return categories;
         }
 
