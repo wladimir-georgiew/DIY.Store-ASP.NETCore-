@@ -43,14 +43,20 @@
                         <partial name="~/Areas/Administration/Views/_ConfirmModal.cshtml" />
 
                         <button type="button" class="btn btn-info control-buttons" data-toggle="modal" data-target="#variationsModal">
-                            Подпродукти
+                            Размери
                         </button>
                         <partial name="~/Areas/Administration/Views/Products/Variations.cshtml" />
                     </div>
 
                 }
                 <h5 class="heading">@Model.Name</h5>
-                <p class="product-details-type text-muted text-uppercase small">@Model.ProductType</p>
+                <a class="product-details-type text-muted text-uppercase small" asp-controller="Catalog" asp-action="Index" asp-route-filter="@Model.ProductType">
+                    @Model.ProductType
+                </a>
+                <br />
+                <a class="product-details-type text-muted text-uppercase small" asp-controller="Catalog" asp-action="Index" asp-route-subcategory="@Model.Subcategory">
+                    @Model.Subcategory
+                </a>
                 <div class="product-description">
                     @Html.Raw(Model.Description)
                 </div>

@@ -17,6 +17,8 @@ namespace DIY.Castle.Web.Services.ProductsService
 
         IEnumerable<Product> GetProductsByType(string productTypeFilter);
 
+        IEnumerable<Product> GetProductsBySubcategory(string subcategory);
+
         Task AddProductAsync(Product product, Variation variation);
 
         IEnumerable<Variation> GetAllVariations();

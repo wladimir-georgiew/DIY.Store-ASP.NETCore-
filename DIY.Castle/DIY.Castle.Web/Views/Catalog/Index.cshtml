@@ -2,7 +2,7 @@
 @using DIY.Castle.Common
 @model PaginationList<ProductModel>
 
-@{ 
+@{
     var currenSearchQueryTry = Context.Request.Query.TryGetValue("searchQuery", out Microsoft.Extensions.Primitives.StringValues currenSearchQuery);
 }
 
@@ -24,62 +24,67 @@
         </form>
     </div>
     <div class="@*container*@">
-        <div class="row">
-            @if (Model.Any())
-            {
-                foreach (ProductModel product in Model)
+        @if (Model.Any())
+        {
+            <div class="row">
+                @foreach (ProductModel product in Model)
                 {
-                    <div class="col-xs-12 col-md-6 col-lg-3">
-                        <!-- First product box start here-->
-                        <div class="prod-info-main prod-wrap clearfix">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="product-image">
-                                        <img style="object-fit: contain;" src="@product.ImagesSourcePaths[0]" class="img-responsive rotprod">
-                                        @if (product.IsNewProduct)
-                                        {
-                                            <span class="tag2 hot">
-                                                НОВО
-                                            </span>
-                                        }
-                                    </div>
+                <div class="col-xs-12 col-md-6 col-lg-3">
+                    <!-- First product box start here-->
+                    <div class="prod-info-main prod-wrap clearfix">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="product-image">
+                                    <img style="object-fit: contain;" src="@product.ImagesSourcePaths[0]" class="img-responsive rotprod">
+                                    @if (product.IsNewProduct)
+                                    {
+                                        <span class="tag2 hot">
+                                            НОВО
+                                        </span>
+                                    }
                                 </div>
-                                <div class="col-12">
-                                    <div class="product-deatil">
-                                        <h5 class="name">
-                                            <a style="color: #ab793d; font-family: 'Phenomena-ExtraBold'; font-size:24px;" asp-controller="ProductDetails" asp-action="Product" asp-route-id="@product.Id">
-                                                @product.Name
-                                            </a>
-                                            <a class="product-type">
+                            </div>
+                            <div class="col-12">
+                                <div class="product-deatil">
+                                    <h5 class="name">
+                                        <a style="color: #ab793d; font-family: 'Phenomena-ExtraBold'; font-size:24px;" asp-controller="ProductDetails" asp-action="Product" asp-route-id="@product.Id">
+                                            @product.Name
+                                        </a>
+                                        @*<a class="product-type">
                                                 <span style="padding-top:7px;">@product.ProductType</span>
-                                            </a>
+                                            </a>*@
+                                        <a class="product-type" asp-controller="Catalog" asp-action="Index" asp-route-filter="@product.ProductType">
+                                            <span style="padding-top:7px;">@product.ProductType</span>
+                                        </a>
+                                        <a class="product-type" asp-controller="Catalog" asp-action="Index" asp-route-subcategory="@product.Subcategory">
+                                            <span>@product.Subcategory</span>
+                                        </a>
+                                    </h5>
+                                    <span class="tag1"></span>
+                                </div>
+                                <div class="product-info smart-form">
+                                    <div style="justify-content: space-between" class="row">
+                                        @if (product.ProductVariations.Count == 1)
+                                        {
+                                            var firstSku = product.ProductVariations.FirstOrDefault();
+                                            <a href="" data-ajax="true" data-ajax-success="AddToBasket('1', '@firstSku.Id', '@product.Name', '@firstSku.Price')" class="btn btn-info"><span>Добави</span></a>
+                                        }
 
-                                        </h5>
-                                        <span class="tag1"></span>
-                                    </div>
-                                    <div class="product-info smart-form">
-                                        <div style="justify-content: space-between" class="row">
-                                            @if (product.ProductVariations.Count == 1)
-                                            {
-                                                var firstSku = product.ProductVariations.FirstOrDefault();
-                                                <a href="" data-ajax="true" data-ajax-success="AddToBasket('1', '@firstSku.Id', '@product.Name', '@firstSku.Price')" class="btn btn-info"><span>Добави</span></a>
-                                            }
-
-                                            <a asp-controller="ProductDetails" asp-action="Product" asp-route-id="@product.Id" class="btn btn-info"><span>Детайли</span></a>
-                                        </div>
+                                        <a asp-controller="ProductDetails" asp-action="Product" asp-route-id="@product.Id" class="btn btn-info"><span>Детайли</span></a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- end product -->
                     </div>
+                    <!-- end product -->
+                </div>
                 }
-            }
-            else
-            {
-                <partial name="../Catalog/_NoProductsFound.cshtml" />
-            }
-        </div>
+            </div>
+        }
+        else
+        {
+            <partial name="../Catalog/_NoProductsFound.cshtml" />
+        }
 
 
 

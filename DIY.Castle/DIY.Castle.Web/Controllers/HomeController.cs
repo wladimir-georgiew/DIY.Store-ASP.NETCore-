@@ -64,7 +64,7 @@ namespace DIY.Castle.Web.Controllers
         {
             await this.emailSender.SendEmailAsync($"sneakypeekymustard@gmail.com", $"Message from: {input.EmailAddress}", $"akindo.customerservice@gmail.com", $"ContactForm by {input.Name}", $"{input.Message}");
 
-            return this.View();
+            return this.NoContent();
         }
         public IActionResult Privacy()
         {

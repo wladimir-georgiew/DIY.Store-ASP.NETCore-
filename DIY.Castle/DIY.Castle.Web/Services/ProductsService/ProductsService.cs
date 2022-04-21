@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using DIY.Castle.Web.Areas.Administration.Models;
 using DIY.Castle.Web.Services.CategoriesService;
 using DIY.Castle.Web.Services.UploadFileService;
+using DIY.Castle.Web.Services.SubcategoriesService;
 
 namespace DIY.Castle.Web.Services.ProductsService
 {
@@ -18,14 +19,16 @@ namespace DIY.Castle.Web.Services.ProductsService
         private readonly ApplicationDbContext _dbContext;
         private readonly IMapper _mapper;
         private readonly ICategoriesService categoriesService;
+        private readonly ISubcategoriesService subCategoriesService;
         private readonly IUploadFileService uploadFileService;
 
-        public ProductsService(ApplicationDbContext dbContext, IMapper mapper, ICategoriesService categoriesService, IUploadFileService uploadFileService)
+        public ProductsService(ApplicationDbContext dbContext, IMapper mapper, ICategoriesService categoriesService, IUploadFileService uploadFileService, ISubcategoriesService subCategoriesService)
         {
             this._dbContext = dbContext;
             this._mapper = mapper;
             this.categoriesService = categoriesService;
             this.uploadFileService = uploadFileService;
+            this.subCategoriesService = subCategoriesService;
         }
 
         public IEnumerable<Variation> GetAllVariations() => this._dbContext.Variations?.Include("Product");
@@ -34,13 +37,20 @@ namespace DIY.Castle.Web.Services.ProductsService
 
         public Variation GetVariationById(int id) => this._dbContext.Variations?.Include("Product").FirstOrDefault(x => x.Id == id);
 
-        public Product GetProductById(int id) => this._dbContext.Products?.Include("Variations").Include("Category").FirstOrDefault(x => x.Id == id);
+        public Product GetProductById(int id) => this._dbContext.Products?.Include("Variations").Include("Category").Include("Subcategory").FirstOrDefault(x => x.Id == id);
 
-        public IEnumerable<Product> GetAllProducts() => this._dbContext.Products.Include("Category").Include("Variations");
+        public IEnumerable<Product> GetAllProducts() => this._dbContext.Products.Include("Category").Include("Subcategory").Include("Variations");
 
         public IEnumerable<Product> GetProductsByType(string productTypeFilter)
         {
             var products = this.GetAllProducts().Where(x => !string.IsNullOrEmpty(productTypeFilter) ? x.Category.Name == productTypeFilter : true);
+
+            return products;
+        }
+
+        public IEnumerable<Product> GetProductsBySubcategory(string subcategory)
+        {
+            var products = this.GetAllProducts().Where(x => !string.IsNullOrEmpty(subcategory) ? x.Subcategory.Name == subcategory : true);
 
             return products;
         }
@@ -71,6 +81,7 @@ namespace DIY.Castle.Web.Services.ProductsService
                 Name = product.Name,
                 Description = product.Description,
                 ProductType = product.Category.Name,
+                Subcategory = product.Subcategory.Name,
                 ImagesSourcePaths = this.GetProductImagesSrcPaths(product.Id),
                 IsNewProduct = DateTime.UtcNow.Subtract(product.CreatedOn).TotalDays <= 7,
                 ProductVariations = this.GetProductVariations(product.Id).OrderBy(x => x.Price).ToList(),
@@ -119,11 +130,14 @@ namespace DIY.Castle.Web.Services.ProductsService
         public async Task UpdateProductAsync(EditProductModel model)
         {
             var category = this.categoriesService.GetCategoryByName(model.Category);
+            var subCategory = this.subCategoriesService.GetCategoryByName(model.Subcategory);
 
             var product = this.GetProductById(model.ProductId);
 
             product.Name = model.Name;
             product.Description = model.Description;
+            product.Subcategory = subCategory;
+            product.SubcategoryId = subCategory.Id;
             product.Category = category;
             product.CategoryId = category.Id;
 

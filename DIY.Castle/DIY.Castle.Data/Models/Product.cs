@@ -26,6 +26,10 @@ namespace DIY.Castle.Data.Models
 
         public Category Category { get; set; }
 
+        public int SubcategoryId { get; set; }
+
+        public Subcategory Subcategory { get; set; }
+
         [MaxLength(500)]
         public string Description { get; set; }
 

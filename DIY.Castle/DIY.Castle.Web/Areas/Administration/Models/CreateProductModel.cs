@@ -10,7 +10,7 @@ namespace DIY.Castle.Web.Areas.Administration.Models
     public class CreateProductModel : BaseProductModel
     {
         public List<Category> Categories { get; set; }
-
+        public List<Subcategory> Subcategories { get; set; }
 
         [Required(ErrorMessage = "Полето Име на подпродукт е задължително")]
         public string VariationName { get; set; }

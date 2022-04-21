@@ -14,6 +14,7 @@ namespace DIY.Castle.Web.Data
         }
 
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Subcategory> Subcategories { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Variation> Variations { get; set; }
 

@@ -11,6 +11,8 @@ namespace DIY.Castle.Web.Models
 
         public string ProductType { get; set; }
 
+        public string Subcategory { get; set; }
+
         // The price of the variation ( if the product has only 1 variation ) or the ({minimum variation price} - {maximum variation price})
         public string Price { get; set; }
 
