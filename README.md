@@ -1,10 +1,9 @@
 ## Homepage
 Most recent products
 ![homepage](https://user-images.githubusercontent.com/61605749/219902873-15d21d66-40b5-4e48-b3e1-008a912ceb54.png)
-<hr>
 -Automatically sliding carousel of random products
 ![homepage-random-products-carousel](https://user-images.githubusercontent.com/61605749/219902874-2e5ecb2c-569b-4e77-80da-38ee6b2251cd.png)
-<hr>
+
 
 ## Admin
 Admin Panel
