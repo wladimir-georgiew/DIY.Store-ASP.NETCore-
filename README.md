@@ -4,13 +4,15 @@
 ##### Password - 123123123
 #### Note - The email sending functionalities won't work as there is no SendGrid API Key provided in the repository.
 
-# :page_facing_up: Project Summary
+# :chart: Database Diagram
+![image](https://user-images.githubusercontent.com/61605749/221034989-cd49e0e7-b851-4a9a-bc42-4d7b5bbb919d.png)
+
+# :page_facing_up: Project Presentation
 ## Homepage
 #### Most recent products
 ![homepage](https://user-images.githubusercontent.com/61605749/219902873-15d21d66-40b5-4e48-b3e1-008a912ceb54.png)
 #### Automatically sliding carousel of random products
 ![homepage-random-products-carousel](https://user-images.githubusercontent.com/61605749/219902874-2e5ecb2c-569b-4e77-80da-38ee6b2251cd.png)
-
 
 ## Admin
 #### Admin Panel
@@ -47,6 +49,3 @@
 ## Contact-us Page
 #### Contact-us form, which will send email using SendGrid to custom email
 ![contact-us](https://user-images.githubusercontent.com/61605749/219902872-06a3e718-b002-4b95-a9f0-e2ff00bbc159.png)
-
-:chart: Database Diagram
-![image](https://user-images.githubusercontent.com/61605749/221034989-cd49e0e7-b851-4a9a-bc42-4d7b5bbb919d.png)
