@@ -90,10 +90,9 @@ namespace DIY.Castle.Web.Controllers
             }
 
             // Send Email To Customer Service
-            //var customerServiceViewHtml = await this.RenderViewAsync("~/Views/EmailTemplates/CustomerServiceOrderSummaryTemplate.cshtml", checkoutModel, true);
             var customerServiceViewHtml = await this.RenderViewAsync("~/Views/EmailTemplates/OrderTemplate.cshtml", checkoutModel, true);
 
-            await this.emailSender.SendEmailAsync($"sneakypeekymustard@gmail.com", "Akin-do Поръчка", $"akindo.customerservice@gmail.com", $"{model.FirstName} {model.LastName}", customerServiceViewHtml);
+            await this.emailSender.SendEmailAsync($"mail@abv.bg", "Akin-do Поръчка", $"akindo.customerservice@gmail.com", $"{model.FirstName} {model.LastName}", customerServiceViewHtml);
 
             // Send Email To Customer
             //await this.SendOrderSummaryEmailToUserAsync(checkoutModel);
@@ -112,7 +111,7 @@ namespace DIY.Castle.Web.Controllers
 
             try
             {
-                await this.emailSender.SendEmailAsync($"sneakypeekymustard@gmail.com", $"Akin-do", $"{model.UserFormModel.CustomerEmailAddress}", $"Akin-do Поръчка - {model.CartModel.TotalPrice} лв.", viewHtml);
+                await this.emailSender.SendEmailAsync($"mail@abv.bg", $"Akin-do", $"{model.UserFormModel.CustomerEmailAddress}", $"Akin-do Поръчка - {model.CartModel.TotalPrice} лв.", viewHtml);
 
                 return Ok();
             }
