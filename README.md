@@ -1,4 +1,4 @@
-# Setting up
+# Setting up :rocket:
 #### Clone the repo and adjust the connction string Server variable in *appsettings.json* if needed. Admin account will be automatically seeded:
 ##### Email - admin@abv.bg
 ##### Password - 123123123
