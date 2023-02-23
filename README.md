@@ -1,3 +1,9 @@
+## Setting up
+#### Clone the repo and adjust the connction string Server variable in *appsettings.json* if needed. Admin account will be automatically seeded:
+##### Email - admin@abv.bg
+##### Password - 123123123
+#### Note - The email sending functionalities won't work as there is no SendGrid API Key provided in the repository.
+
 ## Homepage
 #### Most recent products
 ![homepage](https://user-images.githubusercontent.com/61605749/219902873-15d21d66-40b5-4e48-b3e1-008a912ceb54.png)
